@@ -1,7 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
-@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap"); */
   body {
   font-size:62.5%;
   background-color: #fff;
