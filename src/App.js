@@ -7,14 +7,18 @@ import TodoList from "./components/TodoList";
 import Navbar from "./components/Navbar";
 
 import { GlobalStyle } from "./GlobalStyle";
+import { ThemeProvider } from "@material-ui/core/styles";
+import { theme } from "./GlobalStyle";
 
 function App() {
   return (
     <Provider store={store}>
-      <GlobalStyle />
-      <Navbar />
-      <TodoInput />
-      <TodoList />
+      <ThemeProvider theme={theme}>
+        <GlobalStyle bgc={theme.palette.background.default} />
+        <Navbar />
+        <TodoInput />
+        <TodoList />
+      </ThemeProvider>
     </Provider>
   );
 }

@@ -9,6 +9,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
 import DeleteIcon from "@material-ui/icons/Delete";
 import DoneIcon from "@material-ui/icons/Done";
+import { theme } from "../GlobalStyle";
 
 export const TodoList = () => {
   const todos = useSelector((state) => state.todos);
@@ -17,7 +18,9 @@ export const TodoList = () => {
   const deleteTodo = (todoId) => dispatch(deleteTodoAction(todoId));
 
   const message =
-    todos.length === 0 ? <Message>There is no task...</Message> : null;
+    todos.length === 0 ? (
+      <Message color={theme.palette.text.disabled}>There is no task...</Message>
+    ) : null;
   return (
     <Container>
       {todos.map((todo) => (
@@ -87,5 +90,5 @@ const Text = styled.span`
 const Message = styled.p`
   text-align: center;
   font-size: 1.4rem;
-  color: #757575;
+  color: ${(props) => props.color};
 `;
