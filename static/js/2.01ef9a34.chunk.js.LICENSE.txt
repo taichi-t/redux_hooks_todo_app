@@ -4,6 +4,24 @@ object-assign
 @license MIT
 */
 
+/*!
+       Transformation Matrix v2.0
+       (c) Epistemex 2014-2015
+       www.epistemex.com
+       By Ken Fyrstenberg
+       Contributions by leeoniya.
+       License: MIT, header required.
+       */
+
+/*!
+   Transformation Matrix v2.0
+   (c) Epistemex 2014-2015
+   www.epistemex.com
+   By Ken Fyrstenberg
+   Contributions by leeoniya.
+   License: MIT, header required.
+   */
+
 /**
  * A better abstraction over CSS.
  *
