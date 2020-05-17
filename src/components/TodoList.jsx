@@ -72,6 +72,8 @@ export default TodoList;
 
 const Container = styled.div`
   font-size: 1.6rem;
+  max-width: 350px;
+  margin: 0 auto;
 `;
 
 const Box = styled.div`
