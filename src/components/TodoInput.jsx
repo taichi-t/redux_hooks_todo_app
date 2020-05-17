@@ -33,7 +33,7 @@ export const TodoInput = () => {
         <Input
           type="text"
           name="todo"
-          placeholder="Enter a todo"
+          placeholder="create a todo"
           value={todo}
           onChange={onChange}
         />

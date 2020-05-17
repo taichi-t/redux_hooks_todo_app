@@ -1,20 +1,6 @@
-import { createStore } from "redux";
+const initialState = { todos: [] };
 
-const persistedState = localStorage.getItem("todos")
-  ? JSON.parse(localStorage.getItem("todos"))
-  : { todos: [] };
-
-export const store = createStore(
-  reducer,
-  persistedState,
-  window.devToolsExtension && window.devToolsExtension()
-);
-
-store.subscribe(() => {
-  localStorage.setItem("todos", JSON.stringify(store.getState()));
-});
-
-function reducer(state, { type, payload }) {
+export function projectReducer(state = initialState, { type, payload }) {
   switch (type) {
     case "ADD_TODO":
       return {
@@ -37,3 +23,5 @@ function reducer(state, { type, payload }) {
       return state;
   }
 }
+
+export default projectReducer;

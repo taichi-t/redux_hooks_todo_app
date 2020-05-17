@@ -1,19 +1,20 @@
 import { createGlobalStyle } from "styled-components";
-import { createMuiTheme } from "@material-ui/core/styles";
 
 export const GlobalStyle = createGlobalStyle`
   body {
   font-size:62.5%;
-  background-color: ${(props) => props.bgc};
+  background: ${({ theme }) => theme.palette.background.default};
+  color:${({ theme }) => theme.palette.text.primary};
   max-width: 350px;
-  margin: 20px auto;
-  font-family: 'Oswald', sans-serif
+  margin:0 auto;
+  font-family: 'Oswald', sans-serif;
+  user-select:none;
   }
 `;
 
-export const theme = createMuiTheme({
+export const themeObject = {
   palette: {
-    type: "dark",
+    type: "light",
     primary: {
       main: "#2196f3",
     },
@@ -21,4 +22,4 @@ export const theme = createMuiTheme({
       main: "#f50057",
     },
   },
-});
+};

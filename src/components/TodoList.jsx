@@ -9,57 +9,60 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
 import DeleteIcon from "@material-ui/icons/Delete";
 import DoneIcon from "@material-ui/icons/Done";
-import { theme } from "../GlobalStyle";
+import { useTheme } from "@material-ui/core/styles";
 
-export const TodoList = () => {
+export const TodoList = (props) => {
+  const theme = useTheme();
   const todos = useSelector((state) => state.todos);
+
   const dispatch = useDispatch();
   const toggleTodo = (todoId) => dispatch(toggleTodoAction(todoId));
   const deleteTodo = (todoId) => dispatch(deleteTodoAction(todoId));
 
   const message =
     todos.length === 0 ? (
-      <Message color={theme.palette.text.disabled}>There is no task...</Message>
+      <Message color={theme.palette.text.hint}>There is no task...</Message>
     ) : null;
   return (
     <Container>
-      {todos.map((todo) => (
-        <Paper key={todo.id}>
-          <Box>
-            <ItemLeft>
-              <Checkbox
-                type="checkbox"
-                checked={todo.complete}
-                onChange={toggleTodo.bind(null, todo.id)}
-                color="primary"
-              />
-              <Text complete={todo.complete}>{todo.name}</Text>
-            </ItemLeft>
-
-            <ItemRight>
-              {todo.complete ? (
-                <Button
-                  variant="contained"
+      {todos &&
+        todos.map((todo) => (
+          <Paper key={todo.id}>
+            <Box>
+              <ItemLeft>
+                <Checkbox
+                  type="checkbox"
+                  checked={todo.complete}
+                  onChange={toggleTodo.bind(null, todo.id)}
                   color="primary"
-                  startIcon={<DoneIcon />}
-                  onClick={deleteTodo.bind(null, todo.id)}
-                >
-                  Done
-                </Button>
-              ) : (
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  startIcon={<DeleteIcon />}
-                  onClick={deleteTodo.bind(null, todo.id)}
-                >
-                  Delete
-                </Button>
-              )}
-            </ItemRight>
-          </Box>
-        </Paper>
-      ))}
+                />
+                <Text complete={todo.complete}>{todo.name}</Text>
+              </ItemLeft>
+
+              <ItemRight>
+                {todo.complete ? (
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    startIcon={<DoneIcon />}
+                    onClick={deleteTodo.bind(null, todo.id)}
+                  >
+                    Done
+                  </Button>
+                ) : (
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    startIcon={<DeleteIcon />}
+                    onClick={deleteTodo.bind(null, todo.id)}
+                  >
+                    Delete
+                  </Button>
+                )}
+              </ItemRight>
+            </Box>
+          </Paper>
+        ))}
       {message}
     </Container>
   );
