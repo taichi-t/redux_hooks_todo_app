@@ -8,7 +8,7 @@ export const GlobalStyle = createGlobalStyle`
   max-width: 350px;
   margin:0 auto;
   font-family: 'Oswald', sans-serif;
-  user-select:none;
+  user-select:text;
   }
 `;
 
