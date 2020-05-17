@@ -29,11 +29,11 @@ export const TodoInput = () => {
   };
   return (
     <Container>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={onSubmit} action="submit" noValidate autoComplete="off">
         <Input
           type="text"
           name="todo"
-          placeholder="Add a todo"
+          placeholder="create a todo"
           value={todo}
           onChange={onChange}
         />
@@ -42,7 +42,9 @@ export const TodoInput = () => {
           color="primary"
           style={{ margin: 0 }}
           startIcon={<AddIcon />}
-        />
+        >
+          ADD
+        </Button>
       </form>
     </Container>
   );
