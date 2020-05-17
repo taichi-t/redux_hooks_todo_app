@@ -8,6 +8,7 @@ import Input from "@material-ui/core/Input";
 import Button from "@material-ui/core/Button";
 import styled from "styled-components";
 import AddIcon from "@material-ui/icons/Add";
+import Paper from "@material-ui/core/Paper";
 
 export const TodoInput = () => {
   const [todo, setTodo] = useState("");
@@ -29,23 +30,28 @@ export const TodoInput = () => {
   };
   return (
     <Container>
-      <form onSubmit={onSubmit} action="submit" noValidate autoComplete="off">
-        <Input
-          type="text"
-          name="todo"
-          placeholder="create a todo"
-          value={todo}
-          onChange={onChange}
-        />
-        <Button
-          type="submit"
-          color="primary"
-          style={{ margin: 0 }}
-          startIcon={<AddIcon />}
+      <Paper>
+        <form
+          onSubmit={onSubmit}
+          action="submit"
+          noValidate
+          autoComplete="off"
+          style={{ padding: "1rem" }}
         >
-          ADD
-        </Button>
-      </form>
+          <Box>
+            <Input
+              type="text"
+              name="todo"
+              placeholder="create a todo"
+              value={todo}
+              onChange={onChange}
+            />
+            <Button type="submit" color="primary" startIcon={<AddIcon />}>
+              ADD
+            </Button>
+          </Box>
+        </form>
+      </Paper>
     </Container>
   );
 };
@@ -55,4 +61,14 @@ export default TodoInput;
 //style
 const Container = styled.div`
   text-align: center;
+  font-size: 1.6rem;
+  max-width: 350px;
+  padding: 1rem;
+  margin: 0 auto;
+`;
+
+const Box = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 `;

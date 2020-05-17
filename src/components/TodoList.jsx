@@ -11,7 +11,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import DoneIcon from "@material-ui/icons/Done";
 import { useTheme } from "@material-ui/core/styles";
 
-export const TodoList = (props) => {
+export const TodoList = () => {
   const theme = useTheme();
   const todos = useSelector((state) => state.todos);
 
@@ -28,12 +28,11 @@ export const TodoList = (props) => {
       {todos &&
         todos.map((todo) => (
           <Paper key={todo.id}>
-            <Box>
+            <Box onClick={toggleTodo.bind(null, todo.id)}>
               <ItemLeft>
                 <Checkbox
                   type="checkbox"
                   checked={todo.complete}
-                  onChange={toggleTodo.bind(null, todo.id)}
                   color="primary"
                 />
                 <Text complete={todo.complete}>{todo.name}</Text>
@@ -71,6 +70,7 @@ export const TodoList = (props) => {
 export default TodoList;
 
 const Container = styled.div`
+  padding: 1rem;
   font-size: 1.6rem;
   max-width: 350px;
   margin: 0 auto;
