@@ -26,6 +26,11 @@ export function projectReducer(state = initialState, { type, payload }) {
           todo.complete === false ? { ...todo, complete: true } : todo
         ),
       };
+    case "EXECUTE_TODO":
+      return {
+        ...state,
+        todos: state.todos.filter((todo) => todo.complete !== true),
+      };
     default:
       return state;
   }
