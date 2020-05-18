@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addTodoAction } from "../store/actions";
 import { selectAllAction } from "../store/actions";
 import { executeAction } from "../store/actions";
+import { uncheckAction } from "../store/actions";
 import { v4 as uuidv4 } from "uuid";
 
 //style
@@ -14,7 +15,7 @@ import Paper from "@material-ui/core/Paper";
 import DoneAllIcon from "@material-ui/icons/DoneAll";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import { withStyles } from "@material-ui/core/styles";
-// import UndoIcon from "@material-ui/icons/Undo";
+import UndoIcon from "@material-ui/icons/Undo";
 
 export const TodoInput = () => {
   //state
@@ -22,7 +23,14 @@ export const TodoInput = () => {
   const todos = useSelector((state) => state.todos);
   const [isActiveExecuteButton, setIsActiveExecuteButton] = useState(true);
   const [isActiveSellectAllButton, setIsActiveSellectAll] = useState(true);
-  // const [toggleButton, setToggleButton] = useState(false);
+  const [toggleButton, setToggleButton] = useState(false);
+
+  //dispatch actions
+  const dispatch = useDispatch();
+  const addTodo = (todo) => dispatch(addTodoAction(todo));
+  const selectAll = () => dispatch(selectAllAction());
+  const execute = () => dispatch(executeAction());
+  const uncheck = () => dispatch(uncheckAction());
 
   useEffect(() => {
     const indicatorWithExecuteButton = todos.find(
@@ -35,11 +43,18 @@ export const TodoInput = () => {
 
     //to toggle selectAllButton
 
-    if (todos.length === 0 || indicatorWithSellectAllButton === undefined) {
-      setIsActiveSellectAll(true);
-    } else {
-      setIsActiveSellectAll(false);
+    if (todos.length === 0 && indicatorWithSellectAllButton === undefined) {
+      setIsActiveSellectAll(true); //selectAllButton disable
+      setToggleButton(false); //selectAllButton on
     }
+    if (todos.length !== 0 && indicatorWithSellectAllButton !== undefined) {
+      setToggleButton(false); //selectAllButton on
+      setIsActiveSellectAll(false); //selectAllButton active
+    }
+    if (todos.length !== 0 && indicatorWithSellectAllButton === undefined) {
+      setIsActiveSellectAll(true); //selectAllButton disable
+      setToggleButton(true); //uncheckButton on
+    } else;
 
     //to toggle executeButton
     if (indicatorWithExecuteButton === undefined || todos.length === 0) {
@@ -49,18 +64,13 @@ export const TodoInput = () => {
     }
   }, [todos]);
 
-  //dispatch actions
-  const dispatch = useDispatch();
-  const addTodo = (todo) => dispatch(addTodoAction(todo));
-  const selectAll = () => dispatch(selectAllAction());
-  const execute = () => dispatch(executeAction());
-
   //handle functions
   const handleChange = (e) => {
     setTodo(e.target.value);
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+
     if (todo.trim() === "") return;
     addTodo({
       id: uuidv4(),
@@ -80,13 +90,25 @@ export const TodoInput = () => {
     execute();
   };
 
-  // const button = toggleButton ? (
-  //   <Button color="primary" startIcon={<UndoIcon />} onClick={handleSelect}>
-  //     <Text fontSize={0.5}>Uncheck All</Text>
-  //   </Button>
-  // ) : (
+  const handleUncheck = (e) => {
+    e.preventDefault();
+    uncheck();
+  };
 
-  // );
+  const button = toggleButton ? (
+    <Button color="secondary" startIcon={<UndoIcon />} onClick={handleUncheck}>
+      <Text fontSize={0.5}>Uncheck All</Text>
+    </Button>
+  ) : (
+    <Button
+      color="primary"
+      startIcon={<DoneAllIcon />}
+      disabled={isActiveSellectAllButton}
+      onClick={handleSelect}
+    >
+      <Text fontSize={0.5}>Select All</Text>
+    </Button>
+  );
   return (
     <Container>
       <Paper>
@@ -107,14 +129,7 @@ export const TodoInput = () => {
           <Button type="submit" color="primary" startIcon={<AddIcon />}>
             ADD
           </Button>
-          <Button
-            color="primary"
-            startIcon={<DoneAllIcon />}
-            disabled={isActiveSellectAllButton}
-            onClick={handleSelect}
-          >
-            <Text fontSize={0.5}>Select All</Text>
-          </Button>
+          {button}
           <ColorButton
             onClick={handleExecute}
             startIcon={<CheckCircleOutlineIcon />}

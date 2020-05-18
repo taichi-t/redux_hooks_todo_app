@@ -20,3 +20,7 @@ export const selectAllAction = () => ({
 export const executeAction = () => ({
   type: "EXECUTE_TODO",
 });
+
+export const uncheckAction = () => ({
+  type: "UNCHECK_TODO",
+});
