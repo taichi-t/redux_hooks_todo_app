@@ -12,3 +12,7 @@ export const deleteTodoAction = (todoId) => ({
   type: "DELETE_TODO",
   payload: todoId,
 });
+
+export const selectAllAction = () => ({
+  type: "SELECT_ALL",
+});
