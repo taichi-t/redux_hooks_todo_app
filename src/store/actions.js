@@ -16,3 +16,7 @@ export const deleteTodoAction = (todoId) => ({
 export const selectAllAction = () => ({
   type: "SELECT_ALL",
 });
+
+export const executeAction = () => ({
+  type: "EXECUTE_TODO",
+});
