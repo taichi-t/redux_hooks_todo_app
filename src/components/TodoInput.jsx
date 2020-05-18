@@ -119,16 +119,18 @@ export const TodoInput = () => {
           autoComplete="off"
           style={{ padding: "1rem" }}
         >
-          <Input
-            type="text"
-            name="todo"
-            placeholder="create a todo"
-            value={todo}
-            onChange={handleChange}
-          />
-          <Button type="submit" color="primary" startIcon={<AddIcon />}>
-            ADD
-          </Button>
+          <Box>
+            <Input
+              type="text"
+              name="todo"
+              placeholder="create a todo"
+              value={todo}
+              onChange={handleChange}
+            />
+            <Button type="submit" color="primary" startIcon={<AddIcon />}>
+              ADD
+            </Button>
+          </Box>
           {button}
           <ColorButton
             onClick={handleExecute}
@@ -157,6 +159,8 @@ const Container = styled.div`
 const Text = styled.p`
   font-size: ${(props) => props.fontSize}rem;
 `;
+
+const Box = styled.div``;
 
 const ColorButton = withStyles((theme) => ({
   root: {
