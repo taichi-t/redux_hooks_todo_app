@@ -23,13 +23,20 @@ export function projectReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         todos: state.todos.map((todo) =>
-          todo.complete === false ? { ...todo, complete: true } : todo
+          todo.complete ? todo : { ...todo, complete: true }
         ),
       };
     case "EXECUTE_TODO":
       return {
         ...state,
         todos: state.todos.filter((todo) => todo.complete !== true),
+      };
+    case "UNCHECK_TODO":
+      return {
+        ...state,
+        todos: state.todos.map((todo) =>
+          todo.complete ? { ...todo, complete: false } : todo
+        ),
       };
     default:
       return state;
