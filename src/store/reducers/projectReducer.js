@@ -19,6 +19,13 @@ export function projectReducer(state = initialState, { type, payload }) {
         ...state,
         todos: state.todos.filter((todo) => todo.id !== payload),
       };
+    case "SELECT_ALL":
+      return {
+        ...state,
+        todos: state.todos.map((todo) =>
+          todo.complete === false ? { ...todo, complete: true } : todo
+        ),
+      };
     default:
       return state;
   }

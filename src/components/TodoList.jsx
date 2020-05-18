@@ -23,6 +23,7 @@ export const TodoList = () => {
     todos.length === 0 ? (
       <Message color={theme.palette.text.hint}>There is no task...</Message>
     ) : null;
+
   return (
     <Container>
       {todos &&

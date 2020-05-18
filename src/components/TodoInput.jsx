@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addTodoAction } from "../store/actions";
+import { selectAllAction } from "../store/actions";
 import { v4 as uuidv4 } from "uuid";
 
 //style
@@ -9,16 +10,19 @@ import Button from "@material-ui/core/Button";
 import styled from "styled-components";
 import AddIcon from "@material-ui/icons/Add";
 import Paper from "@material-ui/core/Paper";
+import DoneAllIcon from "@material-ui/icons/DoneAll";
 
 export const TodoInput = () => {
   const [todo, setTodo] = useState("");
+
   const dispatch = useDispatch();
   const addTodo = (todo) => dispatch(addTodoAction(todo));
+  const selectAll = () => dispatch(selectAllAction());
 
-  const onChange = (e) => {
+  const handleChange = (e) => {
     setTodo(e.target.value);
   };
-  const onSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (todo.trim() === "") return;
     addTodo({
@@ -28,11 +32,16 @@ export const TodoInput = () => {
     });
     setTodo("");
   };
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    selectAll();
+  };
   return (
     <Container>
       <Paper>
         <form
-          onSubmit={onSubmit}
+          onSubmit={handleSubmit}
           action="submit"
           noValidate
           autoComplete="off"
@@ -44,10 +53,17 @@ export const TodoInput = () => {
               name="todo"
               placeholder="create a todo"
               value={todo}
-              onChange={onChange}
+              onChange={handleChange}
             />
             <Button type="submit" color="primary" startIcon={<AddIcon />}>
               ADD
+            </Button>
+            <Button
+              onClick={handleClick}
+              color="primary"
+              startIcon={<DoneAllIcon />}
+            >
+              <Text fontSize="0.5rem">Select</Text>
             </Button>
           </Box>
         </form>
@@ -69,6 +85,9 @@ const Container = styled.div`
 
 const Box = styled.div`
   display: flex;
-  justify-content: space-around;
   align-items: center;
+`;
+
+const Text = styled.p`
+  font-size: ${(props) => props.fontSize};
 `;
