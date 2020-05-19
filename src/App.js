@@ -7,7 +7,7 @@ import { createStore } from "redux";
 import TodoInput from "./components/TodoInput";
 import TodoList from "./components/TodoList";
 import Navbar from "./components/Navbar";
-
+import History from "./components/History";
 //style
 import { GlobalStyle } from "./GlobalStyle";
 import { ThemeProvider } from "@material-ui/core/styles";
@@ -18,9 +18,10 @@ import { useDarkMode } from "./hooks/useDarkMode";
 
 function App() {
   const [theme, toggleDarkMode] = useDarkMode();
-  const persistedState = localStorage.getItem("todos")
-    ? JSON.parse(localStorage.getItem("todos"))
-    : { todos: [] };
+  const data = localStorage.getItem("data")
+    ? JSON.parse(localStorage.getItem("data"))
+    : { todos: [], history: [] };
+  const persistedState = data;
 
   const store = createStore(
     projectReducer,
@@ -29,7 +30,7 @@ function App() {
   );
 
   store.subscribe(() => {
-    localStorage.setItem("todos", JSON.stringify(store.getState()));
+    localStorage.setItem("data", JSON.stringify(store.getState()));
   });
 
   const themeConfig = createMuiTheme(theme);
@@ -41,6 +42,7 @@ function App() {
         <Navbar toggleDarkMode={toggleDarkMode} />
         <TodoInput />
         <TodoList />
+        <History />
       </ThemeProvider>
     </Provider>
   );

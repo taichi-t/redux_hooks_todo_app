@@ -1,4 +1,4 @@
-const initialState = { todos: [] };
+const initialState = { todos: [], history: [] };
 
 export function projectReducer(state = initialState, { type, payload }) {
   switch (type) {
@@ -18,6 +18,9 @@ export function projectReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         todos: state.todos.filter((todo) => todo.id !== payload),
+        history: state.history.concat(
+          state.todos.filter((todo) => todo.id === payload)
+        ),
       };
     case "SELECT_ALL":
       return {
@@ -30,6 +33,9 @@ export function projectReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         todos: state.todos.filter((todo) => todo.complete !== true),
+        history: state.history.concat(
+          state.todos.filter((todo) => todo.complete === true)
+        ),
       };
     case "UNCHECK_TODO":
       return {
