@@ -1,14 +1,17 @@
 import React from "react";
+
+//style
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListSubheader from "@material-ui/core/ListSubheader";
+import Checkbox from "@material-ui/core/Checkbox";
+import Divider from "@material-ui/core/Divider";
 import moment from "moment";
 
-//style
-
-export const createList = (objects) => {
+export const createList = (objects, selectHistory) => {
+  const options = [];
   for (let key in objects) {
-    return (
+    options.push(
       <li key={`section-${key}`}>
         <ul>
           <ListSubheader style={{ fontSize: "1.5rem" }}>
@@ -24,11 +27,19 @@ export const createList = (objects) => {
           {objects &&
             objects[key].map((item, index) => (
               <ListItem key={index}>
+                <Checkbox
+                  type="checkbox"
+                  checked={item.check}
+                  color="primary"
+                  onClick={selectHistory.bind(null, item.id)}
+                />
                 <ListItemText primary={`${item.name}`} />
               </ListItem>
             ))}
         </ul>
+        <Divider variant="middle" />
       </li>
     );
   }
+  return options;
 };

@@ -13,6 +13,11 @@ export const deleteTodoAction = (todoId) => ({
   payload: todoId,
 });
 
+export const doneTodoAction = (todoId) => ({
+  type: "DONE_TODO",
+  payload: todoId,
+});
+
 export const selectAllAction = () => ({
   type: "SELECT_ALL",
 });
@@ -23,4 +28,14 @@ export const executeAction = () => ({
 
 export const uncheckAction = () => ({
   type: "UNCHECK_TODO",
+});
+
+export const selectHistoryAction = (todoId) => ({
+  type: "SELECT_HISTORY",
+  payload: todoId,
+});
+
+export const deleteHistoryAction = (todoIds) => ({
+  type: "DELETE_HISTORY",
+  payload: todoIds,
 });
