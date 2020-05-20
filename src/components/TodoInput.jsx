@@ -151,9 +151,7 @@ export default TodoInput;
 const Container = styled.div`
   text-align: center;
   font-size: 1.6rem;
-  max-width: 350px;
   padding: 1rem;
-  margin: 0 auto;
 `;
 
 const Text = styled.p`

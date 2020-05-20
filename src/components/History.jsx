@@ -1,36 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { createLabel } from "../common/createLabel";
+import { createList } from "../common/createList";
 
 //style
 import styled from "styled-components";
 import Paper from "@material-ui/core/Paper";
 import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import ListSubheader from "@material-ui/core/ListSubheader";
+
+import HistoryIcon from "@material-ui/icons/History";
 
 export const History = () => {
   const history = useSelector((state) => state.history);
+  const [organizedHistory, setOrganizedHistory] = useState();
+
+  useEffect(() => {
+    setOrganizedHistory(createLabel(history));
+  }, [history]);
 
   return (
     <Container>
-      <Paper>
-        <Title>History</Title>
+      <StyledPaper>
+        <Title>
+          <HistoryIcon fontSize="large" />
+        </Title>
         <List subheader={<li />}>
-          {[0, 1, 2, 3, 4].map((sectionId) => (
-            <li key={`section-${sectionId}`}>
-              <ul>
-                <ListSubheader>{`I'm sticky ${sectionId}`}</ListSubheader>
-                {history.map((item) => (
-                  <ListItem key={`item-${sectionId}-${item}`}>
-                    <ListItemText primary={`${item.name}`} />
-                  </ListItem>
-                ))}
-              </ul>
-            </li>
-          ))}
+          {organizedHistory && createList(organizedHistory)}
         </List>
-      </Paper>
+      </StyledPaper>
     </Container>
   );
 };
@@ -39,7 +36,12 @@ export default History;
 
 //style
 const Container = styled.div`
-  max-width: 350px;
+  padding: 1rem;
+`;
+
+const StyledPaper = styled(Paper)`
+  max-height: 600px;
+  overflow: scroll;
 `;
 
 const Title = styled.h2`

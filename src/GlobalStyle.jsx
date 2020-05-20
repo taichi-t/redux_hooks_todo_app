@@ -11,6 +11,9 @@ export const GlobalStyle = createGlobalStyle`
   font-family: 'Oswald', sans-serif;
   user-select:text;
   }
+  h2{
+    margin:0
+  }
 `;
 
 export const themeObject = {

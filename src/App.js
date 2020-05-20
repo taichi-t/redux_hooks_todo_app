@@ -8,10 +8,12 @@ import TodoInput from "./components/TodoInput";
 import TodoList from "./components/TodoList";
 import Navbar from "./components/Navbar";
 import History from "./components/History";
+import RoutineWork from "./components/RoutineWork";
 //style
 import { GlobalStyle } from "./GlobalStyle";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { createMuiTheme } from "@material-ui/core/styles";
+import Grid from "@material-ui/core/Grid";
 
 //hooks
 import { useDarkMode } from "./hooks/useDarkMode";
@@ -39,10 +41,20 @@ function App() {
     <Provider store={store}>
       <ThemeProvider theme={themeConfig}>
         <GlobalStyle theme={themeConfig} />
+
         <Navbar toggleDarkMode={toggleDarkMode} />
-        <TodoInput />
-        <TodoList />
-        <History />
+        <Grid container spacing={3}>
+          <Grid item xs={12} sm={4}>
+            <RoutineWork />
+          </Grid>
+          <Grid item xs={12} sm={4}>
+            <TodoInput />
+            <TodoList />
+          </Grid>
+          <Grid item xs={12} sm={4}>
+            <History />
+          </Grid>
+        </Grid>
       </ThemeProvider>
     </Provider>
   );

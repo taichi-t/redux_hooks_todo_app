@@ -29,7 +29,11 @@ export const TodoList = () => {
       {todos &&
         todos.map((todo) => (
           <Paper key={todo.id}>
-            <Box onClick={toggleTodo.bind(null, todo.id)}>
+            <Box
+              onClick={
+                ((e) => e.preventDefault(), toggleTodo.bind(null, todo.id))
+              }
+            >
               <ItemLeft>
                 <Checkbox
                   type="checkbox"
@@ -73,8 +77,6 @@ export default TodoList;
 const Container = styled.div`
   padding: 1rem;
   font-size: 1.6rem;
-  max-width: 350px;
-  margin: 0 auto;
 `;
 
 const Box = styled.div`
