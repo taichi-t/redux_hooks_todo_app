@@ -74,7 +74,6 @@ export function projectReducer(state = initialState, { type, payload }) {
     case "DELETE_HISTORY":
       let copy_history = [...state.history];
       const result = multipleDelete(copy_history, payload);
-      console.log(copy_history, state.history);
 
       return {
         ...state,

@@ -13,7 +13,7 @@ export const createList = (objects, selectHistory) => {
   for (let key in objects) {
     options.push(
       <li key={`section-${key}`}>
-        <ul>
+        <ul style={{ padding: "0" }}>
           <ListSubheader style={{ fontSize: "1.5rem" }}>
             {moment(key).calendar(null, {
               sameDay: "[Today]",
@@ -26,12 +26,15 @@ export const createList = (objects, selectHistory) => {
           </ListSubheader>
           {objects &&
             objects[key].map((item, index) => (
-              <ListItem key={index}>
+              <ListItem
+                key={index}
+                onClick={selectHistory.bind(null, item.id)}
+                button={true}
+              >
                 <Checkbox
                   type="checkbox"
                   checked={item.check}
                   color="primary"
-                  onClick={selectHistory.bind(null, item.id)}
                 />
                 <ListItemText primary={`${item.name}`} />
               </ListItem>
