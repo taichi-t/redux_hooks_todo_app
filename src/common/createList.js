@@ -9,12 +9,14 @@ import Divider from "@material-ui/core/Divider";
 import moment from "moment";
 
 export const createList = (objects, selectHistory) => {
-  const options = [];
+  const results = [];
   for (let key in objects) {
-    options.push(
+    results.push(
       <li key={`section-${key}`}>
         <ul style={{ padding: "0" }}>
-          <ListSubheader style={{ fontSize: "1.5rem" }}>
+          <ListSubheader
+            style={{ fontSize: "1.5rem", fontFamily: "'Oswald', sans-serif" }}
+          >
             {moment(key).calendar(null, {
               sameDay: "[Today]",
               nextDay: "[Tomorrow]",
@@ -44,5 +46,5 @@ export const createList = (objects, selectHistory) => {
       </li>
     );
   }
-  return options;
+  return results;
 };
