@@ -1,4 +1,5 @@
 import moment from "moment";
+import { multipleDelete } from "../../common/multipleDelete";
 const initialState = { todos: [], history: [] };
 
 export function projectReducer(state = initialState, { type, payload }) {
@@ -15,18 +16,26 @@ export function projectReducer(state = initialState, { type, payload }) {
           todo.id === payload ? { ...todo, complete: !todo.complete } : todo
         ),
       };
-    case "DELETE_TODO":
+
+    case "DONE_TODO":
       let newHistory = state.todos.filter((todo) => todo.id === payload);
 
-      newHistory.map(
-        (item) => (item.finishedAt = moment().format("YYYY-MM-DD"))
-      );
-
+      newHistory.map((item) => {
+        item.finishedAt = moment().format("YYYY-MM-DD");
+        item.check = false;
+        return item;
+      });
       return {
         ...state,
         todos: state.todos.filter((todo) => todo.id !== payload),
-        history: state.history.concat(newHistory),
+        history: newHistory.concat(...state.history),
       };
+    case "DELETE_TODO":
+      return {
+        ...state,
+        todos: state.todos.filter((todo) => todo.id !== payload),
+      };
+
     case "SELECT_ALL":
       return {
         ...state,
@@ -50,6 +59,21 @@ export function projectReducer(state = initialState, { type, payload }) {
         todos: state.todos.map((todo) =>
           todo.complete ? { ...todo, complete: false } : todo
         ),
+      };
+    case "SELECT_HISTORY":
+      return {
+        ...state,
+        history: state.history.map((todo) =>
+          todo.id === payload ? { ...todo, check: !todo.check } : todo
+        ),
+      };
+    case "DELETE_HISTORY":
+      let copy_history = [...state.history];
+      const result = multipleDelete(copy_history, payload);
+
+      return {
+        ...state,
+        history: result,
       };
     default:
       return state;

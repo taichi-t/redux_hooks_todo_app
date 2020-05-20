@@ -1,4 +1,5 @@
 import React from "react";
+import "normalize.css";
 import { Provider } from "react-redux";
 import projectReducer from "./store/reducers/projectReducer";
 import { createStore } from "redux";
@@ -41,7 +42,6 @@ function App() {
     <Provider store={store}>
       <ThemeProvider theme={themeConfig}>
         <GlobalStyle theme={themeConfig} />
-
         <Navbar toggleDarkMode={toggleDarkMode} />
         <Grid container spacing={3}>
           <Grid item xs={12} sm={4}>

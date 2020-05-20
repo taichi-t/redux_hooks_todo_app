@@ -1,6 +1,10 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { toggleTodoAction, deleteTodoAction } from "../store/actions";
+import {
+  toggleTodoAction,
+  deleteTodoAction,
+  doneTodoAction,
+} from "../store/actions";
 
 //style
 import styled from "styled-components";
@@ -18,6 +22,7 @@ export const TodoList = () => {
   const dispatch = useDispatch();
   const toggleTodo = (todoId) => dispatch(toggleTodoAction(todoId));
   const deleteTodo = (todoId) => dispatch(deleteTodoAction(todoId));
+  const doneTodo = (todoId) => dispatch(doneTodoAction(todoId));
 
   const message =
     todos.length === 0 ? (
@@ -49,7 +54,7 @@ export const TodoList = () => {
                     variant="contained"
                     color="primary"
                     startIcon={<DoneIcon />}
-                    onClick={deleteTodo.bind(null, todo.id)}
+                    onClick={doneTodo.bind(null, todo.id)}
                   >
                     Done
                   </Button>
