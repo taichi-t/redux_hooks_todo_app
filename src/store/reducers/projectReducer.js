@@ -54,7 +54,7 @@ export function projectReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         todos: state.todos.filter((todo) => todo.complete !== true),
-        history: state.history.concat(newHistories),
+        history: newHistories.concat(state.history),
       };
 
     case "UNCHECK_TODO":

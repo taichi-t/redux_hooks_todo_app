@@ -79,7 +79,6 @@ export const History = () => {
           onClick={handleDelete}
         >
           <DeleteIcon />
-          DELETE All
         </IconButton>
       </Footer>
     </StyledPaper>
