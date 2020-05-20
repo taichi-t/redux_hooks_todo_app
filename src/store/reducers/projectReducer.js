@@ -43,16 +43,20 @@ export function projectReducer(state = initialState, { type, payload }) {
           todo.complete ? todo : { ...todo, complete: true }
         ),
       };
+
     case "EXECUTE_TODO":
       let newHistories = state.todos.filter((todo) => todo.complete === true);
-      newHistories.map(
-        (history) => (history.finishedAt = moment().format("YYYY-MM-DD"))
-      );
+      newHistories.map((history) => {
+        history.finishedAt = moment().format("YYYY-MM-DD");
+        history.check = false;
+        return history;
+      });
       return {
         ...state,
         todos: state.todos.filter((todo) => todo.complete !== true),
         history: state.history.concat(newHistories),
       };
+
     case "UNCHECK_TODO":
       return {
         ...state,
@@ -70,6 +74,7 @@ export function projectReducer(state = initialState, { type, payload }) {
     case "DELETE_HISTORY":
       let copy_history = [...state.history];
       const result = multipleDelete(copy_history, payload);
+      console.log(copy_history, state.history);
 
       return {
         ...state,
