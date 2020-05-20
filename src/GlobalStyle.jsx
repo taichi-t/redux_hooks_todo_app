@@ -1,6 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
+
   body {
   font-size:62.5%;
   background: ${({ theme }) => theme.palette.background.default};
@@ -9,6 +10,9 @@ export const GlobalStyle = createGlobalStyle`
   margin:0 auto;
   font-family: 'Oswald', sans-serif;
   user-select:text;
+  }
+  h2{
+    margin:0
   }
 `;
 

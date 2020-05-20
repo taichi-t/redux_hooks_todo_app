@@ -7,20 +7,23 @@ import { createStore } from "redux";
 import TodoInput from "./components/TodoInput";
 import TodoList from "./components/TodoList";
 import Navbar from "./components/Navbar";
-
+import History from "./components/History";
+import RoutineWork from "./components/RoutineWork";
 //style
 import { GlobalStyle } from "./GlobalStyle";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { createMuiTheme } from "@material-ui/core/styles";
+import Grid from "@material-ui/core/Grid";
 
 //hooks
 import { useDarkMode } from "./hooks/useDarkMode";
 
 function App() {
   const [theme, toggleDarkMode] = useDarkMode();
-  const persistedState = localStorage.getItem("todos")
-    ? JSON.parse(localStorage.getItem("todos"))
-    : { todos: [] };
+  const data = localStorage.getItem("data")
+    ? JSON.parse(localStorage.getItem("data"))
+    : { todos: [], history: [] };
+  const persistedState = data;
 
   const store = createStore(
     projectReducer,
@@ -29,7 +32,7 @@ function App() {
   );
 
   store.subscribe(() => {
-    localStorage.setItem("todos", JSON.stringify(store.getState()));
+    localStorage.setItem("data", JSON.stringify(store.getState()));
   });
 
   const themeConfig = createMuiTheme(theme);
@@ -38,9 +41,20 @@ function App() {
     <Provider store={store}>
       <ThemeProvider theme={themeConfig}>
         <GlobalStyle theme={themeConfig} />
+
         <Navbar toggleDarkMode={toggleDarkMode} />
-        <TodoInput />
-        <TodoList />
+        <Grid container spacing={3}>
+          <Grid item xs={12} sm={4}>
+            <RoutineWork />
+          </Grid>
+          <Grid item xs={12} sm={4}>
+            <TodoInput />
+            <TodoList />
+          </Grid>
+          <Grid item xs={12} sm={4}>
+            <History />
+          </Grid>
+        </Grid>
       </ThemeProvider>
     </Provider>
   );

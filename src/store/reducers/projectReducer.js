@@ -1,11 +1,12 @@
-const initialState = { todos: [] };
+import moment from "moment";
+const initialState = { todos: [], history: [] };
 
 export function projectReducer(state = initialState, { type, payload }) {
   switch (type) {
     case "ADD_TODO":
       return {
         ...state,
-        todos: [...state.todos, payload],
+        todos: [payload, ...state.todos],
       };
     case "TOGGLE_TODO":
       return {
@@ -15,9 +16,16 @@ export function projectReducer(state = initialState, { type, payload }) {
         ),
       };
     case "DELETE_TODO":
+      let newHistory = state.todos.filter((todo) => todo.id === payload);
+
+      newHistory.map(
+        (item) => (item.finishedAt = moment().format("YYYY-MM-DD"))
+      );
+
       return {
         ...state,
         todos: state.todos.filter((todo) => todo.id !== payload),
+        history: state.history.concat(newHistory),
       };
     case "SELECT_ALL":
       return {
@@ -27,9 +35,14 @@ export function projectReducer(state = initialState, { type, payload }) {
         ),
       };
     case "EXECUTE_TODO":
+      let newHistories = state.todos.filter((todo) => todo.complete === true);
+      newHistories.map(
+        (history) => (history.finishedAt = moment().format("YYYY-MM-DD"))
+      );
       return {
         ...state,
         todos: state.todos.filter((todo) => todo.complete !== true),
+        history: state.history.concat(newHistories),
       };
     case "UNCHECK_TODO":
       return {
