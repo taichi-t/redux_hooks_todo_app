@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { themeObject } from "../GlobalStyle";
+import { themeObjectFunction } from "../GlobalStyle";
 
 export const useDarkMode = () => {
-  const [theme, setTheme] = useState(themeObject);
+  const [theme, setTheme] = useState(themeObjectFunction);
 
   const {
     palette: { type },

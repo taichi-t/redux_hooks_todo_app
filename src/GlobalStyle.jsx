@@ -14,14 +14,16 @@ export const GlobalStyle = createGlobalStyle`
 }
 `;
 
-export const themeObject = {
-  palette: {
-    type: "light",
-    primary: {
-      main: "#2196f3",
+export const themeObjectFunction = (userPreferenceColor) => {
+  return {
+    palette: {
+      type: "light",
+      primary: {
+        main: "#2196f3",
+      },
+      secondary: {
+        main: "#f50057",
+      },
     },
-    secondary: {
-      main: "#f50057",
-    },
-  },
+  };
 };
