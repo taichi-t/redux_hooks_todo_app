@@ -39,3 +39,11 @@ export const deleteHistoryAction = (todoIds) => ({
   type: "DELETE_HISTORY",
   payload: todoIds,
 });
+
+export const selectAllHistoryAction = () => ({
+  type: "SELECT_ALL_HISTORY",
+});
+
+export const uncheckHistoryAction = () => ({
+  type: "UNCHECK_HISTORY",
+});

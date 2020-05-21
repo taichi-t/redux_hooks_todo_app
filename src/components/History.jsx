@@ -1,10 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+//actions
+import {
+  selectHistoryAction,
+  deleteHistoryAction,
+  selectAllHistoryAction,
+  uncheckHistoryAction,
+} from "../store/actions";
+//common
+import { checkHistory } from "../common/checkHistory";
+import { toggleSelectAllButton } from "../common/toggleSelectAllButton";
 import { sortByDate } from "../common/sortByDate";
 import { createList } from "../common/createList";
-import { selectHistoryAction } from "../store/actions";
-import { checkHistory } from "../common/checkHistory";
-import { deleteHistoryAction } from "../store/actions";
 
 //style
 import styled from "styled-components";
@@ -14,6 +21,8 @@ import HistoryIcon from "@material-ui/icons/History";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { useTheme } from "@material-ui/core/styles";
+import UndoIcon from "@material-ui/icons/Undo";
+import DoneAllIcon from "@material-ui/icons/DoneAll";
 
 export const History = () => {
   //state
@@ -21,20 +30,33 @@ export const History = () => {
   const history = useSelector((state) => state.history);
   const [sortedHistory, setsortedHistory] = useState();
   const [isActiveDeleteButton, setIsActiveDeleteButton] = useState(true);
+  const [toggleButton, setToggleButton] = useState(false);
+  const [isActiveSellectAllButton, setIsActiveSellectAll] = useState(true);
 
   //dispatchActions
   const dispatch = useDispatch();
   const selectHistory = (todoId) => dispatch(selectHistoryAction(todoId));
   const deleteHistory = (todoIds) => dispatch(deleteHistoryAction(todoIds));
+  const slectAllHistory = () => dispatch(selectAllHistoryAction());
+  const uncheckHistory = () => dispatch(uncheckHistoryAction());
 
   useEffect(() => {
+    setsortedHistory(sortByDate(history));
+
+    //toggle select button
+    toggleSelectAllButton(
+      history,
+      setToggleButton,
+      setIsActiveSellectAll,
+      "check"
+    );
+
+    //toggle delete button
     if (checkHistory(history)) {
       setIsActiveDeleteButton(false);
     } else {
       setIsActiveDeleteButton(true);
     }
-
-    setsortedHistory(sortByDate(history));
   }, [history]);
 
   //handleActions
@@ -51,12 +73,38 @@ export const History = () => {
     setIsActiveDeleteButton(false);
   };
 
+  const handleUncheck = (e) => {
+    e.preventDefault();
+    uncheckHistory();
+  };
+
+  const handleSelect = (e) => {
+    e.preventDefault();
+    slectAllHistory();
+  };
+
+  //toggle components
   const content =
     history && history.length === 0 ? (
       <Message color={theme.palette.text.hint}>There is no history...</Message>
     ) : (
       sortedHistory && createList(sortedHistory, selectHistory)
     );
+
+  const button = toggleButton ? (
+    <IconButton color="secondary" onClick={handleUncheck}>
+      <UndoIcon />
+    </IconButton>
+  ) : (
+    <IconButton
+      color="primary"
+      aria-label="select all"
+      disabled={isActiveSellectAllButton}
+      onClick={handleSelect}
+    >
+      <DoneAllIcon />
+    </IconButton>
+  );
 
   return (
     <StyledPaper>
@@ -70,17 +118,20 @@ export const History = () => {
         {content}
       </List>
 
-      <Footer>
-        <IconButton
-          aria-label="delete"
-          disabled={isActiveDeleteButton}
-          color="secondary"
-          style={{ textAlign: "right", fontSize: "0.5rem" }}
-          onClick={handleDelete}
-        >
-          <DeleteIcon />
-        </IconButton>
-      </Footer>
+      <div>
+        <LeftContainer>{button}</LeftContainer>
+
+        <RightContainer>
+          <IconButton
+            aria-label="delete"
+            disabled={isActiveDeleteButton}
+            color="secondary"
+            onClick={handleDelete}
+          >
+            <DeleteIcon />
+          </IconButton>
+        </RightContainer>
+      </div>
     </StyledPaper>
   );
 };
@@ -88,7 +139,6 @@ export const History = () => {
 export default History;
 
 //style
-
 const StyledPaper = styled(Paper)`
   margin: 1rem;
   max-height: 500px;
@@ -100,8 +150,16 @@ const Title = styled.h2`
   padding: 1rem 0;
 `;
 
-const Footer = styled.div`
+const LeftContainer = styled.div`
+  display: inline-block;
+  text-align: left;
+  width: 50%;
+`;
+
+const RightContainer = styled.div`
+  display: inline-block;
   text-align: right;
+  width: 50%;
 `;
 
 const Message = styled.p`
