@@ -5,6 +5,7 @@ import { selectAllAction } from "../store/actions";
 import { executeAction } from "../store/actions";
 import { uncheckAction } from "../store/actions";
 import { v4 as uuidv4 } from "uuid";
+import { toggleSelectAllButton } from "../common/toggleSelectAllButton";
 
 //style
 import Input from "@material-ui/core/Input";
@@ -37,24 +38,12 @@ export const TodoInput = () => {
       (todo) => todo.complete === true
     );
 
-    const indicatorWithSellectAllButton = todos.find(
-      (todo) => todo.complete === false
+    toggleSelectAllButton(
+      todos,
+      setToggleButton,
+      setIsActiveSellectAll,
+      "complete"
     );
-
-    //to toggle selectAllButton
-
-    if (todos.length === 0 && indicatorWithSellectAllButton === undefined) {
-      setIsActiveSellectAll(true); //selectAllButton disable
-      setToggleButton(false); //selectAllButton on
-    }
-    if (todos.length !== 0 && indicatorWithSellectAllButton !== undefined) {
-      setToggleButton(false); //selectAllButton on
-      setIsActiveSellectAll(false); //selectAllButton active
-    }
-    if (todos.length !== 0 && indicatorWithSellectAllButton === undefined) {
-      setIsActiveSellectAll(true); //selectAllButton disable
-      setToggleButton(true); //uncheckButton on
-    } else;
 
     //to toggle executeButton
     if (indicatorWithExecuteButton === undefined || todos.length === 0) {

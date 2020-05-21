@@ -74,10 +74,25 @@ export function projectReducer(state = initialState, { type, payload }) {
     case "DELETE_HISTORY":
       let copy_history = [...state.history];
       const result = multipleDelete(copy_history, payload);
-
       return {
         ...state,
         history: result,
+      };
+
+    case "SELECT_ALL_HISTORY":
+      return {
+        ...state,
+        history: state.history.map((todo) =>
+          todo.check ? todo : { ...todo, check: true }
+        ),
+      };
+
+    case "UNCHECK_HISTORY":
+      return {
+        ...state,
+        history: state.history.map((todo) =>
+          todo.check ? { ...todo, check: false } : todo
+        ),
       };
     default:
       return state;
