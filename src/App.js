@@ -42,7 +42,7 @@ function App() {
     <Provider store={store}>
       <ThemeProvider theme={themeConfig}>
         <GlobalStyle theme={themeConfig} />
-        <Navbar toggleDarkMode={toggleTheme} />
+        <Navbar toggleTheme={toggleTheme} />
         <Grid container spacing={3}>
           <Grid item xs={12} md={4}>
             <RoutineWork />

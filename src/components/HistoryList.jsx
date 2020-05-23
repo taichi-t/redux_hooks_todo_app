@@ -4,9 +4,9 @@ import { HistoryInput } from "./HistoryInput";
 //actions
 import { selectHistoryAction } from "../store/actions";
 
-//common
-import { sortByDate } from "../common/sortByDate";
-import { createList } from "../common/createList";
+//util
+import { sortByDate } from "../util/sortByDate";
+import { createList } from "../util/createList";
 
 //style
 import styled from "styled-components";

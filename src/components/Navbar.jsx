@@ -15,7 +15,7 @@ export const Navbar = (props) => {
   //state
   const theme = useTheme();
   const [isDarkMode, setIsDarkMode] = useState(() => false);
-  const { toggleDarkMode } = props;
+  const { toggleTheme } = props;
   const [now, setNow] = useState("");
 
   useEffect(() => {
@@ -32,7 +32,7 @@ export const Navbar = (props) => {
   const handleClick = (e) => {
     e.preventDefault();
     setIsDarkMode(!isDarkMode);
-    toggleDarkMode();
+    toggleTheme();
   };
 
   return (
@@ -46,7 +46,7 @@ export const Navbar = (props) => {
 
           <SettingContainer>
             <div style={{ marginRight: "2rem" }}>
-              <ColorPicker />
+              <ColorPicker toggleTheme={toggleTheme} />
             </div>
 
             <div onClick={handleClick}>

@@ -12,9 +12,10 @@ import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import UndoIcon from "@material-ui/icons/Undo";
 import DoneAllIcon from "@material-ui/icons/DoneAll";
-//common
-import { checkHistory } from "../common/checkHistory";
-import { toggleSelectAllButton } from "../common/toggleSelectAllButton";
+
+//util
+import { checkHistory } from "../util/checkHistory";
+import { toggleSelectAllButton } from "../util/toggleSelectAllButton";
 
 export const HistoryInput = () => {
   //state

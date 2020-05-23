@@ -4,8 +4,10 @@ import Box from "@material-ui/core/Box";
 
 //style
 import MenuItem from "@material-ui/core/MenuItem";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
+import ColorLensIcon from "@material-ui/icons/ColorLens";
+import IconButton from "@material-ui/core/IconButton";
+import Menu from "@material-ui/core/Menu";
+
 const colorArray = [
   "default",
   "#f44336",
@@ -26,32 +28,61 @@ const colorArray = [
   "#ff5722",
 ];
 
-export const ColorPicker = () => {
-  const [color, setColor] = useState("default");
+export const ColorPicker = (props) => {
+  // const [color, setColor] = useState("default");
+  const { toggleTheme } = props;
 
-  const handleChange = (event) => {
-    setColor(event.target.value);
+  // const handleChange = (e) => {
+  //   setColor(e.target.value);
+  //   toggleTheme(e.target.value);
+  // };
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleClick = (e) => {
+    setAnchorEl(e.currentTarget);
+  };
+
+  const handleClose = (item) => {
+    setAnchorEl(null);
+    toggleTheme(item);
   };
 
   return (
-    <FormControl>
-      <Select
-        labelId="demo-customized-select-label"
-        id="demo-customized-select"
-        value={color}
-        onChange={handleChange}
-        defaultValue={"default"}
+    <div>
+      <IconButton
+        aria-label="more"
+        aria-controls="long-menu"
+        aria-haspopup="true"
+        onClick={handleClick}
+      >
+        <ColorLensIcon />
+      </IconButton>
+      <Menu
+        id="long-menu"
+        anchorEl={anchorEl}
+        keepMounted
+        open={open}
+        onClose={handleClose}
+        PaperProps={{
+          style: {
+            width: "16ch",
+          },
+        }}
       >
         {colorArray.map((item, index) => (
-          <MenuItem value={item} key={index}>
+          <MenuItem
+            value={item}
+            key={index}
+            onClick={handleClose.bind(null, item)}
+          >
             {item === "default" ? item : null}
-            {item === "default" ? null : (
-              <StyledBoxColor color={item} boxShadow={1} />
-            )}
+            {item === "default" ? null : <StyledBoxColor color={item} />}
           </MenuItem>
         ))}
-      </Select>
-    </FormControl>
+      </Menu>
+    </div>
   );
 };
 

@@ -10,13 +10,16 @@ export const useTheme = () => {
   const toggleTheme = (props) => {
     let updatedTheme;
     if (props) {
-      const { color } = props && props;
+      const color = props === "default" ? "#2196f3" : props;
 
       updatedTheme = {
         ...theme,
         palette: {
           ...theme.palette,
-          primary: color,
+          primary: {
+            ...theme.palette.primary,
+            main: `${color}`,
+          },
         },
       };
     } else {

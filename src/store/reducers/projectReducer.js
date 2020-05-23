@@ -1,5 +1,5 @@
 import moment from "moment";
-import { multipleDelete } from "../../common/multipleDelete";
+import { multipleDelete } from "../../util/multipleDelete";
 const initialState = { todos: [], history: [] };
 
 export function projectReducer(state = initialState, { type, payload }) {
