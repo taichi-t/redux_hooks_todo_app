@@ -4,6 +4,9 @@ import DarkModeToggle from "react-dark-mode-toggle";
 import { useTheme } from "@material-ui/core/styles";
 import moment from "moment";
 
+//components
+import { ColorPicker } from "./ColorPicker";
+
 //style
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -28,8 +31,8 @@ export const Navbar = (props) => {
   //handle actions
   const handleClick = (e) => {
     e.preventDefault();
-    toggleDarkMode();
     setIsDarkMode(!isDarkMode);
+    toggleDarkMode();
   };
 
   return (
@@ -41,9 +44,15 @@ export const Navbar = (props) => {
             <Month>{now.month}</Month>
           </Title>
 
-          <div onClick={handleClick}>
-            <DarkModeToggle checked={isDarkMode} size={50} speed={6} />
-          </div>
+          <SettingContainer>
+            <div style={{ marginRight: "2rem" }}>
+              <ColorPicker />
+            </div>
+
+            <div onClick={handleClick}>
+              <DarkModeToggle checked={isDarkMode} size={50} speed={6} />
+            </div>
+          </SettingContainer>
         </Box>
       </Toolbar>
     </AppBar>
@@ -68,4 +77,10 @@ const Box = styled.div`
 
 const Month = styled.span`
   font-size: 1rem;
+`;
+
+const SettingContainer = styled.div`
+  display: flex;
+  align-items: center;
+  align-content: space-between;
 `;
