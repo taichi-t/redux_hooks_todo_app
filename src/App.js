@@ -8,7 +8,7 @@ import { createStore } from "redux";
 import TodoInput from "./components/TodoInput";
 import TodoList from "./components/TodoList";
 import Navbar from "./components/Navbar";
-import History from "./components/History";
+import HistoryList from "./components/HistoryList";
 import RoutineWork from "./components/RoutineWork";
 //style
 import { GlobalStyle } from "./GlobalStyle";
@@ -52,7 +52,7 @@ function App() {
             <TodoList />
           </Grid>
           <Grid item xs={12} md={4}>
-            <History />
+            <HistoryList />
           </Grid>
         </Grid>
       </ThemeProvider>

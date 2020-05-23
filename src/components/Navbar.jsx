@@ -28,8 +28,8 @@ export const Navbar = (props) => {
   //handle actions
   const handleClick = (e) => {
     e.preventDefault();
-    setIsDarkMode(!isDarkMode);
     toggleDarkMode();
+    setIsDarkMode(!isDarkMode);
   };
 
   return (
