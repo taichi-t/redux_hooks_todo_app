@@ -45,7 +45,7 @@ export const ColorPicker = (props) => {
   };
 
   const handleClose = (item) => {
-    if (typeof item === "object" || item === "default") {
+    if (typeof item === "object") {
       setAnchorEl(null);
     } else {
       setAnchorEl(null);
