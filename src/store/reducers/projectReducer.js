@@ -1,7 +1,7 @@
 import moment from "moment";
 import { multipleDelete } from "../../util/multipleDelete";
 import { multipleCheck } from "../../util/multipleCheck";
-const initialState = { todos: [], history: [] };
+const initialState = { todos: [], history: [], routine: [], userSetting: {} };
 
 export function projectReducer(state = initialState, { type, payload }) {
   let newHistory;

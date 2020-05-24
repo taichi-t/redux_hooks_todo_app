@@ -23,7 +23,7 @@ function App() {
   const [theme, toggleTheme] = useTheme();
   const data = localStorage.getItem("data")
     ? JSON.parse(localStorage.getItem("data"))
-    : { todos: [], history: [] };
+    : { todos: [], history: [], routine: [], userSetting: {} };
   const persistedState = data;
 
   const store = createStore(
