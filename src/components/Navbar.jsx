@@ -16,7 +16,7 @@ import IconButton from "@material-ui/core/IconButton";
 
 const useStyles = makeStyles((theme) => ({
   menuButton: {
-    marginRight: theme.spacing(2),
+    marginRight: theme.spacing(3),
   },
   title: {
     alignSelf: "flex-end",
@@ -51,12 +51,24 @@ export const Navbar = (props) => {
 
   //toggle component
   const icons = isDarkMode ? (
-    <IconButton aria-label="darkmode" color="inherit" edge="end">
-      <Brightness4Icon onClick={handleClick} />
+    <IconButton
+      aria-label="darkmode"
+      color="inherit"
+      edge="end"
+      className={classes.menuButton}
+      onClick={handleClick}
+    >
+      <Brightness4Icon />
     </IconButton>
   ) : (
-    <IconButton aria-label="lightmode" color="inherit" edge="end">
-      <Brightness7Icon onClick={handleClick} />
+    <IconButton
+      aria-label="lightmode"
+      color="inherit"
+      edge="end"
+      className={classes.menuButton}
+      onClick={handleClick}
+    >
+      <Brightness7Icon />
     </IconButton>
   );
 
