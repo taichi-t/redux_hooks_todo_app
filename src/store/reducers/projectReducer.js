@@ -1,8 +1,11 @@
 import moment from "moment";
 import { multipleDelete } from "../../util/multipleDelete";
+import { multipleCheck } from "../../util/multipleCheck";
 const initialState = { todos: [], history: [] };
 
 export function projectReducer(state = initialState, { type, payload }) {
+  let newHistory;
+  let result;
   switch (type) {
     case "ADD_TODO":
       return {
@@ -18,7 +21,7 @@ export function projectReducer(state = initialState, { type, payload }) {
       };
 
     case "DONE_TODO":
-      let newHistory = state.todos.filter((todo) => todo.id === payload);
+      newHistory = state.todos.filter((todo) => todo.id === payload);
 
       newHistory.map((item) => {
         item.finishedAt = moment().format("YYYY-MM-DD");
@@ -45,8 +48,8 @@ export function projectReducer(state = initialState, { type, payload }) {
       };
 
     case "EXECUTE_TODO":
-      let newHistories = state.todos.filter((todo) => todo.complete === true);
-      newHistories.map((history) => {
+      newHistory = state.todos.filter((todo) => todo.complete === true);
+      newHistory.map((history) => {
         history.finishedAt = moment().format("YYYY-MM-DD");
         history.check = false;
         return history;
@@ -54,7 +57,7 @@ export function projectReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         todos: state.todos.filter((todo) => todo.complete !== true),
-        history: newHistories.concat(state.history),
+        history: newHistory.concat(state.history),
       };
 
     case "UNCHECK_TODO":
@@ -71,9 +74,19 @@ export function projectReducer(state = initialState, { type, payload }) {
           todo.id === payload ? { ...todo, check: !todo.check } : todo
         ),
       };
+
+    case "SELECT_HISTORIES":
+      newHistory = [...state.history];
+      result = multipleCheck(newHistory, payload, true);
+
+      return {
+        ...state,
+        history: result,
+      };
+
     case "DELETE_HISTORY":
-      let copy_history = [...state.history];
-      const result = multipleDelete(copy_history, payload);
+      newHistory = [...state.history];
+      result = multipleDelete(newHistory, payload);
       return {
         ...state,
         history: result,
@@ -94,6 +107,14 @@ export function projectReducer(state = initialState, { type, payload }) {
           todo.check ? { ...todo, check: false } : todo
         ),
       };
+    case "UNCHECK_HISTORIES":
+      newHistory = [...state.history];
+      result = multipleCheck(newHistory, payload, false);
+      return {
+        ...state,
+        history: result,
+      };
+
     default:
       return state;
   }
