@@ -66,7 +66,7 @@ export const ColorPicker = (props) => {
         PaperProps={{
           style: {
             width: "17ch",
-            maxHeight: "10rem",
+            height: "10rem",
           },
         }}
       >
