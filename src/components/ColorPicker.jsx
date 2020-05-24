@@ -45,8 +45,12 @@ export const ColorPicker = (props) => {
   };
 
   const handleClose = (item) => {
-    setAnchorEl(null);
-    toggleTheme(item);
+    if (typeof item === "object" || item === "default") {
+      setAnchorEl(null);
+    } else {
+      setAnchorEl(null);
+      toggleTheme(item);
+    }
   };
 
   return (
@@ -67,7 +71,8 @@ export const ColorPicker = (props) => {
         onClose={handleClose}
         PaperProps={{
           style: {
-            width: "16ch",
+            width: "17ch",
+            maxHeight: colorArray.length * 10,
           },
         }}
       >
