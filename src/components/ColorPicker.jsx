@@ -29,13 +29,7 @@ const colorArray = [
 ];
 
 export const ColorPicker = (props) => {
-  // const [color, setColor] = useState("default");
   const { toggleTheme } = props;
-
-  // const handleChange = (e) => {
-  //   setColor(e.target.value);
-  //   toggleTheme(e.target.value);
-  // };
 
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -72,7 +66,7 @@ export const ColorPicker = (props) => {
         PaperProps={{
           style: {
             width: "17ch",
-            maxHeight: colorArray.length * 10,
+            maxHeight: "10rem",
           },
         }}
       >
