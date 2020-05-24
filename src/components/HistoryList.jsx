@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { HistoryInput } from "./HistoryInput";
 //actions
 import { selectHistoryAction } from "../store/actions";
+import { selectHistoriesAction } from "../store/actions";
+import { uncheckHistoriesAction } from "../store/actions";
 
 //util
 import { sortByDate } from "../util/sortByDate";
@@ -24,6 +26,9 @@ export const HistoryList = () => {
   //dispatchActions
   const dispatch = useDispatch();
   const selectHistory = (todoId) => dispatch(selectHistoryAction(todoId));
+  const selectHistories = (todoIds) => dispatch(selectHistoriesAction(todoIds));
+  const uncheckHistories = (todoIds) =>
+    dispatch(uncheckHistoriesAction(todoIds));
 
   useEffect(() => {
     setsortedHistory(sortByDate(history));
@@ -34,7 +39,13 @@ export const HistoryList = () => {
     history && history.length === 0 ? (
       <Message color={theme.palette.text.hint}>There is no history...</Message>
     ) : (
-      sortedHistory && createList(sortedHistory, selectHistory)
+      sortedHistory &&
+      createList(
+        sortedHistory,
+        selectHistory,
+        selectHistories,
+        uncheckHistories
+      )
     );
 
   return (
