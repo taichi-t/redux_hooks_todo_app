@@ -14,7 +14,7 @@ export const GlobalStyle = createGlobalStyle`
 }
 `;
 
-export const themeObjectFunction = (userPreferenceColor) => {
+export const themeObjectFunction = () => {
   return {
     palette: {
       type: "light",

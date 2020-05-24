@@ -8,7 +8,7 @@ import { createStore } from "redux";
 import TodoInput from "./components/TodoInput";
 import TodoList from "./components/TodoList";
 import Navbar from "./components/Navbar";
-import History from "./components/History";
+import HistoryList from "./components/HistoryList";
 import RoutineWork from "./components/RoutineWork";
 //style
 import { GlobalStyle } from "./GlobalStyle";
@@ -17,10 +17,10 @@ import { createMuiTheme } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 
 //hooks
-import { useDarkMode } from "./hooks/useDarkMode";
+import { useTheme } from "./hooks/useTheme";
 
 function App() {
-  const [theme, toggleDarkMode] = useDarkMode();
+  const [theme, toggleTheme] = useTheme();
   const data = localStorage.getItem("data")
     ? JSON.parse(localStorage.getItem("data"))
     : { todos: [], history: [] };
@@ -42,7 +42,7 @@ function App() {
     <Provider store={store}>
       <ThemeProvider theme={themeConfig}>
         <GlobalStyle theme={themeConfig} />
-        <Navbar toggleDarkMode={toggleDarkMode} />
+        <Navbar toggleTheme={toggleTheme} />
         <Grid container spacing={3}>
           <Grid item xs={12} md={4}>
             <RoutineWork />
@@ -52,7 +52,7 @@ function App() {
             <TodoList />
           </Grid>
           <Grid item xs={12} md={4}>
-            <History />
+            <HistoryList />
           </Grid>
         </Grid>
       </ThemeProvider>

@@ -5,7 +5,9 @@ import { selectAllAction } from "../store/actions";
 import { executeAction } from "../store/actions";
 import { uncheckAction } from "../store/actions";
 import { v4 as uuidv4 } from "uuid";
-import { toggleSelectAllButton } from "../common/toggleSelectAllButton";
+
+//util
+import { toggleSelectAllButton } from "../util/toggleSelectAllButton";
 
 //style
 import Input from "@material-ui/core/Input";
