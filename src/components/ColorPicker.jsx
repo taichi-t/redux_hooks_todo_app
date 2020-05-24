@@ -60,7 +60,6 @@ export const ColorPicker = (props) => {
       <Menu
         id="long-menu"
         anchorEl={anchorEl}
-        keepMounted
         open={open}
         onClose={handleClose}
         PaperProps={{
