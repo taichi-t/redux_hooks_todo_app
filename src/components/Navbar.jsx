@@ -16,7 +16,7 @@ import IconButton from "@material-ui/core/IconButton";
 
 const useStyles = makeStyles((theme) => ({
   menuButton: {
-    marginRight: theme.spacing(3),
+    marginRight: theme.spacing(2),
   },
   title: {
     alignSelf: "flex-end",
