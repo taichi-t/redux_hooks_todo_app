@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import RepeatIcon from "@material-ui/icons/Repeat";
 
 //style
@@ -6,26 +7,25 @@ import styled from "styled-components";
 import Paper from "@material-ui/core/Paper";
 
 export const RoutineWork = () => {
+  //state
+  const routine = useSelector((state) => state.routine);
+  console.log(routine);
   return (
-    <Container>
-      <StyledPaper>
-        <Title>
-          <RepeatIcon fontSize="large" />
-        </Title>
-      </StyledPaper>
-    </Container>
+    <StyledPaper>
+      <Title>
+        <RepeatIcon fontSize="large" />
+      </Title>
+    </StyledPaper>
   );
 };
 
 export default RoutineWork;
 
 //style
-const Container = styled.div`
-  padding: 1rem;
-`;
 
 const StyledPaper = styled(Paper)`
-  max-height: 600px;
+  margin: 1rem;
+  max-height: 50rem;
   overflow: scroll;
 `;
 
