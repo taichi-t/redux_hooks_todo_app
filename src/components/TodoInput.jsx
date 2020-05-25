@@ -36,7 +36,7 @@ export const TodoInput = () => {
   const uncheck = () => dispatch(uncheckAction());
 
   useEffect(() => {
-    const indicatorWithExecuteButton = todos.find(
+    const indicatorOfExecuteButton = todos.find(
       (todo) => todo.complete === true
     );
 
@@ -48,7 +48,7 @@ export const TodoInput = () => {
     );
 
     //to toggle executeButton
-    if (indicatorWithExecuteButton === undefined || todos.length === 0) {
+    if (indicatorOfExecuteButton === undefined || todos.length === 0) {
       setIsActiveExecuteButton(true);
     } else {
       setIsActiveExecuteButton(false);
