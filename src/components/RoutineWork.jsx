@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import RepeatIcon from "@material-ui/icons/Repeat";
 
 //style
@@ -8,8 +8,8 @@ import Paper from "@material-ui/core/Paper";
 
 export const RoutineWork = () => {
   //state
-  const routine = useSelector((state) => state.routine);
-  console.log(routine);
+  // const routine = useSelector((state) => state.routine);
+
   return (
     <StyledPaper>
       <Title>

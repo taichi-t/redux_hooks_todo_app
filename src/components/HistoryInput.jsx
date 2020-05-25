@@ -35,6 +35,7 @@ export const HistoryInput = () => {
   const slectAllHistory = () => dispatch(selectAllHistoryAction());
   const uncheckHistory = () => dispatch(uncheckHistoryAction());
   const addRoutine = (todoIds) => dispatch(addRoutineAction(todoIds));
+
   useEffect(() => {
     //toggle select-button
     toggleSelectAllButton(
