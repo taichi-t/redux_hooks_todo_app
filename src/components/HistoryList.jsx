@@ -70,7 +70,7 @@ export default HistoryList;
 //style
 const StyledPaper = styled(Paper)`
   margin: 1rem;
-  max-height: 500px;
+  max-height: 50rem;
   overflow: scroll;
 `;
 
