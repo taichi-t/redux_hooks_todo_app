@@ -128,7 +128,6 @@ export function projectReducer(state = initialState, { type, payload }) {
           check: false,
         };
       });
-      console.log(newRoutine);
 
       return {
         ...state,
