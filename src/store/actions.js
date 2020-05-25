@@ -66,3 +66,8 @@ export const uncheckHistoriesAction = (todoIds) => ({
   type: "UNCHECK_HISTORIES",
   payload: todoIds,
 });
+
+export const addRoutineAction = (todoIds) => ({
+  type: "ADD_ROUTINE",
+  payload: todoIds,
+});

@@ -1,11 +1,13 @@
 import moment from "moment";
-import { multipleDelete } from "../../util/multipleDelete";
-import { multipleCheck } from "../../util/multipleCheck";
+import { deleteMatchedObjArrays } from "../../util/deleteMatchedObjArrays";
+import { changeValuesOfObjArrays } from "../../util/changeValuesOfOjbArrays";
+import { createObjArraysMatchedId } from "../../util/createObjArraysMatchedId";
 const initialState = { todos: [], history: [], routine: [], userSetting: {} };
 
 export function projectReducer(state = initialState, { type, payload }) {
   let newHistory;
   let result;
+  let newRoutine;
   switch (type) {
     case "ADD_TODO":
       return {
@@ -77,7 +79,7 @@ export function projectReducer(state = initialState, { type, payload }) {
 
     case "SELECT_HISTORIES":
       newHistory = [...state.history];
-      result = multipleCheck(newHistory, payload, true);
+      result = changeValuesOfObjArrays(newHistory, payload, "check", true);
 
       return {
         ...state,
@@ -86,7 +88,7 @@ export function projectReducer(state = initialState, { type, payload }) {
 
     case "DELETE_HISTORY":
       newHistory = [...state.history];
-      result = multipleDelete(newHistory, payload);
+      result = deleteMatchedObjArrays(newHistory, payload);
       return {
         ...state,
         history: result,
@@ -109,10 +111,29 @@ export function projectReducer(state = initialState, { type, payload }) {
       };
     case "UNCHECK_HISTORIES":
       newHistory = [...state.history];
-      result = multipleCheck(newHistory, payload, false);
+      result = changeValuesOfObjArrays(newHistory, payload, "check", false);
       return {
         ...state,
         history: result,
+      };
+
+    case "ADD_ROUTINE":
+      newHistory = [...state.history];
+      newRoutine = createObjArraysMatchedId(newHistory, payload);
+      newHistory = deleteMatchedObjArrays(newHistory, payload);
+      newRoutine = newRoutine.map((todo) => {
+        delete todo.complete;
+        return {
+          ...todo,
+          check: false,
+        };
+      });
+      console.log(newRoutine);
+
+      return {
+        ...state,
+        history: newHistory,
+        routine: newRoutine,
       };
 
     default:

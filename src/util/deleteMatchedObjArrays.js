@@ -1,4 +1,4 @@
-export const multipleDelete = (copy_sorce_array, target) => {
+export const deleteMatchedObjArrays = (copy_sorce_array, target) => {
   for (let i = 0; i < copy_sorce_array.length; i++) {
     if (target.includes(copy_sorce_array[i].id)) {
       copy_sorce_array.splice(i--, 1);

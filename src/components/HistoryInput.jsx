@@ -4,6 +4,7 @@ import {
   deleteHistoryAction,
   selectAllHistoryAction,
   uncheckHistoryAction,
+  addRoutineAction,
 } from "../store/actions";
 
 //style
@@ -12,6 +13,7 @@ import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import UndoIcon from "@material-ui/icons/Undo";
 import DoneAllIcon from "@material-ui/icons/DoneAll";
+import PlaylistAddIcon from "@material-ui/icons/PlaylistAdd";
 
 //util
 import { checkHistory } from "../util/checkHistory";
@@ -21,6 +23,9 @@ export const HistoryInput = () => {
   //state
   const history = useSelector((state) => state.history);
   const [isActiveDeleteButton, setIsActiveDeleteButton] = useState(true);
+  const [isActiveAddRoutineButton, setIsActiveAddRoutineButton] = useState(
+    true
+  );
   const [toggleButton, setToggleButton] = useState(false);
   const [isActiveSellectAllButton, setIsActiveSellectAll] = useState(true);
 
@@ -29,8 +34,9 @@ export const HistoryInput = () => {
   const deleteHistory = (todoIds) => dispatch(deleteHistoryAction(todoIds));
   const slectAllHistory = () => dispatch(selectAllHistoryAction());
   const uncheckHistory = () => dispatch(uncheckHistoryAction());
+  const addRoutine = (todoIds) => dispatch(addRoutineAction(todoIds));
   useEffect(() => {
-    //toggle select button
+    //toggle select-button
     toggleSelectAllButton(
       history,
       setToggleButton,
@@ -38,10 +44,12 @@ export const HistoryInput = () => {
       "check"
     );
 
-    //toggle delete button
+    //toggle delete-button and add-routine-button
     if (checkHistory(history)) {
+      setIsActiveAddRoutineButton(false);
       setIsActiveDeleteButton(false);
     } else {
+      setIsActiveAddRoutineButton(true);
       setIsActiveDeleteButton(true);
     }
   }, [history]);
@@ -56,8 +64,9 @@ export const HistoryInput = () => {
       } else;
       return item;
     });
-    deleteHistory(todoIds);
+
     setIsActiveDeleteButton(false);
+    deleteHistory(todoIds);
   };
 
   const handleUncheck = (e) => {
@@ -68,6 +77,19 @@ export const HistoryInput = () => {
   const handleSelect = (e) => {
     e.preventDefault();
     slectAllHistory();
+  };
+
+  const handleAdd = (e) => {
+    e.preventDefault();
+    let todoIds = [];
+    history.map((item) => {
+      if (item.check) {
+        todoIds.push(item.id);
+      } else;
+      return item;
+    });
+    setIsActiveAddRoutineButton(false);
+    addRoutine(todoIds);
   };
 
   //toggle components
@@ -89,6 +111,14 @@ export const HistoryInput = () => {
     <>
       <LeftContainer>{button}</LeftContainer>
       <RightContainer>
+        <IconButton
+          aria-label="add routine"
+          color="primary"
+          disabled={isActiveAddRoutineButton}
+          onClick={handleAdd}
+        >
+          <PlaylistAddIcon />
+        </IconButton>
         <IconButton
           aria-label="delete"
           disabled={isActiveDeleteButton}
