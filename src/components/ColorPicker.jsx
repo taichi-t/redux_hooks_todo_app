@@ -63,6 +63,7 @@ export const ColorPicker = (props) => {
         aria-controls="long-menu"
         aria-haspopup="true"
         onClick={handleClick}
+        edge="start"
         className={classes.menuButton}
       >
         <ColorLensIcon />

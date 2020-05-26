@@ -1,6 +1,7 @@
 import React from "react";
 // import { useSelector } from "react-redux";
-import RepeatIcon from "@material-ui/icons/Repeat";
+// import RepeatIcon from "@material-ui/icons/Repeat";
+import ListIcon from "@material-ui/icons/List";
 
 //style
 import styled from "styled-components";
@@ -13,7 +14,7 @@ export const RoutineWork = () => {
   return (
     <StyledPaper>
       <Title>
-        <RepeatIcon fontSize="large" />
+        <ListIcon fontSize="large" />
       </Title>
     </StyledPaper>
   );
@@ -25,7 +26,7 @@ export default RoutineWork;
 
 const StyledPaper = styled(Paper)`
   margin: 1rem;
-  max-height: 50rem;
+  max-height: 100vh;
   overflow: scroll;
 `;
 

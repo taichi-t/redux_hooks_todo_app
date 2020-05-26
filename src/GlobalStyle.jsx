@@ -12,6 +12,9 @@ export const GlobalStyle = createGlobalStyle`
 #root{
   overflow:hidden
 }
+h2{
+  margin:0;
+}
 `;
 
 export const themeObjectFunction = () => {

@@ -15,11 +15,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
 
 const useStyles = makeStyles((theme) => ({
-  menuButton: {
-    marginRight: theme.spacing(3),
-  },
   title: {
-    alignSelf: "flex-end",
     flexGrow: 1,
   },
 }));
@@ -94,7 +90,7 @@ export default Navbar;
 //style
 const Title = styled.h1`
   color: ${(props) => props.color};
-  font-size: 2.4rem;
+  font-size: 1.6rem;
 `;
 
 const Month = styled.span`

@@ -20,8 +20,18 @@ import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+  list: {
+    paddingTop: theme.spacing(0),
+    paddingBottom: theme.spacing(0),
+  },
+}));
 
 export const CreateHistoryItem = (props) => {
+  //state
+  const classes = useStyles();
   const { objects, index } = props;
   const [open, setOpen] = useState(false);
   const [check, setCheck] = useState(
@@ -53,8 +63,8 @@ export const CreateHistoryItem = (props) => {
   };
   return (
     <>
-      <List component="ul">
-        <ListItem>
+      <List component="ul" className={classes.list}>
+        <ListItem className={classes.list}>
           <ListItemIcon>
             <Box>
               <IconButton
@@ -125,5 +135,5 @@ export const CreateHistoryItem = (props) => {
 };
 
 const Box = styled.div`
-  font-size: 1.5rem;
+  font-size: 1.6rem;
 `;
