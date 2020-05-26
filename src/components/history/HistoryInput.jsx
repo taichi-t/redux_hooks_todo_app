@@ -4,8 +4,10 @@ import {
   deleteHistoryAction,
   selectAllHistoryAction,
   uncheckHistoryAction,
-  addRoutineAction,
-} from "../store/actions";
+} from "../../store/actions";
+
+//components
+import DialogForm from "../routine/DialogForm";
 
 //style
 import styled from "styled-components";
@@ -16,25 +18,26 @@ import DoneAllIcon from "@material-ui/icons/DoneAll";
 import PlaylistAddIcon from "@material-ui/icons/PlaylistAdd";
 
 //util
-import { checkHistory } from "../util/checkHistory";
-import { toggleSelectAllButton } from "../util/toggleSelectAllButton";
+import { checkHistory } from "../../util/checkHistory";
+import { toggleSelectAllButton } from "../../util/toggleSelectAllButton";
 
 export const HistoryInput = () => {
   //state
   const history = useSelector((state) => state.projects.history);
+  const routine = useSelector((state) => state.users.routine);
   const [isActiveDeleteButton, setIsActiveDeleteButton] = useState(true);
   const [isActiveAddRoutineButton, setIsActiveAddRoutineButton] = useState(
     true
   );
   const [toggleButton, setToggleButton] = useState(false);
   const [isActiveSellectAllButton, setIsActiveSellectAll] = useState(true);
+  const [openDialogForm, setDialogForm] = useState(false);
 
   //dispatchActions
   const dispatch = useDispatch();
   const deleteHistory = (todoIds) => dispatch(deleteHistoryAction(todoIds));
   const slectAllHistory = () => dispatch(selectAllHistoryAction());
   const uncheckHistory = () => dispatch(uncheckHistoryAction());
-  const addRoutine = (todoIds) => dispatch(addRoutineAction(todoIds));
 
   useEffect(() => {
     //toggle select-button
@@ -66,7 +69,6 @@ export const HistoryInput = () => {
       return item;
     });
 
-    setIsActiveDeleteButton(false);
     deleteHistory(todoIds);
   };
 
@@ -82,15 +84,17 @@ export const HistoryInput = () => {
 
   const handleAdd = (e) => {
     e.preventDefault();
-    let todoIds = [];
-    history.map((item) => {
-      if (item.check) {
-        todoIds.push(item.id);
-      } else;
-      return item;
-    });
-    setIsActiveAddRoutineButton(false);
-    addRoutine(todoIds);
+
+    let keys = [];
+    for (let key in routine) {
+      keys.push(key);
+    }
+    if (keys.length === 0) {
+      setDialogForm(true);
+    } else {
+      return;
+      // addRoutine(todoIds);
+    }
   };
 
   //toggle components
@@ -110,6 +114,7 @@ export const HistoryInput = () => {
   );
   return (
     <>
+      <DialogForm open={openDialogForm} setState={setDialogForm} />
       <LeftContainer>{button}</LeftContainer>
       <RightContainer>
         <IconButton

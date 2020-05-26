@@ -5,11 +5,11 @@ import { rootReducer } from "./store/reducers/rootReducer";
 import { createStore } from "redux";
 
 //components
-import TodoInput from "./components/TodoInput";
-import TodoList from "./components/TodoList";
-import Navbar from "./components/Navbar";
-import HistoryList from "./components/HistoryList";
-import RoutineWork from "./components/RoutineWork";
+import TodoInput from "./components/todo/TodoInput";
+import TodoList from "./components/todo/TodoList";
+import Navbar from "./components/nav/Navbar";
+import HistoryList from "./components/history/HistoryList";
+import RoutineList from "./components/routine/RoutineList";
 //style
 import { GlobalStyle } from "./GlobalStyle";
 import { ThemeProvider } from "@material-ui/core/styles";
@@ -28,7 +28,6 @@ function App() {
         users: { routine: [], userSettings: {} },
       };
   const persistedState = data;
-  console.log(persistedState);
 
   const store = createStore(
     rootReducer,
@@ -36,7 +35,6 @@ function App() {
     window.devToolsExtension && window.devToolsExtension()
   );
 
-  console.log(store.getState());
   store.subscribe(() => {
     localStorage.setItem("data", JSON.stringify(store.getState()));
   });
@@ -48,9 +46,9 @@ function App() {
       <ThemeProvider theme={themeConfig}>
         <GlobalStyle theme={themeConfig} />
         <Navbar toggleTheme={toggleTheme} />
-        <Grid container spacing={3}>
+        <Grid container spacing={1}>
           <Grid item xs={12} md={4}>
-            <RoutineWork />
+            <RoutineList />
           </Grid>
           <Grid item xs={12} md={4}>
             <TodoInput />

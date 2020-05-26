@@ -8,10 +8,10 @@ export function rootReducer(state, { type, payload }) {
   let newRoutine;
 
   switch (type) {
-    case "ADD_ROUTINE":
+    case "ADD_NEW_ROUTINE_TO_NEW_FOLDER":
       newHistory = [...state.projects.history];
-      newRoutine = createObjArraysMatchedId(newHistory, payload);
-      newHistory = deleteMatchedObjArrays(newHistory, payload);
+      newRoutine = createObjArraysMatchedId(newHistory, payload.todoIds);
+      newHistory = deleteMatchedObjArrays(newHistory, payload.todoIds);
       newRoutine = newRoutine.map((todo) => {
         delete todo.complete;
         return {
@@ -26,7 +26,12 @@ export function rootReducer(state, { type, payload }) {
           { type, payload }
         ),
         users: usersReducer(
-          { ...state.users, routine: newRoutine.concat(state.users.routine) },
+          {
+            ...state.users,
+            routine: {
+              [payload.folderName]: newRoutine,
+            },
+          },
           { type, payload }
         ),
       };
@@ -38,3 +43,5 @@ export function rootReducer(state, { type, payload }) {
       };
   }
 }
+
+// newRoutine.concat(state.users.routine);

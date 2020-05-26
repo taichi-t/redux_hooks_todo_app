@@ -51,7 +51,6 @@ export const Navbar = (props) => {
       aria-label="darkmode"
       color="inherit"
       edge="end"
-      className={classes.menuButton}
       onClick={handleClick}
     >
       <Brightness4Icon />
@@ -61,7 +60,6 @@ export const Navbar = (props) => {
       aria-label="lightmode"
       color="inherit"
       edge="end"
-      className={classes.menuButton}
       onClick={handleClick}
     >
       <Brightness7Icon />
@@ -71,7 +69,7 @@ export const Navbar = (props) => {
   return (
     <div className={classes.root}>
       <AppBar position="static">
-        <Toolbar className={classes.toolbar}>
+        <Toolbar>
           <Title className={classes.title} color={theme.palette.text.primary}>
             <span>{now.date} </span>
             <Month>{now.month}</Month>

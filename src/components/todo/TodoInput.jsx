@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addTodoAction } from "../store/actions";
-import { selectAllAction } from "../store/actions";
-import { executeAction } from "../store/actions";
-import { uncheckAction } from "../store/actions";
+import { addTodoAction } from "../../store/actions";
+import { selectAllAction } from "../../store/actions";
+import { executeAction } from "../../store/actions";
+import { uncheckAction } from "../../store/actions";
 import { v4 as uuidv4 } from "uuid";
 
 //util
-import { toggleSelectAllButton } from "../util/toggleSelectAllButton";
+import { toggleSelectAllButton } from "../../util/toggleSelectAllButton";
 
 //style
 import Input from "@material-ui/core/Input";
@@ -16,7 +16,6 @@ import styled from "styled-components";
 import AddIcon from "@material-ui/icons/Add";
 import Paper from "@material-ui/core/Paper";
 import DoneAllIcon from "@material-ui/icons/DoneAll";
-import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import UndoIcon from "@material-ui/icons/Undo";
 import PlaylistAddIcon from "@material-ui/icons/PlaylistAdd";
 import { makeStyles } from "@material-ui/core/styles";

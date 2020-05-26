@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 //actions
-import { selectHistoryAction } from "../store/actions";
-import { selectHistoriesAction } from "../store/actions";
-import { uncheckHistoriesAction } from "../store/actions";
+import { selectHistoryAction } from "../../store/actions";
+import { selectHistoriesAction } from "../../store/actions";
+import { uncheckHistoriesAction } from "../../store/actions";
 
 //style
 import styled from "styled-components";
@@ -12,7 +12,6 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Checkbox from "@material-ui/core/Checkbox";
 import Divider from "@material-ui/core/Divider";
-import moment from "moment";
 import IconButton from "@material-ui/core/IconButton";
 import Collapse from "@material-ui/core/Collapse";
 import List from "@material-ui/core/List";
@@ -29,7 +28,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const CreateHistoryItem = (props) => {
+export const CreateRoutineItem = (props) => {
+  console.log(props);
   //state
   const classes = useStyles();
   const { objects, index } = props;
@@ -61,6 +61,7 @@ export const CreateHistoryItem = (props) => {
       ? uncheckHistories(todoIds)
       : selectHistories(todoIds);
   };
+
   return (
     <>
       <List component="ul" className={classes.list}>
@@ -76,14 +77,7 @@ export const CreateHistoryItem = (props) => {
               >
                 <Checkbox checked={check} color="primary" />
               </IconButton>
-              {moment(index).calendar(null, {
-                sameDay: "[Today]",
-                nextDay: "[Tomorrow]",
-                nextWeek: "dddd",
-                lastDay: "[Yesterday]",
-                lastWeek: "[Last] dddd",
-                sameElse: "DD/MM/YYYY",
-              })}
+              {index}
             </Box>
           </ListItemIcon>
 
@@ -133,6 +127,8 @@ export const CreateHistoryItem = (props) => {
     </>
   );
 };
+
+export default CreateRoutineItem;
 
 const Box = styled.div`
   font-size: 1.6rem;

@@ -67,7 +67,9 @@ export const uncheckHistoriesAction = (todoIds) => ({
   payload: todoIds,
 });
 
-export const addRoutineAction = (todoIds) => ({
-  type: "ADD_ROUTINE",
-  payload: todoIds,
+//routine actions
+
+export const addRoutineAction = (todoIds, folderName) => ({
+  type: "ADD_NEW_ROUTINE_TO_NEW_FOLDER",
+  payload: { todoIds, folderName },
 });

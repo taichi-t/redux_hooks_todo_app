@@ -4,7 +4,7 @@ import {
   toggleTodoAction,
   deleteTodoAction,
   doneTodoAction,
-} from "../store/actions";
+} from "../../store/actions";
 
 //style
 import styled from "styled-components";

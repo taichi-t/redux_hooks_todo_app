@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { HistoryInput } from "./HistoryInput";
 
 //util
-import { sortByDate } from "../util/sortByDate";
+import { sortByDate } from "../../util/sortByDate";
 
 //components
 import { CreateHistoryList } from "./CreateHistoryList";
