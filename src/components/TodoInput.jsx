@@ -17,14 +17,16 @@ import AddIcon from "@material-ui/icons/Add";
 import Paper from "@material-ui/core/Paper";
 import DoneAllIcon from "@material-ui/icons/DoneAll";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
-import { withStyles } from "@material-ui/core/styles";
 import UndoIcon from "@material-ui/icons/Undo";
+import PlaylistAddIcon from "@material-ui/icons/PlaylistAdd";
+import { makeStyles } from "@material-ui/core/styles";
+import DoneIcon from "@material-ui/icons/Done";
 
 export const TodoInput = () => {
   //state
   const [todo, setTodo] = useState("");
   const todos = useSelector((state) => state.projects.todos);
-  const [isActiveExecuteButton, setIsActiveExecuteButton] = useState(true);
+  const [isActiveButton, setIsActiveButton] = useState(true);
   const [isActiveSellectAllButton, setIsActiveSellectAll] = useState(true);
   const [toggleButton, setToggleButton] = useState(false);
 
@@ -34,6 +36,7 @@ export const TodoInput = () => {
   const selectAll = () => dispatch(selectAllAction());
   const execute = () => dispatch(executeAction());
   const uncheck = () => dispatch(uncheckAction());
+  const classes = useStyles();
 
   useEffect(() => {
     const indicatorOfExecuteButton = todos.find(
@@ -49,9 +52,9 @@ export const TodoInput = () => {
 
     //to toggle executeButton
     if (indicatorOfExecuteButton === undefined || todos.length === 0) {
-      setIsActiveExecuteButton(true);
+      setIsActiveButton(true);
     } else {
-      setIsActiveExecuteButton(false);
+      setIsActiveButton(false);
     }
   }, [todos]);
 
@@ -86,9 +89,17 @@ export const TodoInput = () => {
     uncheck();
   };
 
+  //toggle components
   const button = toggleButton ? (
-    <Button color="secondary" startIcon={<UndoIcon />} onClick={handleUncheck}>
-      <Text fontSize={0.5}>Uncheck All</Text>
+    <Button
+      color="secondary"
+      startIcon={<UndoIcon />}
+      onClick={handleUncheck}
+      variant="contained"
+      size="small"
+      className={classes.button}
+    >
+      Uncheck All
     </Button>
   ) : (
     <Button
@@ -96,8 +107,11 @@ export const TodoInput = () => {
       startIcon={<DoneAllIcon />}
       disabled={isActiveSellectAllButton}
       onClick={handleSelect}
+      variant="contained"
+      size="small"
+      className={classes.button}
     >
-      <Text fontSize={0.5}>Select All</Text>
+      Select All
     </Button>
   );
   return (
@@ -118,18 +132,40 @@ export const TodoInput = () => {
               value={todo}
               onChange={handleChange}
             />
-            <Button type="submit" color="primary" startIcon={<AddIcon />}>
+            <Button
+              type="submit"
+              color="primary"
+              startIcon={<AddIcon />}
+              variant="contained"
+              size="small"
+              className={classes.button}
+            >
               ADD
             </Button>
           </Box>
           {button}
-          <ColorButton
+          <Button
             onClick={handleExecute}
-            startIcon={<CheckCircleOutlineIcon />}
-            disabled={isActiveExecuteButton}
+            startIcon={<DoneIcon />}
+            disabled={isActiveButton}
+            variant="contained"
+            color="primary"
+            size="small"
+            className={classes.button}
           >
-            <Text fontSize={0.5}>Execute</Text>
-          </ColorButton>
+            Done
+          </Button>
+
+          <Button
+            size="small"
+            color="primary"
+            variant="contained"
+            startIcon={<PlaylistAddIcon />}
+            disabled={isActiveButton}
+            className={classes.button}
+          >
+            Add to lists
+          </Button>
         </form>
       </Paper>
     </Container>
@@ -145,14 +181,12 @@ const Container = styled.div`
   padding: 1rem;
 `;
 
-const Text = styled.p`
-  font-size: ${(props) => props.fontSize}rem;
-`;
-
 const Box = styled.div``;
 
-const ColorButton = withStyles((theme) => ({
-  root: {
-    color: theme.palette.success.main,
+const useStyles = makeStyles((theme) => ({
+  button: {
+    margin: theme.spacing(1),
+    textAlign: "center",
+    lineHeight: "initial",
   },
-}))(Button);
+}));
