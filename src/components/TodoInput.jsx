@@ -23,7 +23,7 @@ import UndoIcon from "@material-ui/icons/Undo";
 export const TodoInput = () => {
   //state
   const [todo, setTodo] = useState("");
-  const todos = useSelector((state) => state.todos);
+  const todos = useSelector((state) => state.projects.todos);
   const [isActiveExecuteButton, setIsActiveExecuteButton] = useState(true);
   const [isActiveSellectAllButton, setIsActiveSellectAll] = useState(true);
   const [toggleButton, setToggleButton] = useState(false);

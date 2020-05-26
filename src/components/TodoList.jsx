@@ -17,7 +17,7 @@ import { useTheme } from "@material-ui/core/styles";
 
 export const TodoList = () => {
   const theme = useTheme();
-  const todos = useSelector((state) => state.todos);
+  const todos = useSelector((state) => state.projects.todos);
 
   const dispatch = useDispatch();
   const toggleTodo = (todoId) => dispatch(toggleTodoAction(todoId));

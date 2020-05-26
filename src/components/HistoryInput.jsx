@@ -21,7 +21,7 @@ import { toggleSelectAllButton } from "../util/toggleSelectAllButton";
 
 export const HistoryInput = () => {
   //state
-  const history = useSelector((state) => state.history);
+  const history = useSelector((state) => state.projects.history);
   const [isActiveDeleteButton, setIsActiveDeleteButton] = useState(true);
   const [isActiveAddRoutineButton, setIsActiveAddRoutineButton] = useState(
     true

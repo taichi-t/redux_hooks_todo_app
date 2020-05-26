@@ -17,7 +17,7 @@ import { useTheme } from "@material-ui/core/styles";
 export const HistoryList = () => {
   //state
   const theme = useTheme();
-  const history = useSelector((state) => state.history);
+  const history = useSelector((state) => state.projects.history);
   const [sortedHistory, setsortedHistory] = useState();
 
   useEffect(() => {

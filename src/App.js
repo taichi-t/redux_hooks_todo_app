@@ -1,7 +1,7 @@
 import React from "react";
 import "normalize.css";
 import { Provider } from "react-redux";
-import projectReducer from "./store/reducers/projectReducer";
+import { rootReducer } from "./store/reducers/rootReducer";
 import { createStore } from "redux";
 
 //components
@@ -23,15 +23,20 @@ function App() {
   const [theme, toggleTheme] = useTheme();
   const data = localStorage.getItem("data")
     ? JSON.parse(localStorage.getItem("data"))
-    : { todos: [], history: [], routine: [], userSetting: {} };
+    : {
+        projects: { todos: [], history: [] },
+        users: { routine: [], userSettings: {} },
+      };
   const persistedState = data;
+  console.log(persistedState);
 
   const store = createStore(
-    projectReducer,
+    rootReducer,
     persistedState,
     window.devToolsExtension && window.devToolsExtension()
   );
 
+  console.log(store.getState());
   store.subscribe(() => {
     localStorage.setItem("data", JSON.stringify(store.getState()));
   });
