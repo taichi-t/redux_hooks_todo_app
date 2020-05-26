@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 //style
 import styled from "styled-components";
 import IconButton from "@material-ui/core/IconButton";
-import DeleteIcon from "@material-ui/icons/Delete";
 import CreateNewFolderIcon from "@material-ui/icons/CreateNewFolder";
 
 export const RoutineInput = () => {
@@ -17,9 +16,6 @@ export const RoutineInput = () => {
       <RightContainer>
         <IconButton aria-label="create a folder" color="primary">
           <CreateNewFolderIcon />
-        </IconButton>
-        <IconButton aria-label="delete" color="secondary">
-          <DeleteIcon />
         </IconButton>
       </RightContainer>
     </>

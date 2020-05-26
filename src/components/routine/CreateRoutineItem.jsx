@@ -6,6 +6,9 @@ import { selectHistoryAction } from "../../store/actions";
 import { selectHistoriesAction } from "../../store/actions";
 import { uncheckHistoriesAction } from "../../store/actions";
 
+//components
+import { More } from "./More";
+
 //style
 import styled from "styled-components";
 import ListItem from "@material-ui/core/ListItem";
@@ -15,21 +18,14 @@ import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
 import Collapse from "@material-ui/core/Collapse";
 import List from "@material-ui/core/List";
-import ExpandLess from "@material-ui/icons/ExpandLess";
-import ExpandMore from "@material-ui/icons/ExpandMore";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import { makeStyles } from "@material-ui/core/styles";
-
-const useStyles = makeStyles((theme) => ({
-  list: {
-    paddingTop: theme.spacing(0),
-    paddingBottom: theme.spacing(0),
-  },
-}));
+import FolderIcon from "@material-ui/icons/Folder";
+import FolderOpenIcon from "@material-ui/icons/FolderOpen";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
 
 export const CreateRoutineItem = (props) => {
-  console.log(props);
   //state
   const classes = useStyles();
   const { objects, index } = props;
@@ -39,6 +35,7 @@ export const CreateRoutineItem = (props) => {
       ? true
       : false
   );
+  const [anchorEl, setAnchorEl] = useState(null);
 
   useEffect(() => {
     objects.filter((object) => object.check === false).length === 0
@@ -55,6 +52,7 @@ export const CreateRoutineItem = (props) => {
 
   const todoIds = objects && objects.map((object) => object.id);
 
+  //handle actions
   const handleSelect = (e) => {
     setCheck(!check);
     objects.filter((object) => object.check === false).length === 0
@@ -62,10 +60,21 @@ export const CreateRoutineItem = (props) => {
       : selectHistories(todoIds);
   };
 
+  const handleClick = (e) => {
+    setAnchorEl(e.currentTarget);
+  };
+
+  //toggle components
+  const folderIcon = open ? (
+    <FolderOpenIcon color="primary" />
+  ) : (
+    <FolderIcon color="primary" />
+  );
+
   return (
     <>
       <List component="ul" className={classes.list}>
-        <ListItem className={classes.list}>
+        <ListItem className={classes.list} onClick={(e) => setOpen(!open)}>
           <ListItemIcon>
             <Box>
               <IconButton
@@ -75,32 +84,23 @@ export const CreateRoutineItem = (props) => {
                 disableRipple={true}
                 disableFocusRipple={true}
               >
-                <Checkbox checked={check} color="primary" />
+                {folderIcon}
               </IconButton>
               {index}
             </Box>
           </ListItemIcon>
 
           <ListItemSecondaryAction>
-            {open ? (
-              <IconButton
-                color="primary"
-                onClick={(e) => setOpen(!open)}
-                edge="end"
-                component="div"
-              >
-                <ExpandLess />
-              </IconButton>
-            ) : (
-              <IconButton
-                color="primary"
-                onClick={(e) => setOpen(!open)}
-                edge="end"
-                component="div"
-              >
-                <ExpandMore />
-              </IconButton>
-            )}
+            <IconButton
+              className={classes.menuButton}
+              edge="end"
+              disableRipple={true}
+              disableFocusRipple={true}
+              onClick={handleClick}
+            >
+              <MoreVertIcon />
+            </IconButton>
+            <More anchorEl={anchorEl} setAnchorEl={setAnchorEl} />
           </ListItemSecondaryAction>
         </ListItem>
         <Collapse in={open} timeout="auto" unmountOnExit>
@@ -130,6 +130,17 @@ export const CreateRoutineItem = (props) => {
 
 export default CreateRoutineItem;
 
+//style
 const Box = styled.div`
   font-size: 1.6rem;
 `;
+
+const useStyles = makeStyles((theme) => ({
+  list: {
+    paddingTop: theme.spacing(0),
+    paddingBottom: theme.spacing(0),
+  },
+  menuButton: {
+    color: theme.palette.text.hint,
+  },
+}));

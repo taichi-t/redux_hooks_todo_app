@@ -83,19 +83,17 @@ export const CreateHistoryItem = (props) => {
           <ListItemSecondaryAction>
             {open ? (
               <IconButton
-                color="primary"
+                className={classes.menuButton}
                 onClick={(e) => setOpen(!open)}
                 edge="end"
-                component="div"
               >
                 <ExpandLess />
               </IconButton>
             ) : (
               <IconButton
-                color="primary"
+                className={classes.menuButton}
                 onClick={(e) => setOpen(!open)}
                 edge="end"
-                component="div"
               >
                 <ExpandMore />
               </IconButton>
@@ -136,5 +134,8 @@ const useStyles = makeStyles((theme) => ({
   list: {
     paddingTop: theme.spacing(0),
     paddingBottom: theme.spacing(0),
+  },
+  menuButton: {
+    color: theme.palette.text.hint,
   },
 }));
