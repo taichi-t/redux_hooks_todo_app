@@ -4,19 +4,20 @@ import { Provider } from "react-redux";
 import { rootReducer } from "./store/reducers/rootReducer";
 import { createStore } from "redux";
 
-//components
+/* ------------------------------- COMPONENTS ------------------------------- */
 import TodoInput from "./components/todo/TodoInput";
 import TodoList from "./components/todo/TodoList";
 import Navbar from "./components/nav/Navbar";
 import HistoryList from "./components/history/HistoryList";
 import RoutineList from "./components/routine/RoutineList";
-//style
+
+/* ---------------------------------- STYLE --------------------------------- */
 import { GlobalStyle } from "./GlobalStyle";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { createMuiTheme } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 
-//hooks
+/* ---------------------------------- HOOKS --------------------------------- */
 import { useTheme } from "./hooks/useTheme";
 
 function App() {
