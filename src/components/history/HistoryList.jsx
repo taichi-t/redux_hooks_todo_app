@@ -2,20 +2,22 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { HistoryInput } from "./HistoryInput";
 
-//util
+/* --------------------------------- util --------------------------------- */
 import { sortByDate } from "../../util/sortByDate";
 
-//components
+/* ------------------------------ components ------------------------------ */
 import { CreateHistoryList } from "./CreateHistoryList";
-//style
+
+/* --------------------------------- style -------------------------------- */
 import styled from "styled-components";
 import Paper from "@material-ui/core/Paper";
-// import List from "@material-ui/core/List";
 import HistoryIcon from "@material-ui/icons/History";
 import { useTheme } from "@material-ui/core/styles";
 
 export const HistoryList = () => {
-  //state
+  /* -------------------------------------------------------------------------- */
+  /*                                    state                                   */
+  /* -------------------------------------------------------------------------- */
   const theme = useTheme();
   const history = useSelector((state) => state.projects.history);
   const [sortedHistory, setsortedHistory] = useState();
@@ -44,7 +46,7 @@ export const HistoryList = () => {
 
 export default HistoryList;
 
-//style
+/* ---------------------------------- style --------------------------------- */
 const StyledPaper = styled(Paper)`
   margin: 1rem;
   max-height: 50rem;

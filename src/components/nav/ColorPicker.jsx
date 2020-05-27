@@ -2,51 +2,28 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Box from "@material-ui/core/Box";
 
-//style
+/* --------------------------------- style -------------------------------- */
 import MenuItem from "@material-ui/core/MenuItem";
 import ColorLensIcon from "@material-ui/icons/ColorLens";
 import IconButton from "@material-ui/core/IconButton";
 import Menu from "@material-ui/core/Menu";
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles((theme) => ({
-  menuButton: {
-    marginRight: theme.spacing(3),
-  },
-}));
-
-const colorArray = [
-  "default",
-  "#f44336",
-  "#e91e63",
-  "#9c27b0",
-  "#673ab7",
-  "#3f51b5",
-  "#2196f3",
-  "#03a9f4",
-  "#00bcd4",
-  "#009688",
-  "#4caf50",
-  "#8bc34a",
-  "#cddc39",
-  "#ffeb3b",
-  "#ffc107",
-  "#ff9800",
-  "#ff5722",
-];
-
 export const ColorPicker = (props) => {
-  //state
+  /* -------------------------------------------------------------------------- */
+  /*                                   state                                  */
+  /* -------------------------------------------------------------------------- */
   const { toggleTheme } = props;
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const classes = useStyles();
 
-  //handle actions
+  /* -------------------------------------------------------------------------- */
+  /*                               handle actions                               */
+  /* -------------------------------------------------------------------------- */
   const handleClick = (e) => {
     setAnchorEl(e.currentTarget);
   };
-
   const handleClose = (item) => {
     if (typeof item === "object") {
       setAnchorEl(null);
@@ -97,8 +74,35 @@ export const ColorPicker = (props) => {
 
 export default ColorPicker;
 
+/* ---------------------------------- style --------------------------------- */
 const StyledBoxColor = styled(Box)`
   background-color: ${(props) => props.color};
   width: 1rem;
   height: 1rem;
 `;
+
+const useStyles = makeStyles((theme) => ({
+  menuButton: {
+    marginRight: theme.spacing(3),
+  },
+}));
+
+const colorArray = [
+  "default",
+  "#f44336",
+  "#e91e63",
+  "#9c27b0",
+  "#673ab7",
+  "#3f51b5",
+  "#2196f3",
+  "#03a9f4",
+  "#00bcd4",
+  "#009688",
+  "#4caf50",
+  "#8bc34a",
+  "#cddc39",
+  "#ffeb3b",
+  "#ffc107",
+  "#ff9800",
+  "#ff5722",
+];

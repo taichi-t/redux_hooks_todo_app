@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 
-//actions
-import { selectHistoryAction } from "../../store/actions";
+/* --------------------------------- actions -------------------------------- */
 import { selectHistoriesAction } from "../../store/actions";
 import { uncheckHistoriesAction } from "../../store/actions";
 
-//components
+/* ------------------------------- components ------------------------------- */
 import { More } from "./More";
+import { CreateRoutineElement } from "./CreateRoutineElement";
 
-//style
+/* ---------------------------------- style --------------------------------- */
 import styled from "styled-components";
 import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import Checkbox from "@material-ui/core/Checkbox";
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
 import Collapse from "@material-ui/core/Collapse";
@@ -24,18 +22,25 @@ import { makeStyles } from "@material-ui/core/styles";
 import FolderIcon from "@material-ui/icons/Folder";
 import FolderOpenIcon from "@material-ui/icons/FolderOpen";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
+import Input from "@material-ui/core/Input";
+import AddIcon from "@material-ui/icons/Add";
+import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 
 export const CreateRoutineItem = (props) => {
-  //state
+  /* -------------------------------------------------------------------------- */
+  /*                                    state                                   */
+  /* -------------------------------------------------------------------------- */
   const classes = useStyles();
   const { objects, index } = props;
-  const [open, setOpen] = useState(false);
+  const [openCollapseList, setOpenCollapseList] = useState(false);
   const [check, setCheck] = useState(
     objects.filter((object) => object.check === false).length === 0
       ? true
       : false
   );
   const [anchorEl, setAnchorEl] = useState(null);
+  const [add, setAdd] = useState(false);
+  const [routine, setRoutine] = useState("");
 
   useEffect(() => {
     objects.filter((object) => object.check === false).length === 0
@@ -43,38 +48,67 @@ export const CreateRoutineItem = (props) => {
       : setCheck(false);
   }, [objects]);
 
-  //dispatchActions
+  /* -------------------------------------------------------------------------- */
+  /*                               dispatchActions                              */
+  /* -------------------------------------------------------------------------- */
   const dispatch = useDispatch();
-  const selectHistory = (todoId) => dispatch(selectHistoryAction(todoId));
   const selectHistories = (todoIds) => dispatch(selectHistoriesAction(todoIds));
   const uncheckHistories = (todoIds) =>
     dispatch(uncheckHistoriesAction(todoIds));
-
   const todoIds = objects && objects.map((object) => object.id);
 
-  //handle actions
+  /* -------------------------------------------------------------------------- */
+  /*                               handle actions                               */
+  /* -------------------------------------------------------------------------- */
   const handleSelect = (e) => {
     setCheck(!check);
     objects.filter((object) => object.check === false).length === 0
       ? uncheckHistories(todoIds)
       : selectHistories(todoIds);
   };
-
   const handleClick = (e) => {
     setAnchorEl(e.currentTarget);
   };
+  const handleClickAway = () => {};
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (routine.trim() === "") return;
+    setRoutine("");
+    setAdd(false);
+    console.log(routine);
+  };
+  const handleChange = (e) => {
+    setRoutine(e.target.value);
+  };
 
   //toggle components
-  const folderIcon = open ? (
+  const folderIcon = openCollapseList ? (
     <FolderOpenIcon color="primary" />
   ) : (
     <FolderIcon color="primary" />
   );
 
+  const addTodo = add ? (
+    <form type="submit" onSubmit={handleSubmit} noValidate autoComplete="off">
+      <IconButton edge="start" color="primary" type="submit">
+        <AddIcon />
+      </IconButton>
+      <Input
+        name="todo"
+        placeholder="create a todo"
+        type="text"
+        onChange={handleChange}
+      />
+    </form>
+  ) : null;
+
   return (
     <>
       <List component="ul" className={classes.list}>
-        <ListItem className={classes.list} onClick={(e) => setOpen(!open)}>
+        <ListItem
+          className={classes.list}
+          onClick={(e) => setOpenCollapseList(!openCollapseList)}
+        >
           <ListItemIcon>
             <Box>
               <IconButton
@@ -100,27 +134,23 @@ export const CreateRoutineItem = (props) => {
             >
               <MoreVertIcon />
             </IconButton>
-            <More anchorEl={anchorEl} setAnchorEl={setAnchorEl} />
+            <More
+              anchorEl={anchorEl}
+              setAnchorEl={setAnchorEl}
+              setAdd={setAdd}
+              openCollapseList={openCollapseList}
+              setOpenCollapseList={setOpenCollapseList}
+            />
           </ListItemSecondaryAction>
         </ListItem>
-        <Collapse in={open} timeout="auto" unmountOnExit>
+        <Collapse in={openCollapseList} timeout="auto" unmountOnExit>
           {objects &&
             objects.map((item, index) => (
-              <ListItem
-                id={index}
-                onClick={selectHistory.bind(null, item.id)}
-                button={true}
-                key={index}
-              >
-                <Checkbox
-                  type="checkbox"
-                  checked={item.check}
-                  color="primary"
-                  size="small"
-                />
-                <ListItemText primary={`${item.name}`} />
-              </ListItem>
+              <CreateRoutineElement item={item} index={index} key={index} />
             ))}
+          <ClickAwayListener onClickAway={handleClickAway}>
+            <ListItem>{addTodo}</ListItem>
+          </ClickAwayListener>
         </Collapse>
       </List>
       <Divider variant="middle" />
@@ -130,11 +160,10 @@ export const CreateRoutineItem = (props) => {
 
 export default CreateRoutineItem;
 
-//style
+/* ---------------------------------- style --------------------------------- */
 const Box = styled.div`
   font-size: 1.6rem;
 `;
-
 const useStyles = makeStyles((theme) => ({
   list: {
     paddingTop: theme.spacing(0),

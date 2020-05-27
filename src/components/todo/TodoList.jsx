@@ -1,12 +1,14 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
+
+/* --------------------------------- ATIONS --------------------------------- */
 import {
   toggleTodoAction,
   deleteTodoAction,
   doneTodoAction,
 } from "../../store/actions";
 
-//style
+/* ---------------------------------- STYLE --------------------------------- */
 import styled from "styled-components";
 import Paper from "@material-ui/core/Paper";
 import Checkbox from "@material-ui/core/Checkbox";
@@ -16,14 +18,21 @@ import DoneIcon from "@material-ui/icons/Done";
 import { useTheme } from "@material-ui/core/styles";
 
 export const TodoList = () => {
+  /* -------------------------------------------------------------------------- */
+  /*                                    STATE                                   */
+  /* -------------------------------------------------------------------------- */
   const theme = useTheme();
   const todos = useSelector((state) => state.projects.todos);
 
+  /* -------------------------------------------------------------------------- */
+  /*                              DISPATCH ACTIONS                              */
+  /* -------------------------------------------------------------------------- */
   const dispatch = useDispatch();
   const toggleTodo = (todoId) => dispatch(toggleTodoAction(todoId));
   const deleteTodo = (todoId) => dispatch(deleteTodoAction(todoId));
   const doneTodo = (todoId) => dispatch(doneTodoAction(todoId));
 
+  //toggle component
   const message =
     todos.length === 0 ? (
       <Message color={theme.palette.text.hint}>There is no task...</Message>
@@ -79,6 +88,7 @@ export const TodoList = () => {
 
 export default TodoList;
 
+/* ---------------------------------- STYLE --------------------------------- */
 const Container = styled.div`
   padding: 1rem;
   font-size: 1.6rem;

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-//actions
+/* --------------------------------- actions -------------------------------- */
 import { addRoutineAction } from "../../store/actions";
 
-//style
+/* ---------------------------------- style --------------------------------- */
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
@@ -13,16 +13,23 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
 export const DialogForm = (props) => {
-  //state
+  /* -------------------------------------------------------------------------- */
+  /*                                    state                                   */
+  /* -------------------------------------------------------------------------- */
   const history = useSelector((state) => state.projects.history);
   const { open, setState } = props;
   const [folderName, setFolderName] = useState("");
 
-  //dispatchActions
+  /* -------------------------------------------------------------------------- */
+  /*                               dispatchActions                              */
+  /* -------------------------------------------------------------------------- */
   const dispatch = useDispatch();
   const addRoutine = (todoIds, folderName) =>
     dispatch(addRoutineAction(todoIds, folderName));
 
+  /* -------------------------------------------------------------------------- */
+  /*                               handle actions                               */
+  /* -------------------------------------------------------------------------- */
   let todoIds = [];
   history.map((item) => {
     if (item.check) {
@@ -30,7 +37,6 @@ export const DialogForm = (props) => {
     } else;
     return item;
   });
-
   const handleClose = () => {
     setState(false);
   };

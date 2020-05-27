@@ -1,12 +1,15 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-//style
+/* ---------------------------------- style --------------------------------- */
 import styled from "styled-components";
 import IconButton from "@material-ui/core/IconButton";
 import CreateNewFolderIcon from "@material-ui/icons/CreateNewFolder";
 
 export const RoutineInput = () => {
+  /* -------------------------------------------------------------------------- */
+  /*                                    state                                   */
+  /* -------------------------------------------------------------------------- */
   const routine = useSelector((state) => state.users.routine);
   console.log(routine);
 
@@ -24,13 +27,12 @@ export const RoutineInput = () => {
 
 export default RoutineInput;
 
-//style
+/* ---------------------------------- style --------------------------------- */
 const LeftContainer = styled.div`
   display: inline-block;
   text-align: left;
   width: 50%;
 `;
-
 const RightContainer = styled.div`
   display: inline-block;
   text-align: right;

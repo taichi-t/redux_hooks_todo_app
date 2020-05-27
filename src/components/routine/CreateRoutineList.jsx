@@ -1,10 +1,12 @@
 import React from "react";
 
-//components
+/* ------------------------------- components ------------------------------- */
 import { CreateRoutineItem } from "./CreateRoutineItem";
 
 export const CreateRoutineList = (props) => {
-  //state
+  /* -------------------------------------------------------------------------- */
+  /*                                    state                                   */
+  /* -------------------------------------------------------------------------- */
   const { objects } = props;
 
   let content = [];

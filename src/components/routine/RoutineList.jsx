@@ -2,9 +2,9 @@ import React from "react";
 import { useSelector } from "react-redux";
 import RoutineInput from "./RoutineInput";
 
-//util
+/* ---------------------------------- UTIL ---------------------------------- */
 
-//components
+/* ------------------------------- COMPONENTS ------------------------------- */
 import { CreateRoutineList } from "./CreateRoutineList";
 
 //style
@@ -14,7 +14,9 @@ import ListIcon from "@material-ui/icons/List";
 import { useTheme } from "@material-ui/core/styles";
 
 export const RoutineList = () => {
-  //state
+  /* -------------------------------------------------------------------------- */
+  /*                                    STATE                                   */
+  /* -------------------------------------------------------------------------- */
   const theme = useTheme();
   const routine = useSelector((state) => state.users.routine);
 
@@ -38,7 +40,7 @@ export const RoutineList = () => {
 
 export default RoutineList;
 
-//style
+/* ---------------------------------- STYLE --------------------------------- */
 const StyledPaper = styled(Paper)`
   margin: 1rem;
   max-height: 50rem;
@@ -55,11 +57,3 @@ const Message = styled.p`
   font-size: 1.4rem;
   color: ${(props) => props.color};
 `;
-
-// import React from "react";
-
-// export const RoutineList = () => {
-//   return <div></div>;
-// };
-
-// export default RoutineList;

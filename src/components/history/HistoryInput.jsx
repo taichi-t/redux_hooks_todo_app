@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+
+/* --------------------------------- actions -------------------------------- */
 import {
   deleteHistoryAction,
   selectAllHistoryAction,
   uncheckHistoryAction,
 } from "../../store/actions";
 
-//components
+/* ------------------------------ components ------------------------------ */
 import DialogForm from "../routine/DialogForm";
 
-//style
+/* --------------------------------- style -------------------------------- */
 import styled from "styled-components";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -17,12 +19,14 @@ import UndoIcon from "@material-ui/icons/Undo";
 import DoneAllIcon from "@material-ui/icons/DoneAll";
 import PlaylistAddIcon from "@material-ui/icons/PlaylistAdd";
 
-//util
+/* --------------------------------- util --------------------------------- */
 import { checkHistory } from "../../util/checkHistory";
 import { toggleSelectAllButton } from "../../util/toggleSelectAllButton";
 
 export const HistoryInput = () => {
-  //state
+  /* -------------------------------------------------------------------------- */
+  /*                                    state                                   */
+  /* -------------------------------------------------------------------------- */
   const history = useSelector((state) => state.projects.history);
   const routine = useSelector((state) => state.users.routine);
   const [isActiveDeleteButton, setIsActiveDeleteButton] = useState(true);
@@ -33,7 +37,9 @@ export const HistoryInput = () => {
   const [isActiveSellectAllButton, setIsActiveSellectAll] = useState(true);
   const [openDialogForm, setDialogForm] = useState(false);
 
-  //dispatchActions
+  /* -------------------------------------------------------------------------- */
+  /*                               dispatchActions                              */
+  /* -------------------------------------------------------------------------- */
   const dispatch = useDispatch();
   const deleteHistory = (todoIds) => dispatch(deleteHistoryAction(todoIds));
   const slectAllHistory = () => dispatch(selectAllHistoryAction());
@@ -58,7 +64,9 @@ export const HistoryInput = () => {
     }
   }, [history]);
 
-  //handle actions
+  /* -------------------------------------------------------------------------- */
+  /*                             handle actions                              */
+  /* -------------------------------------------------------------------------- */
   const handleDelete = (e) => {
     e.preventDefault();
     let todoIds = [];
@@ -138,7 +146,7 @@ export const HistoryInput = () => {
   );
 };
 
-//style
+/* ---------------------------------- style --------------------------------- */
 const LeftContainer = styled.div`
   display: inline-block;
   text-align: left;

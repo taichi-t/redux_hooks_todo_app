@@ -6,10 +6,10 @@ import { executeAction } from "../../store/actions";
 import { uncheckAction } from "../../store/actions";
 import { v4 as uuidv4 } from "uuid";
 
-//util
+/* ---------------------------------- UTIL ---------------------------------- */
 import { toggleSelectAllButton } from "../../util/toggleSelectAllButton";
 
-//style
+/* ---------------------------------- STYLE --------------------------------- */
 import Input from "@material-ui/core/Input";
 import Button from "@material-ui/core/Button";
 import styled from "styled-components";
@@ -22,14 +22,18 @@ import { makeStyles } from "@material-ui/core/styles";
 import DoneIcon from "@material-ui/icons/Done";
 
 export const TodoInput = () => {
-  //state
+  /* -------------------------------------------------------------------------- */
+  /*                                    STATE                                   */
+  /* -------------------------------------------------------------------------- */
   const [todo, setTodo] = useState("");
   const todos = useSelector((state) => state.projects.todos);
   const [isActiveButton, setIsActiveButton] = useState(true);
   const [isActiveSellectAllButton, setIsActiveSellectAll] = useState(true);
   const [toggleButton, setToggleButton] = useState(false);
 
-  //dispatch actions
+  /* -------------------------------------------------------------------------- */
+  /*                              DISPATCH ACTIONS                              */
+  /* -------------------------------------------------------------------------- */
   const dispatch = useDispatch();
   const addTodo = (todo) => dispatch(addTodoAction(todo));
   const selectAll = () => dispatch(selectAllAction());
@@ -57,7 +61,9 @@ export const TodoInput = () => {
     }
   }, [todos]);
 
-  //handle functions
+  /* -------------------------------------------------------------------------- */
+  /*                              HANDLE FUNCTIONS                              */
+  /* -------------------------------------------------------------------------- */
   const handleChange = (e) => {
     setTodo(e.target.value);
   };
@@ -72,17 +78,14 @@ export const TodoInput = () => {
     });
     setTodo("");
   };
-
   const handleSelect = (e) => {
     e.preventDefault();
     selectAll();
   };
-
   const handleExecute = (e) => {
     e.preventDefault();
     execute();
   };
-
   const handleUncheck = (e) => {
     e.preventDefault();
     uncheck();
@@ -173,7 +176,7 @@ export const TodoInput = () => {
 
 export default TodoInput;
 
-//style
+/* ---------------------------------- STYLE --------------------------------- */
 const Container = styled.div`
   text-align: center;
   font-size: 1.6rem;

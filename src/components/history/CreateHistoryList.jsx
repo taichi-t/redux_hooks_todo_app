@@ -1,10 +1,12 @@
 import React from "react";
 
-//components
+/* ------------------------------- components ------------------------------- */
 import { CreateHistoryItem } from "./CreateHistoryItem";
 
 export const CreateHistoryList = (props) => {
-  //state
+  /* -------------------------------------------------------------------------- */
+  /*                                    state                                   */
+  /* -------------------------------------------------------------------------- */
   const { objects } = props;
 
   let content = [];
