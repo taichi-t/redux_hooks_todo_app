@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { HistoryInput } from "./HistoryInput";
+import { Input } from "./Input";
 
 /* --------------------------------- util --------------------------------- */
 import { sortByDate } from "../../util/sortByDate";
 
 /* ------------------------------ components ------------------------------ */
-import { CreateHistoryList } from "./CreateHistoryList";
+import { CreateLists } from "./CreateLists";
 
 /* --------------------------------- style -------------------------------- */
 import styled from "styled-components";
@@ -14,7 +14,7 @@ import Paper from "@material-ui/core/Paper";
 import HistoryIcon from "@material-ui/icons/History";
 import { useTheme } from "@material-ui/core/styles";
 
-export const HistoryList = () => {
+export const List = () => {
   /* -------------------------------------------------------------------------- */
   /*                                    state                                   */
   /* -------------------------------------------------------------------------- */
@@ -36,15 +36,15 @@ export const HistoryList = () => {
           There is no history...
         </Message>
       ) : (
-        <CreateHistoryList objects={sortedHistory && sortedHistory} />
+        <CreateLists objects={sortedHistory && sortedHistory} />
       )}
 
-      <HistoryInput />
+      <Input />
     </StyledPaper>
   );
 };
 
-export default HistoryList;
+export default List;
 
 /* ---------------------------------- style --------------------------------- */
 const StyledPaper = styled(Paper)`

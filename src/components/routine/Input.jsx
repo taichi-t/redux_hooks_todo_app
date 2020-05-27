@@ -6,7 +6,7 @@ import styled from "styled-components";
 import IconButton from "@material-ui/core/IconButton";
 import CreateNewFolderIcon from "@material-ui/icons/CreateNewFolder";
 
-export const RoutineInput = () => {
+export const Input = () => {
   /* -------------------------------------------------------------------------- */
   /*                                    state                                   */
   /* -------------------------------------------------------------------------- */
@@ -25,7 +25,7 @@ export const RoutineInput = () => {
   );
 };
 
-export default RoutineInput;
+export default Input;
 
 /* ---------------------------------- style --------------------------------- */
 const LeftContainer = styled.div`

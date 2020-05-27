@@ -1,9 +1,9 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 
 /* --------------------------------- actions -------------------------------- */
 
-import { selectHistoryAction } from "../../store/actions";
+// import { selectHistoryAction } from "../../store/actions";
 
 /* ---------------------------------- style --------------------------------- */
 
@@ -11,7 +11,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Checkbox from "@material-ui/core/Checkbox";
 import ListItem from "@material-ui/core/ListItem";
 
-export const CreateRoutineElement = (props) => {
+export const Elements = (props) => {
   /* -------------------------------------------------------------------------- */
   /*                                    state                                   */
   /* -------------------------------------------------------------------------- */
@@ -21,7 +21,7 @@ export const CreateRoutineElement = (props) => {
   /* -------------------------------------------------------------------------- */
   /*                               dispatchActions                              */
   /* -------------------------------------------------------------------------- */
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   // const selectHistory = (todoId) => dispatch(selectHistoryAction(todoId));
 
   /* -------------------------------------------------------------------------- */
@@ -46,3 +46,5 @@ export const CreateRoutineElement = (props) => {
     </>
   );
 };
+
+export default Elements;

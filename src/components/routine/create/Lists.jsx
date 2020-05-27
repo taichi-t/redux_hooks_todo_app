@@ -1,9 +1,9 @@
 import React from "react";
 
 /* ------------------------------- components ------------------------------- */
-import { CreateRoutineItem } from "./CreateRoutineItem";
+import Items from "./Items";
 
-export const CreateRoutineList = (props) => {
+export const Lists = (props) => {
   /* -------------------------------------------------------------------------- */
   /*                                    state                                   */
   /* -------------------------------------------------------------------------- */
@@ -13,15 +13,11 @@ export const CreateRoutineList = (props) => {
   for (let keys in objects) {
     let result = objects[keys];
     content.push(
-      <CreateRoutineItem
-        objects={result}
-        key={`section-${keys}`}
-        index={keys}
-      />
+      <Items objects={result} key={`section-${keys}`} index={keys} />
     );
   }
 
   return <div>{content}</div>;
 };
 
-export default CreateRoutineList;
+export default Lists;

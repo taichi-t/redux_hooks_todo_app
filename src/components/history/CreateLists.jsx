@@ -1,9 +1,9 @@
 import React from "react";
 
 /* ------------------------------- components ------------------------------- */
-import { CreateHistoryItem } from "./CreateHistoryItem";
+import { CreateItems } from "./CreateItems";
 
-export const CreateHistoryList = (props) => {
+export const CreateLists = (props) => {
   /* -------------------------------------------------------------------------- */
   /*                                    state                                   */
   /* -------------------------------------------------------------------------- */
@@ -13,15 +13,11 @@ export const CreateHistoryList = (props) => {
   for (let keys in objects) {
     let result = objects[keys];
     content.push(
-      <CreateHistoryItem
-        objects={result}
-        key={`section-${keys}`}
-        index={keys}
-      />
+      <CreateItems objects={result} key={`section-${keys}`} index={keys} />
     );
   }
 
   return <>{content}</>;
 };
 
-export default CreateHistoryList;
+export default CreateLists;

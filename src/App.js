@@ -8,8 +8,8 @@ import { createStore } from "redux";
 import TodoInput from "./components/todo/TodoInput";
 import TodoList from "./components/todo/TodoList";
 import Navbar from "./components/nav/Navbar";
-import HistoryList from "./components/history/HistoryList";
-import RoutineList from "./components/routine/RoutineList";
+import { List as HistoryList } from "./components/history/List";
+import { List as RoutineList } from "./components/routine/List";
 
 /* ---------------------------------- STYLE --------------------------------- */
 import { GlobalStyle } from "./GlobalStyle";

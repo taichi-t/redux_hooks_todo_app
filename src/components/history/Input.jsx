@@ -9,7 +9,8 @@ import {
 } from "../../store/actions";
 
 /* ------------------------------ components ------------------------------ */
-import DialogForm from "../routine/DialogForm";
+import DialogForm from "../routine/Dialog/DialogForm";
+import DialogFolders from "../routine/Dialog/Folders";
 
 /* --------------------------------- style -------------------------------- */
 import styled from "styled-components";
@@ -23,7 +24,7 @@ import PlaylistAddIcon from "@material-ui/icons/PlaylistAdd";
 import { checkHistory } from "../../util/checkHistory";
 import { toggleSelectAllButton } from "../../util/toggleSelectAllButton";
 
-export const HistoryInput = () => {
+export const Input = () => {
   /* -------------------------------------------------------------------------- */
   /*                                    state                                   */
   /* -------------------------------------------------------------------------- */
@@ -36,6 +37,7 @@ export const HistoryInput = () => {
   const [toggleButton, setToggleButton] = useState(false);
   const [isActiveSellectAllButton, setIsActiveSellectAll] = useState(true);
   const [openDialogForm, setDialogForm] = useState(false);
+  const [openDialogFolders, setDialogFolders] = useState(false);
 
   /* -------------------------------------------------------------------------- */
   /*                               dispatchActions                              */
@@ -100,8 +102,7 @@ export const HistoryInput = () => {
     if (keys.length === 0) {
       setDialogForm(true);
     } else {
-      return;
-      // addRoutine(todoIds);
+      setDialogFolders(true);
     }
   };
 
@@ -122,6 +123,11 @@ export const HistoryInput = () => {
   );
   return (
     <>
+      <DialogFolders
+        openDialogFolders={openDialogFolders}
+        setDialogFolders={setDialogFolders}
+        setDialogForm={setDialogForm}
+      />
       <DialogForm open={openDialogForm} setState={setDialogForm} />
       <LeftContainer>{button}</LeftContainer>
       <RightContainer>

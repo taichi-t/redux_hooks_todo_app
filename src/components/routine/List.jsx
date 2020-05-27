@@ -1,11 +1,11 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import RoutineInput from "./RoutineInput";
+import Input from "./Input";
 
 /* ---------------------------------- UTIL ---------------------------------- */
 
 /* ------------------------------- COMPONENTS ------------------------------- */
-import { CreateRoutineList } from "./CreateRoutineList";
+import Lists from "./create/Lists";
 
 //style
 import styled from "styled-components";
@@ -13,7 +13,7 @@ import Paper from "@material-ui/core/Paper";
 import ListIcon from "@material-ui/icons/List";
 import { useTheme } from "@material-ui/core/styles";
 
-export const RoutineList = () => {
+export const List = () => {
   /* -------------------------------------------------------------------------- */
   /*                                    STATE                                   */
   /* -------------------------------------------------------------------------- */
@@ -30,15 +30,15 @@ export const RoutineList = () => {
           There is no routine...
         </Message>
       ) : (
-        <CreateRoutineList objects={routine && routine} />
+        <Lists objects={routine && routine} />
       )}
 
-      <RoutineInput />
+      <Input />
     </StyledPaper>
   );
 };
 
-export default RoutineList;
+export default List;
 
 /* ---------------------------------- STYLE --------------------------------- */
 const StyledPaper = styled(Paper)`
