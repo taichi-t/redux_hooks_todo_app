@@ -21,18 +21,20 @@ export const CreateRoutineElement = (props) => {
   /* -------------------------------------------------------------------------- */
   /*                               dispatchActions                              */
   /* -------------------------------------------------------------------------- */
-
   const dispatch = useDispatch();
-  const selectHistory = (todoId) => dispatch(selectHistoryAction(todoId));
+  // const selectHistory = (todoId) => dispatch(selectHistoryAction(todoId));
+
+  /* -------------------------------------------------------------------------- */
+  /*                               HANDLE ACTIONS                               */
+  /* -------------------------------------------------------------------------- */
+  const handleClick = (e) => {
+    console.log("hi");
+    e.preventDefault();
+  };
 
   return (
     <>
-      <ListItem
-        id={index}
-        onClick={selectHistory(item.id)}
-        button={true}
-        key={index}
-      >
+      <ListItem id={index} onClick={handleClick} button={true} key={index}>
         <Checkbox
           type="checkbox"
           checked={item.check}

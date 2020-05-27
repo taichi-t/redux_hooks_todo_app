@@ -69,7 +69,9 @@ export const CreateRoutineItem = (props) => {
   const handleClick = (e) => {
     setAnchorEl(e.currentTarget);
   };
-  const handleClickAway = () => {};
+  const handleClickAway = () => {
+    setAdd(false);
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     if (routine.trim() === "") return;
@@ -89,17 +91,19 @@ export const CreateRoutineItem = (props) => {
   );
 
   const addTodo = add ? (
-    <form type="submit" onSubmit={handleSubmit} noValidate autoComplete="off">
-      <IconButton edge="start" color="primary" type="submit">
-        <AddIcon />
-      </IconButton>
-      <Input
-        name="todo"
-        placeholder="create a todo"
-        type="text"
-        onChange={handleChange}
-      />
-    </form>
+    <ClickAwayListener onClickAway={handleClickAway}>
+      <form type="submit" onSubmit={handleSubmit} noValidate autoComplete="off">
+        <IconButton edge="start" color="primary" type="submit">
+          <AddIcon />
+        </IconButton>
+        <Input
+          name="todo"
+          placeholder="create a todo"
+          type="text"
+          onChange={handleChange}
+        />
+      </form>
+    </ClickAwayListener>
   ) : null;
 
   return (
@@ -148,9 +152,8 @@ export const CreateRoutineItem = (props) => {
             objects.map((item, index) => (
               <CreateRoutineElement item={item} index={index} key={index} />
             ))}
-          <ClickAwayListener onClickAway={handleClickAway}>
-            <ListItem>{addTodo}</ListItem>
-          </ClickAwayListener>
+
+          <ListItem>{addTodo}</ListItem>
         </Collapse>
       </List>
       <Divider variant="middle" />
