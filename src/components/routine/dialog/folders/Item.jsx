@@ -1,9 +1,9 @@
-import React from "./node_modules/react";
+import React from "react";
 
 /* ---------------------------------- STYLE --------------------------------- */
-import ListItem from "./node_modules/@material-ui/core/ListItem";
-import ListItemAvatar from "./node_modules/@material-ui/core/ListItemAvatar";
-import ListItemText from "./node_modules/@material-ui/core/ListItemText";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import ListItemText from "@material-ui/core/ListItemText";
 
 export const DialogFoldersItem = (props) => {
   /* -------------------------------------------------------------------------- */

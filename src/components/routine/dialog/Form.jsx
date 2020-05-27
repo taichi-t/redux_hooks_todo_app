@@ -1,16 +1,16 @@
-import React, { useState } from "./node_modules/react";
-import { useSelector, useDispatch } from "./node_modules/react-redux";
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 /* --------------------------------- actions -------------------------------- */
 import { addRoutineAction } from "../../../store/actions";
 
 /* ---------------------------------- style --------------------------------- */
-import Button from "./node_modules/@material-ui/core/Button";
-import TextField from "./node_modules/@material-ui/core/TextField";
-import Dialog from "./node_modules/@material-ui/core/Dialog";
-import DialogActions from "./node_modules/@material-ui/core/DialogActions";
-import DialogContent from "./node_modules/@material-ui/core/DialogContent";
-import DialogTitle from "./node_modules/@material-ui/core/DialogTitle";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogTitle from "@material-ui/core/DialogTitle";
 
 export const DialogForm = (props) => {
   /* -------------------------------------------------------------------------- */

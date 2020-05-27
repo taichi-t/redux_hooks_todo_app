@@ -9,8 +9,8 @@ import {
 } from "../../store/actions";
 
 /* ------------------------------ components ------------------------------ */
-import DialogForm from "../routine/Dialog/DialogForm";
-import DialogFolders from "../routine/Dialog/Folders";
+import Form from "../routine/dialog/Form";
+import Folders from "../routine/dialog/folders/Folders";
 
 /* --------------------------------- style -------------------------------- */
 import styled from "styled-components";
@@ -123,12 +123,12 @@ export const Input = () => {
   );
   return (
     <>
-      <DialogFolders
+      <Folders
         openDialogFolders={openDialogFolders}
         setDialogFolders={setDialogFolders}
         setDialogForm={setDialogForm}
       />
-      <DialogForm open={openDialogForm} setState={setDialogForm} />
+      <Form open={openDialogForm} setState={setDialogForm} />
       <LeftContainer>{button}</LeftContainer>
       <RightContainer>
         <IconButton

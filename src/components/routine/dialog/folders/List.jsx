@@ -1,15 +1,15 @@
-import React from "./node_modules/react";
-import { useSelector } from "./node_modules/react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
 
 /* ---------------------------------- STYLE --------------------------------- */
-import Avatar from "./node_modules/@material-ui/core/Avatar";
-import List from "./node_modules/@material-ui/core/List";
-import ListItem from "./node_modules/@material-ui/core/ListItem";
-import ListItemAvatar from "./node_modules/@material-ui/core/ListItemAvatar";
-import ListItemText from "./node_modules/@material-ui/core/ListItemText";
-import DialogTitle from "./node_modules/@material-ui/core/DialogTitle";
-import Dialog from "./node_modules/@material-ui/core/Dialog";
-import AddIcon from "./node_modules/@material-ui/icons/Add";
+import Avatar from "@material-ui/core/Avatar";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import ListItemText from "@material-ui/core/ListItemText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import Dialog from "@material-ui/core/Dialog";
+import AddIcon from "@material-ui/icons/Add";
 import DialogFoldersItem from "./Item";
 
 export const DialogFoldersList = (props) => {
