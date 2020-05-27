@@ -17,7 +17,6 @@ import AddIcon from "@material-ui/icons/Add";
 import Paper from "@material-ui/core/Paper";
 import DoneAllIcon from "@material-ui/icons/DoneAll";
 import UndoIcon from "@material-ui/icons/Undo";
-import PlaylistAddIcon from "@material-ui/icons/PlaylistAdd";
 import { makeStyles } from "@material-ui/core/styles";
 import DoneIcon from "@material-ui/icons/Done";
 
@@ -138,7 +137,6 @@ export const TodoInput = () => {
               type="submit"
               color="primary"
               startIcon={<AddIcon />}
-              variant="contained"
               size="small"
               className={classes.button}
             >
@@ -156,17 +154,6 @@ export const TodoInput = () => {
             className={classes.button}
           >
             Done
-          </Button>
-
-          <Button
-            size="small"
-            color="primary"
-            variant="contained"
-            startIcon={<PlaylistAddIcon />}
-            disabled={isActiveButton}
-            className={classes.button}
-          >
-            Add to lists
           </Button>
         </form>
       </Paper>
