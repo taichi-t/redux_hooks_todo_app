@@ -61,25 +61,27 @@ export const DialogForm = (props) => {
         maxWidth="xs"
       >
         <DialogTitle id="form-dialog-title">Create a folder</DialogTitle>
-        <DialogContent>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="name"
-            type="text"
-            fullWidth={true}
-            onChange={handleChange}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="secondary">
-            Cancel
-          </Button>
-          <Button onClick={handleSubmit} color="primary">
-            Create
-          </Button>
-        </DialogActions>
+        <form onSubmit={handleSubmit}>
+          <DialogContent>
+            <TextField
+              autoFocus
+              margin="dense"
+              id="name"
+              label="name"
+              type="text"
+              fullWidth={true}
+              onChange={handleChange}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} color="secondary" type="submit">
+              Cancel
+            </Button>
+            <Button color="primary" type="submit">
+              Create
+            </Button>
+          </DialogActions>
+        </form>
       </Dialog>
     </>
   );
