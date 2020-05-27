@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 
-//actions
-import { selectHistoryAction } from "../store/actions";
-import { selectHistoriesAction } from "../store/actions";
-import { uncheckHistoriesAction } from "../store/actions";
+/* --------------------------------- actions -------------------------------- */
 
-//style
+import {
+  selectHistoryAction,
+  selectHistoriesAction,
+  uncheckHistoriesAction,
+} from "../../store/actions";
+
+/* ---------------------------------- style --------------------------------- */
+
 import styled from "styled-components";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -22,15 +26,10 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles((theme) => ({
-  list: {
-    paddingTop: theme.spacing(0),
-    paddingBottom: theme.spacing(0),
-  },
-}));
-
-export const CreateHistoryItem = (props) => {
-  //state
+export const CreateItems = (props) => {
+  /* -------------------------------------------------------------------------- */
+  /*                                    state                                   */
+  /* -------------------------------------------------------------------------- */
   const classes = useStyles();
   const { objects, index } = props;
   const [open, setOpen] = useState(false);
@@ -46,7 +45,9 @@ export const CreateHistoryItem = (props) => {
       : setCheck(false);
   }, [objects]);
 
-  //dispatchActions
+  /* -------------------------------------------------------------------------- */
+  /*                               dispatchActions                              */
+  /* -------------------------------------------------------------------------- */
   const dispatch = useDispatch();
   const selectHistory = (todoId) => dispatch(selectHistoryAction(todoId));
   const selectHistories = (todoIds) => dispatch(selectHistoriesAction(todoIds));
@@ -54,6 +55,10 @@ export const CreateHistoryItem = (props) => {
     dispatch(uncheckHistoriesAction(todoIds));
 
   const todoIds = objects && objects.map((object) => object.id);
+
+  /* -------------------------------------------------------------------------- */
+  /*                                handleActions                               */
+  /* -------------------------------------------------------------------------- */
 
   const handleSelect = (e) => {
     setCheck(!check);
@@ -90,19 +95,17 @@ export const CreateHistoryItem = (props) => {
           <ListItemSecondaryAction>
             {open ? (
               <IconButton
-                color="primary"
+                className={classes.menuButton}
                 onClick={(e) => setOpen(!open)}
                 edge="end"
-                component="div"
               >
                 <ExpandLess />
               </IconButton>
             ) : (
               <IconButton
-                color="primary"
+                className={classes.menuButton}
                 onClick={(e) => setOpen(!open)}
                 edge="end"
-                component="div"
               >
                 <ExpandMore />
               </IconButton>
@@ -134,6 +137,20 @@ export const CreateHistoryItem = (props) => {
   );
 };
 
+/* -------------------------------------------------------------------------- */
+/*                                    style                                   */
+/* -------------------------------------------------------------------------- */
+
 const Box = styled.div`
   font-size: 1.6rem;
 `;
+
+const useStyles = makeStyles((theme) => ({
+  list: {
+    paddingTop: theme.spacing(0),
+    paddingBottom: theme.spacing(0),
+  },
+  menuButton: {
+    color: theme.palette.text.hint,
+  },
+}));

@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+
+/* --------------------------------- actions -------------------------------- */
 import {
   deleteHistoryAction,
   selectAllHistoryAction,
   uncheckHistoryAction,
-  addRoutineAction,
-} from "../store/actions";
+} from "../../store/actions";
 
-//style
+/* ------------------------------ components ------------------------------ */
+import Form from "../routine/dialog/Form";
+import Folders from "../routine/dialog/folders/Folders";
+
+/* --------------------------------- style -------------------------------- */
 import styled from "styled-components";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -15,26 +20,32 @@ import UndoIcon from "@material-ui/icons/Undo";
 import DoneAllIcon from "@material-ui/icons/DoneAll";
 import PlaylistAddIcon from "@material-ui/icons/PlaylistAdd";
 
-//util
-import { checkHistory } from "../util/checkHistory";
-import { toggleSelectAllButton } from "../util/toggleSelectAllButton";
+/* --------------------------------- util --------------------------------- */
+import { checkHistory } from "../../util/checkHistory";
+import { toggleSelectAllButton } from "../../util/toggleSelectAllButton";
 
-export const HistoryInput = () => {
-  //state
-  const history = useSelector((state) => state.history);
+export const Input = () => {
+  /* -------------------------------------------------------------------------- */
+  /*                                    state                                   */
+  /* -------------------------------------------------------------------------- */
+  const history = useSelector((state) => state.projects.history);
+  const routine = useSelector((state) => state.users.routine);
   const [isActiveDeleteButton, setIsActiveDeleteButton] = useState(true);
   const [isActiveAddRoutineButton, setIsActiveAddRoutineButton] = useState(
     true
   );
   const [toggleButton, setToggleButton] = useState(false);
   const [isActiveSellectAllButton, setIsActiveSellectAll] = useState(true);
+  const [openDialogForm, setDialogForm] = useState(false);
+  const [openDialogFolders, setDialogFolders] = useState(false);
 
-  //dispatchActions
+  /* -------------------------------------------------------------------------- */
+  /*                               dispatchActions                              */
+  /* -------------------------------------------------------------------------- */
   const dispatch = useDispatch();
   const deleteHistory = (todoIds) => dispatch(deleteHistoryAction(todoIds));
   const slectAllHistory = () => dispatch(selectAllHistoryAction());
   const uncheckHistory = () => dispatch(uncheckHistoryAction());
-  const addRoutine = (todoIds) => dispatch(addRoutineAction(todoIds));
 
   useEffect(() => {
     //toggle select-button
@@ -55,7 +66,9 @@ export const HistoryInput = () => {
     }
   }, [history]);
 
-  //handle actions
+  /* -------------------------------------------------------------------------- */
+  /*                             handle actions                              */
+  /* -------------------------------------------------------------------------- */
   const handleDelete = (e) => {
     e.preventDefault();
     let todoIds = [];
@@ -66,7 +79,6 @@ export const HistoryInput = () => {
       return item;
     });
 
-    setIsActiveDeleteButton(false);
     deleteHistory(todoIds);
   };
 
@@ -82,15 +94,16 @@ export const HistoryInput = () => {
 
   const handleAdd = (e) => {
     e.preventDefault();
-    let todoIds = [];
-    history.map((item) => {
-      if (item.check) {
-        todoIds.push(item.id);
-      } else;
-      return item;
-    });
-    setIsActiveAddRoutineButton(false);
-    addRoutine(todoIds);
+
+    let keys = [];
+    for (let key in routine) {
+      keys.push(key);
+    }
+    if (keys.length === 0) {
+      setDialogForm(true);
+    } else {
+      setDialogFolders(true);
+    }
   };
 
   //toggle components
@@ -110,6 +123,12 @@ export const HistoryInput = () => {
   );
   return (
     <>
+      <Folders
+        openDialogFolders={openDialogFolders}
+        setDialogFolders={setDialogFolders}
+        setDialogForm={setDialogForm}
+      />
+      <Form open={openDialogForm} setState={setDialogForm} />
       <LeftContainer>{button}</LeftContainer>
       <RightContainer>
         <IconButton
@@ -133,7 +152,7 @@ export const HistoryInput = () => {
   );
 };
 
-//style
+/* ---------------------------------- style --------------------------------- */
 const LeftContainer = styled.div`
   display: inline-block;
   text-align: left;

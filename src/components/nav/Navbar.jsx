@@ -3,10 +3,10 @@ import styled from "styled-components";
 import { useTheme } from "@material-ui/core/styles";
 import moment from "moment";
 
-//components
+/* ------------------------------- components ------------------------------- */
 import { ColorPicker } from "./ColorPicker";
 
-//style
+/* ---------------------------------- style --------------------------------- */
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Brightness4Icon from "@material-ui/icons/Brightness4";
@@ -14,14 +14,10 @@ import Brightness7Icon from "@material-ui/icons/Brightness7";
 import { makeStyles } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
 
-const useStyles = makeStyles((theme) => ({
-  title: {
-    flexGrow: 1,
-  },
-}));
-
 export const Navbar = (props) => {
-  //state
+  /* -------------------------------------------------------------------------- */
+  /*                                    state                                   */
+  /* -------------------------------------------------------------------------- */
   const theme = useTheme();
   const [isDarkMode, setIsDarkMode] = useState(() => false);
   const { toggleTheme } = props;
@@ -38,20 +34,21 @@ export const Navbar = (props) => {
     setInterval(setTime, 60000);
   }, []);
 
-  //handle actions
+  /* -------------------------------------------------------------------------- */
+  /*                                handle　actions                             */
+  /* -------------------------------------------------------------------------- */
   const handleClick = (e) => {
     e.preventDefault();
     setIsDarkMode(!isDarkMode);
     toggleTheme();
   };
 
-  //toggle component
+  // toggle component
   const icons = isDarkMode ? (
     <IconButton
       aria-label="darkmode"
       color="inherit"
       edge="end"
-      className={classes.menuButton}
       onClick={handleClick}
     >
       <Brightness4Icon />
@@ -61,7 +58,6 @@ export const Navbar = (props) => {
       aria-label="lightmode"
       color="inherit"
       edge="end"
-      className={classes.menuButton}
       onClick={handleClick}
     >
       <Brightness7Icon />
@@ -71,7 +67,7 @@ export const Navbar = (props) => {
   return (
     <div className={classes.root}>
       <AppBar position="static">
-        <Toolbar className={classes.toolbar}>
+        <Toolbar>
           <Title className={classes.title} color={theme.palette.text.primary}>
             <span>{now.date} </span>
             <Month>{now.month}</Month>
@@ -87,7 +83,7 @@ export const Navbar = (props) => {
 
 export default Navbar;
 
-//style
+/* ---------------------------------- style --------------------------------- */
 const Title = styled.h1`
   color: ${(props) => props.color};
   font-size: 1.6rem;
@@ -96,3 +92,9 @@ const Title = styled.h1`
 const Month = styled.span`
   font-size: 1rem;
 `;
+
+const useStyles = makeStyles((theme) => ({
+  title: {
+    flexGrow: 1,
+  },
+}));

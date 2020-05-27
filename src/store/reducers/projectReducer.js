@@ -1,13 +1,13 @@
 import moment from "moment";
 import { deleteMatchedObjArrays } from "../../util/deleteMatchedObjArrays";
 import { changeValuesOfObjArrays } from "../../util/changeValuesOfOjbArrays";
-import { createObjArraysMatchedId } from "../../util/createObjArraysMatchedId";
-const initialState = { todos: [], history: [], routine: [], userSetting: {} };
+
+const initialState = { todos: [], history: [] };
 
 export function projectReducer(state = initialState, { type, payload }) {
   let newHistory;
   let result;
-  let newRoutine;
+
   switch (type) {
     case "ADD_TODO":
       return {
@@ -115,24 +115,6 @@ export function projectReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         history: result,
-      };
-
-    case "ADD_ROUTINE":
-      newHistory = [...state.history];
-      newRoutine = createObjArraysMatchedId(newHistory, payload);
-      newHistory = deleteMatchedObjArrays(newHistory, payload);
-      newRoutine = newRoutine.map((todo) => {
-        delete todo.complete;
-        return {
-          ...todo,
-          check: false,
-        };
-      });
-
-      return {
-        ...state,
-        history: newHistory,
-        routine: newRoutine,
       };
 
     default:

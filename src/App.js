@@ -1,33 +1,37 @@
 import React from "react";
 import "normalize.css";
 import { Provider } from "react-redux";
-import projectReducer from "./store/reducers/projectReducer";
+import { rootReducer } from "./store/reducers/rootReducer";
 import { createStore } from "redux";
 
-//components
-import TodoInput from "./components/TodoInput";
-import TodoList from "./components/TodoList";
-import Navbar from "./components/Navbar";
-import HistoryList from "./components/HistoryList";
-import RoutineWork from "./components/RoutineWork";
-//style
+/* ------------------------------- COMPONENTS ------------------------------- */
+import TodoInput from "./components/todo/TodoInput";
+import TodoList from "./components/todo/TodoList";
+import Navbar from "./components/nav/Navbar";
+import { List as HistoryList } from "./components/history/List";
+import { List as RoutineList } from "./components/routine/List";
+
+/* ---------------------------------- STYLE --------------------------------- */
 import { GlobalStyle } from "./GlobalStyle";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { createMuiTheme } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 
-//hooks
+/* ---------------------------------- HOOKS --------------------------------- */
 import { useTheme } from "./hooks/useTheme";
 
 function App() {
   const [theme, toggleTheme] = useTheme();
   const data = localStorage.getItem("data")
     ? JSON.parse(localStorage.getItem("data"))
-    : { todos: [], history: [], routine: [], userSetting: {} };
+    : {
+        projects: { todos: [], history: [] },
+        users: { routine: [], userSettings: {} },
+      };
   const persistedState = data;
 
   const store = createStore(
-    projectReducer,
+    rootReducer,
     persistedState,
     window.devToolsExtension && window.devToolsExtension()
   );
@@ -43,9 +47,9 @@ function App() {
       <ThemeProvider theme={themeConfig}>
         <GlobalStyle theme={themeConfig} />
         <Navbar toggleTheme={toggleTheme} />
-        <Grid container spacing={3}>
+        <Grid container spacing={1}>
           <Grid item xs={12} md={4}>
-            <RoutineWork />
+            <RoutineList />
           </Grid>
           <Grid item xs={12} md={4}>
             <TodoInput />
