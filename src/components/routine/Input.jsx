@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 
 /* ---------------------------------- style --------------------------------- */
 import styled from "styled-components";
@@ -10,8 +10,8 @@ export const Input = () => {
   /* -------------------------------------------------------------------------- */
   /*                                    state                                   */
   /* -------------------------------------------------------------------------- */
-  const routine = useSelector((state) => state.users.routine);
-  console.log(routine);
+  // const routine = useSelector((state) => state.users.routine);
+  // console.log(routine);
 
   return (
     <>

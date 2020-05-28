@@ -2,7 +2,6 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 /* ---------------------------------- STYLE --------------------------------- */
-import Avatar from "@material-ui/core/Avatar";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
@@ -46,11 +45,9 @@ export const DialogFoldersList = (props) => {
 
         <ListItem autoFocus button onClick={() => handleDialogFormOpen()}>
           <ListItemAvatar>
-            <Avatar>
-              <AddIcon />
-            </Avatar>
+            <AddIcon color="primary" />
           </ListItemAvatar>
-          <ListItemText primary="Create new folder" />
+          <ListItemText primary="Create a new folder" />
         </ListItem>
       </List>
     </Dialog>

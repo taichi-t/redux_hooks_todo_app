@@ -11,7 +11,6 @@ import {
 
 /* ---------------------------------- style --------------------------------- */
 
-import styled from "styled-components";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Checkbox from "@material-ui/core/Checkbox";
@@ -22,7 +21,6 @@ import Collapse from "@material-ui/core/Collapse";
 import List from "@material-ui/core/List";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -54,43 +52,41 @@ export const CreateItems = (props) => {
   const uncheckHistories = (todoIds) =>
     dispatch(uncheckHistoriesAction(todoIds));
 
-  const todoIds = objects && objects.map((object) => object.id);
-
   /* -------------------------------------------------------------------------- */
   /*                                handleActions                               */
   /* -------------------------------------------------------------------------- */
-
+  const todoIds = objects && objects.map((object) => object.id);
   const handleSelect = (e) => {
+    e.stopPropagation();
     setCheck(!check);
     objects.filter((object) => object.check === false).length === 0
       ? uncheckHistories(todoIds)
       : selectHistories(todoIds);
   };
+
   return (
     <>
       <List component="ul" className={classes.list}>
-        <ListItem className={classes.list}>
-          <ListItemIcon>
-            <Box>
-              <IconButton
-                color="primary"
-                onClick={handleSelect}
-                edge="start"
-                disableRipple={true}
-                disableFocusRipple={true}
-              >
-                <Checkbox checked={check} color="primary" />
-              </IconButton>
-              {moment(index).calendar(null, {
-                sameDay: "[Today]",
-                nextDay: "[Tomorrow]",
-                nextWeek: "dddd",
-                lastDay: "[Yesterday]",
-                lastWeek: "[Last] dddd",
-                sameElse: "DD/MM/YYYY",
-              })}
-            </Box>
-          </ListItemIcon>
+        <ListItem className={classes.list} onClick={(e) => setOpen(!open)}>
+          <IconButton
+            color="primary"
+            onClick={handleSelect}
+            edge="start"
+            disableRipple={true}
+            disableFocusRipple={true}
+          >
+            <Checkbox checked={check} color="default" />
+          </IconButton>
+          <p className={classes.text}>
+            {moment(index).calendar(null, {
+              sameDay: "[Today]",
+              nextDay: "[Tomorrow]",
+              nextWeek: "dddd",
+              lastDay: "[Yesterday]",
+              lastWeek: "[Last] dddd",
+              sameElse: "DD/MM/YYYY",
+            })}
+          </p>
 
           <ListItemSecondaryAction>
             {open ? (
@@ -124,7 +120,7 @@ export const CreateItems = (props) => {
                 <Checkbox
                   type="checkbox"
                   checked={item.check}
-                  color="primary"
+                  color="default"
                   size="small"
                 />
                 <ListItemText primary={`${item.name}`} />
@@ -141,10 +137,6 @@ export const CreateItems = (props) => {
 /*                                    style                                   */
 /* -------------------------------------------------------------------------- */
 
-const Box = styled.div`
-  font-size: 1.6rem;
-`;
-
 const useStyles = makeStyles((theme) => ({
   list: {
     paddingTop: theme.spacing(0),
@@ -152,5 +144,9 @@ const useStyles = makeStyles((theme) => ({
   },
   menuButton: {
     color: theme.palette.text.hint,
+  },
+  text: {
+    color: theme.palette.text.secondary,
+    fontSize: "1.6rem",
   },
 }));

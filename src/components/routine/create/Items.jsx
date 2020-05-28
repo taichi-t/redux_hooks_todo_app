@@ -80,9 +80,9 @@ export const Items = (props) => {
 
   //toggle components
   const folderIcon = openCollapseList ? (
-    <FolderOpenIcon color="primary" />
+    <FolderOpenIcon color="action" />
   ) : (
-    <FolderIcon color="primary" />
+    <FolderIcon color="action" />
   );
 
   return (
@@ -95,7 +95,6 @@ export const Items = (props) => {
           <ListItemIcon>
             <Box>
               <IconButton
-                color="primary"
                 onClick={handleSelect}
                 edge="start"
                 disableRipple={true}
@@ -134,7 +133,7 @@ export const Items = (props) => {
             <IconButton edge="start" color="primary">
               <AddIcon />
             </IconButton>
-            <form onSubmit={handleSubmit} noValidate autoComplete="off" z>
+            <form onSubmit={handleSubmit} noValidate autoComplete="off">
               <Input
                 name="todo"
                 type="text"

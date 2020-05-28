@@ -1,5 +1,4 @@
 import React from "react";
-import { withStyles } from "@material-ui/core/styles";
 
 /* ---------------------------------- style --------------------------------- */
 import Menu from "@material-ui/core/Menu";
@@ -9,6 +8,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import { makeStyles } from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/core/styles";
 
 export const More = (props) => {
   /* -------------------------------------------------------------------------- */

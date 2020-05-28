@@ -13,9 +13,11 @@ import styled from "styled-components";
 import Paper from "@material-ui/core/Paper";
 import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
-import DeleteIcon from "@material-ui/icons/Delete";
 import DoneIcon from "@material-ui/icons/Done";
 import { useTheme } from "@material-ui/core/styles";
+import IconButton from "@material-ui/core/IconButton";
+import { makeStyles } from "@material-ui/core/styles";
+import BackspaceOutlinedIcon from "@material-ui/icons/BackspaceOutlined";
 
 export const TodoList = () => {
   /* -------------------------------------------------------------------------- */
@@ -23,6 +25,7 @@ export const TodoList = () => {
   /* -------------------------------------------------------------------------- */
   const theme = useTheme();
   const todos = useSelector((state) => state.projects.todos);
+  const classes = useStyles();
 
   /* -------------------------------------------------------------------------- */
   /*                              DISPATCH ACTIONS                              */
@@ -31,6 +34,10 @@ export const TodoList = () => {
   const toggleTodo = (todoId) => dispatch(toggleTodoAction(todoId));
   const deleteTodo = (todoId) => dispatch(deleteTodoAction(todoId));
   const doneTodo = (todoId) => dispatch(doneTodoAction(todoId));
+
+  /* -------------------------------------------------------------------------- */
+  /*                               HANDLE ACTIONS                               */
+  /* -------------------------------------------------------------------------- */
 
   //toggle component
   const message =
@@ -42,43 +49,49 @@ export const TodoList = () => {
     <Container>
       {todos &&
         todos.map((todo) => (
-          <Paper key={todo.id}>
-            <Box
-              onClick={
-                ((e) => e.preventDefault(), toggleTodo.bind(null, todo.id))
-              }
-            >
-              <ItemLeft>
+          <Paper
+            key={todo.id}
+            component="div"
+            onClick={
+              ((e) => e.preventDefault(), toggleTodo.bind(null, todo.id))
+            }
+            className={classes.root}
+          >
+            <TextContainer>
+              <Text
+                complete={todo.complete}
+                style={{ overflow: "hidden", textOverflow: "ellipsis" }}
+              >
                 <Checkbox
                   type="checkbox"
                   checked={todo.complete}
-                  color="primary"
+                  color="default"
                 />
-                <Text complete={todo.complete}>{todo.name}</Text>
-              </ItemLeft>
+                {todo.name}
+              </Text>
+            </TextContainer>
+            <IconButton
+              color="secondary"
+              edge="end"
+              onClick={deleteTodo.bind(null, todo.id)}
+              className={classes.deleteButton}
+            >
+              <BackspaceOutlinedIcon fontSize="small" />
+            </IconButton>
 
-              <ItemRight>
-                {todo.complete ? (
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    startIcon={<DoneIcon />}
-                    onClick={doneTodo.bind(null, todo.id)}
-                  >
-                    Done
-                  </Button>
-                ) : (
-                  <Button
-                    variant="contained"
-                    color="secondary"
-                    startIcon={<DeleteIcon />}
-                    onClick={deleteTodo.bind(null, todo.id)}
-                  >
-                    Delete
-                  </Button>
-                )}
-              </ItemRight>
-            </Box>
+            <ItemRight>
+              <Button
+                variant="contained"
+                color="primary"
+                startIcon={<DoneIcon />}
+                disabled={!todo.complete}
+                onClick={doneTodo.bind(null, todo.id)}
+                className={classes.doneButton}
+                size="small"
+              >
+                Done
+              </Button>
+            </ItemRight>
           </Paper>
         ))}
       {message}
@@ -89,24 +102,42 @@ export const TodoList = () => {
 export default TodoList;
 
 /* ---------------------------------- STYLE --------------------------------- */
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    position: "relative",
+    padding: "1rem",
+    marginBottom: "1rem",
+  },
+  deleteButton: {
+    position: "absolute",
+    top: "0",
+    right: "0",
+    margin: "1rem 1rem 0 0",
+    padding: 0,
+  },
+  doneButton: {
+    lineHeight: "initial",
+  },
+}));
+
 const Container = styled.div`
   padding: 1rem;
-  font-size: 1.6rem;
+  font-size: 1.4rem;
 `;
 
-const Box = styled.div`
-  padding: 1rem;
-  margin-bottom: 1rem;
+const TextContainer = styled.div`
+  width: 100%;
+  margin: 0;
+  word-wrap: break-word;
 `;
 
 const ItemRight = styled.div`
   text-align: right;
 `;
-const ItemLeft = styled.div`
-  text-align: left;
-`;
 
-const Text = styled.span`
+const Text = styled.p`
+  margin-bottom: 0;
   text-decoration: ${(props) => (props.complete ? "line-through" : null)};
 `;
 

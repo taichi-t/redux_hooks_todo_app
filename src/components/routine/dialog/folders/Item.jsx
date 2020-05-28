@@ -4,6 +4,7 @@ import React from "react";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import ListItemText from "@material-ui/core/ListItemText";
+import FolderIcon from "@material-ui/icons/Folder";
 
 export const DialogFoldersItem = (props) => {
   /* -------------------------------------------------------------------------- */
@@ -14,7 +15,9 @@ export const DialogFoldersItem = (props) => {
   return (
     <>
       <ListItem button onClick={() => handleListItemClick(index)}>
-        <ListItemAvatar></ListItemAvatar>
+        <ListItemAvatar>
+          <FolderIcon color="action" />
+        </ListItemAvatar>
         <ListItemText primary={index} />
       </ListItem>
     </>
