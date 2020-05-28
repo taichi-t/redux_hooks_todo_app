@@ -24,7 +24,6 @@ import FolderOpenIcon from "@material-ui/icons/FolderOpen";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Input from "@material-ui/core/Input";
 import AddIcon from "@material-ui/icons/Add";
-import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 
 export const Items = (props) => {
   /* -------------------------------------------------------------------------- */
@@ -39,7 +38,6 @@ export const Items = (props) => {
       : false
   );
   const [anchorEl, setAnchorEl] = useState(null);
-  const [add, setAdd] = useState(false);
   const [routine, setRoutine] = useState("");
 
   useEffect(() => {
@@ -69,14 +67,11 @@ export const Items = (props) => {
   const handleClick = (e) => {
     setAnchorEl(e.currentTarget);
   };
-  const handleClickAway = () => {
-    setAdd(false);
-  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (routine.trim() === "") return;
     setRoutine("");
-    setAdd(false);
     console.log(routine);
   };
   const handleChange = (e) => {
@@ -88,24 +83,6 @@ export const Items = (props) => {
     <FolderOpenIcon color="primary" />
   ) : (
     <FolderIcon color="primary" />
-  );
-
-  const addTodo = add ? (
-    <ClickAwayListener onClickAway={handleClickAway}>
-      <form onSubmit={handleSubmit} noValidate autoComplete="off">
-        <IconButton edge="start" color="primary" type="submit">
-          <AddIcon />
-        </IconButton>
-        <Input
-          name="todo"
-          type="text"
-          onChange={handleChange}
-          autoFocus={true}
-        />
-      </form>
-    </ClickAwayListener>
-  ) : (
-    <></>
   );
 
   return (
@@ -143,8 +120,6 @@ export const Items = (props) => {
             <More
               anchorEl={anchorEl}
               setAnchorEl={setAnchorEl}
-              setAdd={setAdd}
-              openCollapseList={openCollapseList}
               setOpenCollapseList={setOpenCollapseList}
             />
           </ListItemSecondaryAction>
@@ -155,7 +130,20 @@ export const Items = (props) => {
               <Elements item={item} index={index} key={index} />
             ))}
 
-          <ListItem>{addTodo}</ListItem>
+          <ListItem>
+            <IconButton edge="start" color="primary">
+              <AddIcon />
+            </IconButton>
+            <form onSubmit={handleSubmit} noValidate autoComplete="off" z>
+              <Input
+                name="todo"
+                type="text"
+                onChange={handleChange}
+                autoFocus={true}
+                value={routine}
+              />
+            </form>
+          </ListItem>
         </Collapse>
       </List>
       <Divider variant="middle" />

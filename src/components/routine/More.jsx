@@ -8,20 +8,13 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
-import PlaylistAddIcon from "@material-ui/icons/PlaylistAdd";
 import { makeStyles } from "@material-ui/core/styles";
 
 export const More = (props) => {
   /* -------------------------------------------------------------------------- */
   /*                                    state                                   */
   /* -------------------------------------------------------------------------- */
-  const {
-    anchorEl,
-    setAnchorEl,
-    setAdd,
-    openCollapseList,
-    setOpenCollapseList,
-  } = props;
+  const { anchorEl, setAnchorEl } = props;
   const classes = useStyles();
 
   /* -------------------------------------------------------------------------- */
@@ -30,12 +23,6 @@ export const More = (props) => {
 
   const handleClose = () => {
     setAnchorEl(null);
-  };
-  const handleAdd = () => {
-    if (!openCollapseList) {
-      setOpenCollapseList(true);
-    }
-    setAdd(true);
   };
 
   return (
@@ -59,12 +46,12 @@ export const More = (props) => {
           </ListItemIcon>
           <ListItemText primary="Edit" />
         </StyledMenuItem>
-        <StyledMenuItem button onClick={handleAdd}>
+        {/* <StyledMenuItem button onClick={handleAdd}>
           <ListItemIcon className={classes.menuButton}>
             <PlaylistAddIcon fontSize="small" />
           </ListItemIcon>
           <ListItemText primary="Add" />
-        </StyledMenuItem>
+        </StyledMenuItem> */}
       </StyledMenu>
     </>
   );
