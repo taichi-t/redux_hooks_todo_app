@@ -96,7 +96,12 @@ export const Items = (props) => {
         <IconButton edge="start" color="primary" type="submit">
           <AddIcon />
         </IconButton>
-        <Input name="todo" type="text" onChange={handleChange} />
+        <Input
+          name="todo"
+          type="text"
+          onChange={handleChange}
+          autoFocus={true}
+        />
       </form>
     </ClickAwayListener>
   ) : (
