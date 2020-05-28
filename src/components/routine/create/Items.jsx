@@ -139,7 +139,6 @@ export const Items = (props) => {
                 name="todo"
                 type="text"
                 onChange={handleChange}
-                autoFocus={true}
                 value={routine}
               />
             </form>

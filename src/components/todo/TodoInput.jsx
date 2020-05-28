@@ -132,6 +132,7 @@ export const TodoInput = () => {
               placeholder="create a todo"
               value={todo}
               onChange={handleChange}
+              autoFocus={true}
             />
             <Button
               type="submit"

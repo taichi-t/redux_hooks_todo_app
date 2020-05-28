@@ -16,7 +16,6 @@ export const DialogFolders = (props) => {
   /* -------------------------------------------------------------------------- */
   const handleClose = (value) => {
     setDialogFolders(false);
-    console.log(value);
     if (typeof value !== "string") return;
   };
 
