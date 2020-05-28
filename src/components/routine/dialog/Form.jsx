@@ -38,6 +38,7 @@ export const Form = (props) => {
     return item;
   });
   const handleClose = () => {
+    console.log("hi");
     setState(false);
   };
 
@@ -47,8 +48,9 @@ export const Form = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addRoutine(todoIds, folderName);
     setState(false);
+    if (folderName.trim() === "") return;
+    addRoutine(todoIds, folderName);
   };
 
   return (

@@ -3,7 +3,7 @@ import React from "react";
 /* -------------------------------------------------------------------------- */
 /*                                 COMPONENTS                                 */
 /* -------------------------------------------------------------------------- */
-import DialogFoldersList from "./List";
+import { DialogFoldersList } from "./List";
 
 export const DialogFolders = (props) => {
   /* -------------------------------------------------------------------------- */
@@ -16,9 +16,8 @@ export const DialogFolders = (props) => {
   /* -------------------------------------------------------------------------- */
   const handleClose = (value) => {
     setDialogFolders(false);
-    if (typeof value === "string") {
-      console.log(value);
-    }
+    console.log(value);
+    if (typeof value !== "string") return;
   };
 
   const handleDialogFormOpen = () => {
