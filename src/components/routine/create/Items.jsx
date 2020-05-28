@@ -92,7 +92,7 @@ export const Items = (props) => {
 
   const addTodo = add ? (
     <ClickAwayListener onClickAway={handleClickAway}>
-      <form type="submit" onSubmit={handleSubmit} noValidate autoComplete="off">
+      <form onSubmit={handleSubmit} noValidate autoComplete="off">
         <IconButton edge="start" color="primary" type="submit">
           <AddIcon />
         </IconButton>
