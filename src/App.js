@@ -20,7 +20,7 @@ import Grid from "@material-ui/core/Grid";
 /* ---------------------------------- HOOKS --------------------------------- */
 import { useTheme } from "./hooks/useTheme";
 
-function App() {
+export const App = () => {
   const [theme, toggleTheme] = useTheme();
   const data = localStorage.getItem("data")
     ? JSON.parse(localStorage.getItem("data"))
@@ -62,6 +62,6 @@ function App() {
       </ThemeProvider>
     </Provider>
   );
-}
+};
 
 export default App;

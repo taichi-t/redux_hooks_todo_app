@@ -5,7 +5,7 @@ import Input from "./Input";
 /* ---------------------------------- UTIL ---------------------------------- */
 
 /* ------------------------------- COMPONENTS ------------------------------- */
-import Lists from "./create/Lists";
+import { Lists as CreateList } from "./create/Lists";
 
 //style
 import styled from "styled-components";
@@ -30,7 +30,7 @@ export const List = () => {
           There is no routine...
         </Message>
       ) : (
-        <Lists objects={routine && routine} />
+        <CreateList objects={routine && routine} />
       )}
 
       <Input />
