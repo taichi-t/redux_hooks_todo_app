@@ -16,8 +16,6 @@ import Button from "@material-ui/core/Button";
 import DoneIcon from "@material-ui/icons/Done";
 import IconButton from "@material-ui/core/IconButton";
 import { makeStyles } from "@material-ui/core/styles";
-import BackspaceOutlinedIcon from "@material-ui/icons/BackspaceOutlined";
-import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import DeleteIcon from "@material-ui/icons/Delete";
 
 export const TodoItems = (props) => {
