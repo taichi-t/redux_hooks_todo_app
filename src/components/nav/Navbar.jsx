@@ -51,7 +51,7 @@ export const Navbar = (props) => {
       edge="end"
       onClick={handleClick}
     >
-      <Brightness4Icon />
+      <Brightness4Icon fontSize="large" />
     </IconButton>
   ) : (
     <IconButton
@@ -60,7 +60,7 @@ export const Navbar = (props) => {
       edge="end"
       onClick={handleClick}
     >
-      <Brightness7Icon />
+      <Brightness7Icon fontSize="large" />
     </IconButton>
   );
 
@@ -86,7 +86,7 @@ export default Navbar;
 /* ---------------------------------- style --------------------------------- */
 const Title = styled.h1`
   color: ${(props) => props.color};
-  font-size: 1.6rem;
+  font-size: 2rem;
 `;
 
 const Month = styled.span`

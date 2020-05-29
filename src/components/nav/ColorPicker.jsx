@@ -43,7 +43,7 @@ export const ColorPicker = (props) => {
         edge="start"
         className={classes.menuButton}
       >
-        <ColorLensIcon />
+        <ColorLensIcon fontSize="large" />
       </IconButton>
       <Menu
         id="long-menu"
