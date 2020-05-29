@@ -47,7 +47,7 @@ export const TodoItems = (props) => {
       <Paper
         key={todo.id}
         component="div"
-        onClick={((e) => e.preventDefault(), toggleTodo.bind(null, todo.id))}
+        onClick={() => toggleTodo(todo.id)}
         className={classes.root}
       >
         <Checkbox
@@ -57,14 +57,14 @@ export const TodoItems = (props) => {
           className={classes.checkbox}
         />
         <TextContainer>
-          <Text complete={todo.complete} onClick={handleShow} active={hidden}>
-            {todo.name}
+          <Text complete={todo.complete} active={hidden}>
+            <span onClick={handleShow}>{todo.name}</span>
           </Text>
         </TextContainer>
 
         <IconButton
           color="secondary"
-          onClick={deleteTodo.bind(null, todo.id)}
+          onClick={() => deleteTodo(todo.id)}
           className={classes.deleteButton}
           size="small"
         >
@@ -77,7 +77,7 @@ export const TodoItems = (props) => {
             color="primary"
             startIcon={<DoneIcon />}
             disabled={!todo.complete}
-            onClick={doneTodo.bind(null, todo.id)}
+            onClick={() => doneTodo(todo.id)}
             className={classes.doneButton}
             size="small"
           >
