@@ -17,6 +17,8 @@ import DoneIcon from "@material-ui/icons/Done";
 import IconButton from "@material-ui/core/IconButton";
 import { makeStyles } from "@material-ui/core/styles";
 import BackspaceOutlinedIcon from "@material-ui/icons/BackspaceOutlined";
+import HighlightOffIcon from "@material-ui/icons/HighlightOff";
+import DeleteIcon from "@material-ui/icons/Delete";
 
 export const TodoItems = (props) => {
   /* -------------------------------------------------------------------------- */
@@ -38,8 +40,22 @@ export const TodoItems = (props) => {
   /*                               HANDLE ACTIONS                               */
   /* -------------------------------------------------------------------------- */
   const handleShow = (e) => {
-    e.stopPropagation();
+    e.preventDefault();
     setHidden(!hidden);
+  };
+  const handleToggle = (e) => {
+    e.preventDefault();
+    toggleTodo(todo.id);
+  };
+
+  const handleDelete = (e) => {
+    e.preventDefault();
+    deleteTodo(todo.id);
+  };
+
+  const handleDone = (e) => {
+    e.preventDefault();
+    doneTodo(todo.id);
   };
 
   return (
@@ -47,7 +63,7 @@ export const TodoItems = (props) => {
       <Paper
         key={todo.id}
         component="div"
-        onClick={() => toggleTodo(todo.id)}
+        onClick={handleToggle}
         className={classes.root}
       >
         <Checkbox
@@ -64,11 +80,11 @@ export const TodoItems = (props) => {
 
         <IconButton
           color="secondary"
-          onClick={() => deleteTodo(todo.id)}
+          onClick={handleDelete}
           className={classes.deleteButton}
           size="small"
         >
-          <BackspaceOutlinedIcon />
+          <DeleteIcon />
         </IconButton>
 
         <ItemRight>
@@ -77,7 +93,7 @@ export const TodoItems = (props) => {
             color="primary"
             startIcon={<DoneIcon />}
             disabled={!todo.complete}
-            onClick={() => doneTodo(todo.id)}
+            onClick={handleDone}
             className={classes.doneButton}
             size="small"
           >
