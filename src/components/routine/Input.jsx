@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-// import { useSelector } from "react-redux";
-
 /* ------------------------------- COMPONENTS ------------------------------- */
 import { Form as DialogForm } from "./dialog/Form";
 
