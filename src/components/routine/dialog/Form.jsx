@@ -13,11 +13,13 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
 export const Form = (props) => {
+  console.log(props);
   /* -------------------------------------------------------------------------- */
   /*                                    state                                   */
   /* -------------------------------------------------------------------------- */
   const history = useSelector((state) => state.projects.history);
-  const { open, setState } = props;
+  const { openDialogForm, setDialogForm } = props;
+
   const [folderName, setFolderName] = useState("");
 
   /* -------------------------------------------------------------------------- */
@@ -39,7 +41,7 @@ export const Form = (props) => {
   });
   const handleClose = (e) => {
     e.preventDefault();
-    setState(false);
+    setDialogForm(false);
   };
 
   const handleChange = (e) => {
@@ -48,7 +50,7 @@ export const Form = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setState(false);
+    setDialogForm(false);
     if (folderName.trim() === "") return;
     addRoutine(todoIds, folderName);
   };
@@ -56,7 +58,7 @@ export const Form = (props) => {
   return (
     <>
       <Dialog
-        open={open}
+        open={openDialogForm}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
         fullWidth={true}

@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 // import { useSelector } from "react-redux";
+
+/* ------------------------------- COMPONENTS ------------------------------- */
+import { Form as DialogForm } from "./dialog/Form";
 
 /* ---------------------------------- style --------------------------------- */
 import styled from "styled-components";
@@ -12,13 +15,23 @@ export const Input = () => {
   /* -------------------------------------------------------------------------- */
   // const routine = useSelector((state) => state.users.routine);
   // console.log(routine);
+  const [openDialogForm, setDialogForm] = useState(false);
+
+  /* ----------------------------- HANDLE ACTIONS ----------------------------- */
+  const handleCreate = (e) => {
+    e.preventDefault();
+  };
 
   return (
     <>
+      <DialogForm
+        openDialogFormOfRoutine={openDialogForm}
+        setDialogFormOfRoutine={setDialogForm}
+      />
       <LeftContainer></LeftContainer>
       <RightContainer>
         <IconButton aria-label="create a folder" color="primary">
-          <CreateNewFolderIcon />
+          <CreateNewFolderIcon onClick={handleCreate} />
         </IconButton>
       </RightContainer>
     </>

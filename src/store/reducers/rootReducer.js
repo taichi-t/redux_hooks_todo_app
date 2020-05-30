@@ -26,7 +26,9 @@ export function rootReducer(state, { type, payload }) {
             ...state.users,
             routine: {
               ...state.users.routine,
-              [payload.folderName]: newRoutine,
+              [uuidv4()]: {
+                [payload.folderName]: newRoutine,
+              },
             },
           },
           { type, payload }

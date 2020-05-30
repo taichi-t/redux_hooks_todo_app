@@ -30,21 +30,22 @@ export const Items = (props) => {
   /*                                    state                                   */
   /* -------------------------------------------------------------------------- */
   const classes = useStyles();
-  const { objects, index } = props;
+  const { objects } = props;
+  const key = Object.keys(objects);
+  const array = objects[key];
+
   const [openCollapseList, setOpenCollapseList] = useState(false);
   const [check, setCheck] = useState(
-    objects.filter((object) => object.check === false).length === 0
-      ? true
-      : false
+    array.filter((object) => object.check === false).length === 0 ? true : false
   );
   const [anchorEl, setAnchorEl] = useState(null);
   const [routine, setRoutine] = useState("");
 
   useEffect(() => {
-    objects.filter((object) => object.check === false).length === 0
+    array.filter((object) => object.check === false).length === 0
       ? setCheck(true)
       : setCheck(false);
-  }, [objects]);
+  }, [array]);
 
   /* -------------------------------------------------------------------------- */
   /*                               dispatchActions                              */
@@ -53,14 +54,14 @@ export const Items = (props) => {
   const selectHistories = (todoIds) => dispatch(selectHistoriesAction(todoIds));
   const uncheckHistories = (todoIds) =>
     dispatch(uncheckHistoriesAction(todoIds));
-  const todoIds = objects && objects.map((object) => object.id);
+  const todoIds = array && array.map((object) => object.id);
 
   /* -------------------------------------------------------------------------- */
   /*                               handle actions                               */
   /* -------------------------------------------------------------------------- */
   const handleSelect = (e) => {
     setCheck(!check);
-    objects.filter((object) => object.check === false).length === 0
+    array.filter((object) => object.check === false).length === 0
       ? uncheckHistories(todoIds)
       : selectHistories(todoIds);
   };
@@ -103,7 +104,7 @@ export const Items = (props) => {
               >
                 {folderIcon}
               </IconButton>
-              <span className={classes.text}>{index}</span>
+              <span className={classes.text}>{key}</span>
             </Box>
           </ListItemIcon>
 
@@ -125,10 +126,7 @@ export const Items = (props) => {
           </ListItemSecondaryAction>
         </ListItem>
         <Collapse in={openCollapseList} timeout="auto" unmountOnExit>
-          {objects &&
-            objects.map((item, index) => (
-              <Elements item={item} index={index} key={index} />
-            ))}
+          {array && array.map((item) => <Elements item={item} key={item.id} />)}
 
           <ListItem>
             <IconButton edge="start" color="primary">

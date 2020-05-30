@@ -127,7 +127,7 @@ export const Input = () => {
         setDialogFolders={setDialogFolders}
         setDialogForm={setDialogForm}
       />
-      <Form open={openDialogForm} setState={setDialogForm} />
+      <Form openDialogForm={openDialogForm} setDialogForm={setDialogForm} />
       <LeftContainer>{button}</LeftContainer>
       <RightContainer>
         <IconButton

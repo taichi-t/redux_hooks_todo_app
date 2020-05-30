@@ -18,8 +18,13 @@ export const DialogFoldersList = (props) => {
   /* -------------------------------------------------------------------------- */
   const { handleClose, openDialogFolders, handleDialogFormOpen } = props;
   const routine = useSelector((state) => state.users.routine);
-  const routineKeys = Object.keys(routine);
   const classes = useStyles();
+
+  let keyArray = [];
+  for (let key in routine) {
+    const index = Object.keys(routine[key]);
+    keyArray.push(index[0]);
+  }
 
   /* -------------------------------------------------------------------------- */
   /*                               HANDLE ACTIONS                               */
@@ -36,8 +41,8 @@ export const DialogFoldersList = (props) => {
     >
       <DialogTitle id="dialog-title">add routines</DialogTitle>
       <List className={classes.list}>
-        {routineKeys &&
-          routineKeys.map((key, index) => (
+        {keyArray &&
+          keyArray.map((key, index) => (
             <DialogFoldersItem
               index={key}
               handleListItemClick={handleListItemClick}

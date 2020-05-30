@@ -25,12 +25,12 @@ export const List = () => {
       <Title>
         <ListIcon fontSize="large" />
       </Title>
-      {routine && routine.length === 0 ? (
+      {routine !== undefined ? (
+        <CreateList objects={routine} />
+      ) : (
         <Message color={theme.palette.text.hint}>
           There is no routine...
         </Message>
-      ) : (
-        <CreateList objects={routine && routine} />
       )}
 
       <Input />
