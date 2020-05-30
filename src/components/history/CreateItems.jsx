@@ -70,7 +70,7 @@ export const CreateItems = (props) => {
         <ListItem className={classes.list} onClick={(e) => setOpen(!open)}>
           <div className={classes.text}>
             <IconButton
-              color="primary"
+              color="default"
               onClick={handleSelect}
               edge="start"
               disableRipple={true}
@@ -136,7 +136,6 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(0),
   },
   checkButton: {
-    color: theme.palette.text.hint,
     padding: "0",
   },
 

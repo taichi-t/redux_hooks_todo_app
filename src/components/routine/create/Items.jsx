@@ -80,9 +80,9 @@ export const Items = (props) => {
 
   //toggle components
   const folderIcon = openCollapseList ? (
-    <FolderOpenIcon color="action" />
+    <FolderOpenIcon className={classes.menuButton} />
   ) : (
-    <FolderIcon color="action" />
+    <FolderIcon className={classes.menuButton} />
   );
 
   return (
@@ -99,10 +99,11 @@ export const Items = (props) => {
                 edge="start"
                 disableRipple={true}
                 disableFocusRipple={true}
+                color="default"
               >
                 {folderIcon}
               </IconButton>
-              {index}
+              <span className={classes.text}>{index}</span>
             </Box>
           </ListItemIcon>
 
@@ -161,6 +162,9 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(0),
   },
   menuButton: {
-    color: theme.palette.text.hint,
+    color: theme.palette.text.secondary,
+  },
+  text: {
+    color: theme.palette.text.secondary,
   },
 }));
