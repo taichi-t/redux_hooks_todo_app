@@ -86,7 +86,7 @@ export default Navbar;
 /* ---------------------------------- style --------------------------------- */
 const Title = styled.h1`
   color: ${(props) => props.color};
-  font-size: 2rem;
+  font-size: 2.4rem;
 `;
 
 const Month = styled.span`

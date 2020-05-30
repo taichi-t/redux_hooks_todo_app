@@ -68,16 +68,17 @@ export const CreateItems = (props) => {
     <>
       <List component="ul" className={classes.list}>
         <ListItem className={classes.list} onClick={(e) => setOpen(!open)}>
-          <IconButton
-            color="primary"
-            onClick={handleSelect}
-            edge="start"
-            disableRipple={true}
-            disableFocusRipple={true}
-          >
-            <Checkbox checked={check} color="default" />
-          </IconButton>
-          <p className={classes.text}>
+          <div className={classes.text}>
+            <IconButton
+              color="primary"
+              onClick={handleSelect}
+              edge="start"
+              disableRipple={true}
+              disableFocusRipple={true}
+              className={classes.checkButton}
+            >
+              <Checkbox checked={check} color="default" />
+            </IconButton>
             {moment(index).calendar(null, {
               sameDay: "[Today]",
               nextDay: "[Tomorrow]",
@@ -86,23 +87,15 @@ export const CreateItems = (props) => {
               lastWeek: "[Last] dddd",
               sameElse: "DD/MM/YYYY",
             })}
-          </p>
+          </div>
 
           <ListItemSecondaryAction>
             {open ? (
-              <IconButton
-                className={classes.menuButton}
-                onClick={(e) => setOpen(!open)}
-                edge="end"
-              >
+              <IconButton onClick={(e) => setOpen(!open)} edge="end">
                 <ExpandLess />
               </IconButton>
             ) : (
-              <IconButton
-                className={classes.menuButton}
-                onClick={(e) => setOpen(!open)}
-                edge="end"
-              >
+              <IconButton onClick={(e) => setOpen(!open)} edge="end">
                 <ExpandMore />
               </IconButton>
             )}
@@ -142,9 +135,11 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: theme.spacing(0),
     paddingBottom: theme.spacing(0),
   },
-  menuButton: {
+  checkButton: {
     color: theme.palette.text.hint,
+    padding: "0",
   },
+
   text: {
     color: theme.palette.text.secondary,
     fontSize: "1.6rem",

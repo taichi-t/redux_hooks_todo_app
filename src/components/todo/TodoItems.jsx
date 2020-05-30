@@ -39,6 +39,7 @@ export const TodoItems = (props) => {
   /* -------------------------------------------------------------------------- */
   const handleShow = (e) => {
     e.preventDefault();
+    e.stopPropagation();
     setHidden(!hidden);
   };
   const handleToggle = (e) => {
@@ -64,17 +65,10 @@ export const TodoItems = (props) => {
         onClick={handleToggle}
         className={classes.root}
       >
-        <Checkbox
-          type="checkbox"
-          checked={todo.complete}
-          color="default"
-          className={classes.checkbox}
-        />
-        <TextContainer>
-          <Text complete={todo.complete} active={hidden}>
-            <span onClick={handleShow}>{todo.name}</span>
-          </Text>
-        </TextContainer>
+        <Text complete={todo.complete} active={hidden}>
+          <Checkbox type="checkbox" checked={todo.complete} color="default" />
+          <span onClick={handleShow}>{todo.name}</span>
+        </Text>
 
         <IconButton
           color="secondary"
@@ -123,28 +117,20 @@ const useStyles = makeStyles((theme) => ({
   doneButton: {
     lineHeight: "initial",
   },
-  checkbox: {
-    position: "absolute",
-    top: "0",
-    left: "0",
-    margin: "1rem 0 0 1rem",
-    padding: 0,
-  },
+  checkbox: {},
 }));
 
 const ItemRight = styled.div`
   text-align: right;
 `;
 
-const TextContainer = styled.div``;
-
 const Text = styled.p`
-  margin: 2rem 0 1rem 0;
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   width: 100%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  word-wrap: break-word;
   text-decoration: ${(props) => (props.complete ? "line-through" : null)};
   ${({ active }) =>
     active &&

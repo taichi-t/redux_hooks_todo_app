@@ -7,7 +7,6 @@ import MenuItem from "@material-ui/core/MenuItem";
 import ColorLensIcon from "@material-ui/icons/ColorLens";
 import IconButton from "@material-ui/core/IconButton";
 import Menu from "@material-ui/core/Menu";
-import { makeStyles } from "@material-ui/core/styles";
 
 export const ColorPicker = (props) => {
   /* -------------------------------------------------------------------------- */
@@ -16,7 +15,6 @@ export const ColorPicker = (props) => {
   const { toggleTheme } = props;
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-  const classes = useStyles();
 
   /* -------------------------------------------------------------------------- */
   /*                               handle actions                               */
@@ -41,7 +39,6 @@ export const ColorPicker = (props) => {
         aria-haspopup="true"
         onClick={handleClick}
         edge="start"
-        className={classes.menuButton}
       >
         <ColorLensIcon fontSize="large" />
       </IconButton>
@@ -80,12 +77,6 @@ const StyledBoxColor = styled(Box)`
   width: 1rem;
   height: 1rem;
 `;
-
-const useStyles = makeStyles((theme) => ({
-  menuButton: {
-    marginRight: theme.spacing(3),
-  },
-}));
 
 const colorArray = [
   "default",
