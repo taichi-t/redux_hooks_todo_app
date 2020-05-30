@@ -46,12 +46,6 @@ export const More = (props) => {
           </ListItemIcon>
           <ListItemText primary="Edit" />
         </StyledMenuItem>
-        {/* <StyledMenuItem button onClick={handleAdd}>
-          <ListItemIcon className={classes.menuButton}>
-            <PlaylistAddIcon fontSize="small" />
-          </ListItemIcon>
-          <ListItemText primary="Add" />
-        </StyledMenuItem> */}
       </StyledMenu>
     </>
   );

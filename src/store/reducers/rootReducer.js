@@ -1,6 +1,5 @@
 import projectReducer from "./projectReducer";
 import usersReducer from "./usersReducer";
-import { deleteMatchedObjArrays } from "../../util/deleteMatchedObjArrays";
 import { createObjArraysMatchedId } from "../../util/createObjArraysMatchedId";
 import { v4 as uuidv4 } from "uuid";
 
@@ -26,6 +25,7 @@ export function rootReducer(state, { type, payload }) {
           {
             ...state.users,
             routine: {
+              ...state.users.routine,
               [payload.folderName]: newRoutine,
             },
           },

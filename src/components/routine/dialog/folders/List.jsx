@@ -10,6 +10,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import Dialog from "@material-ui/core/Dialog";
 import AddIcon from "@material-ui/icons/Add";
 import DialogFoldersItem from "./Item";
+import { makeStyles } from "@material-ui/core/styles";
 
 export const DialogFoldersList = (props) => {
   /* -------------------------------------------------------------------------- */
@@ -18,6 +19,7 @@ export const DialogFoldersList = (props) => {
   const { handleClose, openDialogFolders, handleDialogFormOpen } = props;
   const routine = useSelector((state) => state.users.routine);
   const routineKeys = Object.keys(routine);
+  const classes = useStyles();
 
   /* -------------------------------------------------------------------------- */
   /*                               HANDLE ACTIONS                               */
@@ -33,7 +35,7 @@ export const DialogFoldersList = (props) => {
       open={openDialogFolders}
     >
       <DialogTitle id="dialog-title">add routines</DialogTitle>
-      <List>
+      <List className={classes.list}>
         {routineKeys &&
           routineKeys.map((key, index) => (
             <DialogFoldersItem
@@ -42,16 +44,23 @@ export const DialogFoldersList = (props) => {
               key={index}
             />
           ))}
-
-        <ListItem autoFocus button onClick={() => handleDialogFormOpen()}>
-          <ListItemAvatar>
-            <AddIcon color="primary" />
-          </ListItemAvatar>
-          <ListItemText primary="Create a new folder" />
-        </ListItem>
       </List>
+      <ListItem button onClick={() => handleDialogFormOpen()}>
+        <ListItemAvatar>
+          <AddIcon color="primary" />
+        </ListItemAvatar>
+        <ListItemText primary="Create a new folder" />
+      </ListItem>
     </Dialog>
   );
 };
 
 export default DialogFoldersList;
+
+/* ---------------------------------- STYLE --------------------------------- */
+const useStyles = makeStyles((theme) => ({
+  list: {
+    maxHeight: "10rem",
+    overflow: "scroll",
+  },
+}));
