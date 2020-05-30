@@ -94,7 +94,6 @@ export const Input = () => {
 
   const handleAdd = (e) => {
     e.preventDefault();
-
     let keys = [];
     for (let key in routine) {
       keys.push(key);
@@ -136,6 +135,7 @@ export const Input = () => {
           color="primary"
           disabled={isActiveAddRoutineButton}
           onClick={handleAdd}
+          disableRipple={true}
         >
           <PlaylistAddIcon />
         </IconButton>

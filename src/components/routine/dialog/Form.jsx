@@ -37,8 +37,8 @@ export const Form = (props) => {
     } else;
     return item;
   });
-  const handleClose = () => {
-    console.log("hi");
+  const handleClose = (e) => {
+    e.preventDefault();
     setState(false);
   };
 
@@ -76,7 +76,7 @@ export const Form = (props) => {
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleClose} color="secondary" type="submit">
+            <Button onClick={handleClose} color="secondary">
               Cancel
             </Button>
             <Button color="primary" type="submit">

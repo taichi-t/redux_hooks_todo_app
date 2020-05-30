@@ -2,6 +2,7 @@ import projectReducer from "./projectReducer";
 import usersReducer from "./usersReducer";
 import { deleteMatchedObjArrays } from "../../util/deleteMatchedObjArrays";
 import { createObjArraysMatchedId } from "../../util/createObjArraysMatchedId";
+import { v4 as uuidv4 } from "uuid";
 
 export function rootReducer(state, { type, payload }) {
   let newHistory;
@@ -11,20 +12,16 @@ export function rootReducer(state, { type, payload }) {
     case "ADD_NEW_ROUTINE_TO_NEW_FOLDER":
       newHistory = [...state.projects.history];
       newRoutine = createObjArraysMatchedId(newHistory, payload.todoIds);
-      newHistory = deleteMatchedObjArrays(newHistory, payload.todoIds);
       newRoutine = newRoutine.map((todo) => {
         delete todo.complete;
         return {
           ...todo,
+          id: uuidv4(),
           check: false,
         };
       });
-
       return {
-        projects: projectReducer(
-          { ...state.projects, history: newHistory },
-          { type, payload }
-        ),
+        projects: projectReducer(state.projects, { type, payload }),
         users: usersReducer(
           {
             ...state.users,
