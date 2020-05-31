@@ -9,8 +9,8 @@ import {
 } from "../../store/actions";
 
 /* ------------------------------ components ------------------------------ */
-import Form from "../routine/dialog/Form";
-import Folders from "../routine/dialog/folders/Folders";
+import Form from "../dialog/Form";
+import Folders from "../dialog/folders/Folders";
 
 /* --------------------------------- style -------------------------------- */
 import styled from "styled-components";

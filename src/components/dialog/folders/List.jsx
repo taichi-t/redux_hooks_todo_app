@@ -13,7 +13,7 @@ import DialogFoldersItem from "./Item";
 import { makeStyles } from "@material-ui/core/styles";
 
 /* ------------------------------- CONTEXT API ------------------------------ */
-import { UiContext } from "../../../../store/context/provider";
+import { UiContext } from "../../../store/context/provider";
 
 export const DialogFoldersList = () => {
   /* -------------------------------------------------------------------------- */

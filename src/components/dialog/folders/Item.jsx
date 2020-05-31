@@ -7,7 +7,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import FolderIcon from "@material-ui/icons/Folder";
 
 /* ------------------------------- CONTEXT API ------------------------------ */
-import { UiContext } from "../../../../store/context/provider";
+import { UiContext } from "../../../store/context/provider";
 
 export const DialogFoldersItem = (props) => {
   /* -------------------------------------------------------------------------- */

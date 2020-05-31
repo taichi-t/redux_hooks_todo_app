@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 /* ------------------------------- COMPONENTS ------------------------------- */
-import { Form as DialogForm } from "./dialog/Form";
+import { Form as DialogForm } from "../dialog/Form";
 
 /* ---------------------------------- STYLE --------------------------------- */
 import styled from "styled-components";

@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 /* --------------------------------- actions -------------------------------- */
-import { addRoutineAction } from "../../../store/actions";
+import { addRoutineAction } from "../../store/actions";
 
 /* ---------------------------------- style --------------------------------- */
 import Button from "@material-ui/core/Button";
@@ -13,7 +13,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
 /* ------------------------------- CONTEXT API ------------------------------ */
-import { UiContext } from "../../../store/context/provider";
+import { UiContext } from "../../store/context/provider";
 
 export const Form = () => {
   /* -------------------------------------------------------------------------- */
