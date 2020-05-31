@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 /* ------------------------------- COMPONENTS ------------------------------- */
 import { Form as DialogForm } from "./dialog/Form";
 
-/* ---------------------------------- style --------------------------------- */
+/* ---------------------------------- STYLE --------------------------------- */
 import styled from "styled-components";
 import IconButton from "@material-ui/core/IconButton";
 import CreateNewFolderIcon from "@material-ui/icons/CreateNewFolder";
+
+/* ------------------------------- CONTEXT API ------------------------------ */
+import { UiContext } from "../../store/context/provider";
 
 export const Input = () => {
   /* -------------------------------------------------------------------------- */
@@ -13,23 +16,25 @@ export const Input = () => {
   /* -------------------------------------------------------------------------- */
   // const routine = useSelector((state) => state.users.routine);
   // console.log(routine);
-  const [openDialogForm, setDialogForm] = useState(false);
+
+  const { Ui, setUi } = useContext(UiContext);
 
   /* ----------------------------- HANDLE ACTIONS ----------------------------- */
   const handleCreate = (e) => {
-    e.preventDefault();
+    setUi({ ...Ui, dialogForm: !Ui.dialogForm });
   };
 
   return (
     <>
-      <DialogForm
-        openDialogFormOfRoutine={openDialogForm}
-        setDialogFormOfRoutine={setDialogForm}
-      />
+      <DialogForm />
       <LeftContainer></LeftContainer>
       <RightContainer>
-        <IconButton aria-label="create a folder" color="primary">
-          <CreateNewFolderIcon onClick={handleCreate} />
+        <IconButton
+          aria-label="create a folder"
+          color="primary"
+          onClick={handleCreate}
+        >
+          <CreateNewFolderIcon />
         </IconButton>
       </RightContainer>
     </>

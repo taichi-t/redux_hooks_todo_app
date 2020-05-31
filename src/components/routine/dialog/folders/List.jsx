@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useSelector } from "react-redux";
 
 /* ---------------------------------- STYLE --------------------------------- */
@@ -12,12 +12,16 @@ import AddIcon from "@material-ui/icons/Add";
 import DialogFoldersItem from "./Item";
 import { makeStyles } from "@material-ui/core/styles";
 
-export const DialogFoldersList = (props) => {
+/* ------------------------------- CONTEXT API ------------------------------ */
+import { UiContext } from "../../../../store/context/provider";
+
+export const DialogFoldersList = () => {
   /* -------------------------------------------------------------------------- */
   /*                                    STATE                                   */
   /* -------------------------------------------------------------------------- */
-  const { handleClose, openDialogFolders, handleDialogFormOpen } = props;
+
   const routine = useSelector((state) => state.users.routine);
+  const { Ui, setUi } = useContext(UiContext);
   const classes = useStyles();
 
   let keyArray = [];
@@ -29,25 +33,32 @@ export const DialogFoldersList = (props) => {
   /* -------------------------------------------------------------------------- */
   /*                               HANDLE ACTIONS                               */
   /* -------------------------------------------------------------------------- */
-  const handleListItemClick = (value) => {
-    handleClose(value);
+
+  // const handleListItemClick = (value) => {
+  //   setUi({ ...Ui, dialogFolder: false });
+  //   if (typeof value !== "string") return;
+  // };
+
+  const handleDialogFormOpen = () => {
+    setUi({ ...Ui, dialogFolder: false, dialogForm: true });
+  };
+
+  const handleClose = (value) => {
+    setUi({ ...Ui, dialogFolder: false });
+    if (typeof value !== "string") return;
   };
 
   return (
     <Dialog
       onClose={handleClose}
       aria-labelledby="dialog-title"
-      open={openDialogFolders}
+      open={Ui.dialogFolder}
     >
       <DialogTitle id="dialog-title">add routines</DialogTitle>
       <List className={classes.list}>
         {keyArray &&
           keyArray.map((key, index) => (
-            <DialogFoldersItem
-              index={key}
-              handleListItemClick={handleListItemClick}
-              key={index}
-            />
+            <DialogFoldersItem index={key} key={index} />
           ))}
       </List>
       <ListItem button onClick={() => handleDialogFormOpen()}>

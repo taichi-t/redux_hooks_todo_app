@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 /* --------------------------------- actions -------------------------------- */
@@ -12,15 +12,16 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
-export const Form = (props) => {
-  console.log(props);
+/* ------------------------------- CONTEXT API ------------------------------ */
+import { UiContext } from "../../../store/context/provider";
+
+export const Form = () => {
   /* -------------------------------------------------------------------------- */
   /*                                    state                                   */
   /* -------------------------------------------------------------------------- */
   const history = useSelector((state) => state.projects.history);
-  const { openDialogForm, setDialogForm } = props;
-
   const [folderName, setFolderName] = useState("");
+  const { Ui, setUi } = useContext(UiContext);
 
   /* -------------------------------------------------------------------------- */
   /*                               dispatchActions                              */
@@ -41,7 +42,7 @@ export const Form = (props) => {
   });
   const handleClose = (e) => {
     e.preventDefault();
-    setDialogForm(false);
+    setUi({ ...Ui, dialogForm: false });
   };
 
   const handleChange = (e) => {
@@ -50,7 +51,7 @@ export const Form = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setDialogForm(false);
+    setUi({ ...Ui, dialogForm: false });
     if (folderName.trim() === "") return;
     addRoutine(todoIds, folderName);
   };
@@ -58,7 +59,7 @@ export const Form = (props) => {
   return (
     <>
       <Dialog
-        open={openDialogForm}
+        open={Ui.dialogForm}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
         fullWidth={true}
@@ -70,7 +71,6 @@ export const Form = (props) => {
             <TextField
               autoFocus
               margin="dense"
-              id="name"
               label="name"
               type="text"
               fullWidth={true}

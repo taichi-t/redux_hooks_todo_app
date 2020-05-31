@@ -1,36 +1,22 @@
 import React from "react";
 
-/* -------------------------------------------------------------------------- */
-/*                                 COMPONENTS                                 */
-/* -------------------------------------------------------------------------- */
+/* -------------------------------- COMPONENT ------------------------------- */
 import { DialogFoldersList } from "./List";
 
-export const DialogFolders = (props) => {
+/* ------------------------------- CONTEXT API ------------------------------ */
+
+export const DialogFolders = () => {
   /* -------------------------------------------------------------------------- */
   /*                                    STATE                                   */
   /* -------------------------------------------------------------------------- */
-  const { openDialogFolders, setDialogFolders, setDialogForm } = props;
 
   /* -------------------------------------------------------------------------- */
   /*                               HANDLE ACTIONS                               */
   /* -------------------------------------------------------------------------- */
-  const handleClose = (value) => {
-    setDialogFolders(false);
-    if (typeof value !== "string") return;
-  };
-
-  const handleDialogFormOpen = () => {
-    setDialogFolders(false);
-    setDialogForm(true);
-  };
 
   return (
     <>
-      <DialogFoldersList
-        openDialogFolders={openDialogFolders}
-        handleClose={handleClose}
-        handleDialogFormOpen={handleDialogFormOpen}
-      />
+      <DialogFoldersList />
     </>
   );
 };

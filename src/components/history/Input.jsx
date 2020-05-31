@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 /* --------------------------------- actions -------------------------------- */
@@ -24,10 +24,14 @@ import PlaylistAddIcon from "@material-ui/icons/PlaylistAdd";
 import { checkHistory } from "../../util/checkHistory";
 import { toggleSelectAllButton } from "../../util/toggleSelectAllButton";
 
+/* ------------------------------- CONTEXT API ------------------------------ */
+import { UiContext } from "../../store/context/provider";
+
 export const Input = () => {
   /* -------------------------------------------------------------------------- */
   /*                                    state                                   */
   /* -------------------------------------------------------------------------- */
+  const { Ui, setUi } = useContext(UiContext);
   const history = useSelector((state) => state.projects.history);
   const routine = useSelector((state) => state.users.routine);
   const [isActiveDeleteButton, setIsActiveDeleteButton] = useState(true);
@@ -36,8 +40,6 @@ export const Input = () => {
   );
   const [toggleButton, setToggleButton] = useState(false);
   const [isActiveSellectAllButton, setIsActiveSellectAll] = useState(true);
-  const [openDialogForm, setDialogForm] = useState(false);
-  const [openDialogFolders, setDialogFolders] = useState(false);
 
   /* -------------------------------------------------------------------------- */
   /*                               dispatchActions                              */
@@ -99,9 +101,9 @@ export const Input = () => {
       keys.push(key);
     }
     if (keys.length === 0) {
-      setDialogForm(true);
+      setUi({ ...Ui, dialogForm: !Ui.dialogForm });
     } else {
-      setDialogFolders(true);
+      setUi({ ...Ui, dialogFolder: !Ui.dialogFolder });
     }
   };
 
@@ -122,12 +124,8 @@ export const Input = () => {
   );
   return (
     <>
-      <Folders
-        openDialogFolders={openDialogFolders}
-        setDialogFolders={setDialogFolders}
-        setDialogForm={setDialogForm}
-      />
-      <Form openDialogForm={openDialogForm} setDialogForm={setDialogForm} />
+      <Folders />
+      <Form />
       <LeftContainer>{button}</LeftContainer>
       <RightContainer>
         <IconButton

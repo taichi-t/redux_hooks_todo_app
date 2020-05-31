@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useDispatch } from "react-redux";
 
 /* --------------------------------- actions -------------------------------- */
@@ -25,6 +25,9 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Input from "@material-ui/core/Input";
 import AddIcon from "@material-ui/icons/Add";
 
+/* ------------------------------- CONTEXT API ------------------------------ */
+import { UiContext } from "../../../store/context/provider";
+
 export const Items = (props) => {
   /* -------------------------------------------------------------------------- */
   /*                                    state                                   */
@@ -38,8 +41,8 @@ export const Items = (props) => {
   const [check, setCheck] = useState(
     array.filter((object) => object.check === false).length === 0 ? true : false
   );
-  const [anchorEl, setAnchorEl] = useState(null);
   const [routine, setRoutine] = useState("");
+  const { Ui, setUi } = useContext(UiContext);
 
   useEffect(() => {
     array.filter((object) => object.check === false).length === 0
@@ -65,15 +68,15 @@ export const Items = (props) => {
       ? uncheckHistories(todoIds)
       : selectHistories(todoIds);
   };
+
   const handleClick = (e) => {
-    setAnchorEl(e.currentTarget);
+    setUi({ ...Ui, anchorEl: e.currentTarget });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (routine.trim() === "") return;
     setRoutine("");
-    console.log(routine);
   };
   const handleChange = (e) => {
     setRoutine(e.target.value);
@@ -118,11 +121,7 @@ export const Items = (props) => {
             >
               <MoreVertIcon />
             </IconButton>
-            <More
-              anchorEl={anchorEl}
-              setAnchorEl={setAnchorEl}
-              setOpenCollapseList={setOpenCollapseList}
-            />
+            <More />
           </ListItemSecondaryAction>
         </ListItem>
         <Collapse in={openCollapseList} timeout="auto" unmountOnExit>
