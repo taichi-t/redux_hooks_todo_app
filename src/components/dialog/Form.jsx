@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 /* --------------------------------- actions -------------------------------- */
-import { addRoutineAction } from "../../../store/actions";
+import { addRoutineAction } from "../../store/actions";
 
 /* ---------------------------------- style --------------------------------- */
 import Button from "@material-ui/core/Button";
@@ -12,13 +12,16 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
-export const Form = (props) => {
+/* ------------------------------- CONTEXT API ------------------------------ */
+import { UiContext } from "../../store/context/provider";
+
+export const Form = () => {
   /* -------------------------------------------------------------------------- */
   /*                                    state                                   */
   /* -------------------------------------------------------------------------- */
   const history = useSelector((state) => state.projects.history);
-  const { open, setState } = props;
   const [folderName, setFolderName] = useState("");
+  const { Ui, setUi } = useContext(UiContext);
 
   /* -------------------------------------------------------------------------- */
   /*                               dispatchActions                              */
@@ -37,9 +40,13 @@ export const Form = (props) => {
     } else;
     return item;
   });
-  const handleClose = () => {
-    console.log("hi");
-    setState(false);
+  const handleClose = (e) => {
+    e.preventDefault();
+    setUi({
+      ...Ui,
+      dialogFormFromHistory: false,
+      dialogFormFromRoutine: false,
+    });
   };
 
   const handleChange = (e) => {
@@ -48,15 +55,25 @@ export const Form = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setState(false);
+
     if (folderName.trim() === "") return;
-    addRoutine(todoIds, folderName);
+    if (Ui.dialogFormFromHistory) {
+      addRoutine(todoIds, folderName);
+    }
+    if (Ui.dialogFormFromRoutine) {
+      addRoutine([], folderName);
+    }
+    setUi({
+      ...Ui,
+      dialogFormFromHistory: false,
+      dialogFormFromRoutine: false,
+    });
   };
 
   return (
     <>
       <Dialog
-        open={open}
+        open={Ui.dialogFormFromRoutine || Ui.dialogFormFromHistory}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
         fullWidth={true}
@@ -68,7 +85,6 @@ export const Form = (props) => {
             <TextField
               autoFocus
               margin="dense"
-              id="name"
               label="name"
               type="text"
               fullWidth={true}
@@ -76,7 +92,7 @@ export const Form = (props) => {
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleClose} color="secondary" type="submit">
+            <Button onClick={handleClose} color="secondary">
               Cancel
             </Button>
             <Button color="primary" type="submit">

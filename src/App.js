@@ -20,8 +20,12 @@ import Grid from "@material-ui/core/Grid";
 /* ---------------------------------- HOOKS --------------------------------- */
 import { useTheme } from "./hooks/useTheme";
 
+/* ------------------------------- CONTEXT Provider ------------------------------ */
+import { Provider as UiProvider } from "./store/context/provider";
+
 export const App = () => {
   const [theme, toggleTheme] = useTheme();
+
   const data = localStorage.getItem("data")
     ? JSON.parse(localStorage.getItem("data"))
     : {
@@ -44,22 +48,24 @@ export const App = () => {
 
   return (
     <Provider store={store}>
-      <ThemeProvider theme={themeConfig}>
-        <GlobalStyle theme={themeConfig} />
-        <Navbar toggleTheme={toggleTheme} />
-        <Grid container spacing={1}>
-          <Grid item xs={12} md={4}>
-            <RoutineList />
+      <UiProvider>
+        <ThemeProvider theme={themeConfig}>
+          <GlobalStyle theme={themeConfig} />
+          <Navbar toggleTheme={toggleTheme} />
+          <Grid container spacing={1}>
+            <Grid item xs={12} md={4}>
+              <RoutineList />
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <TodoInput />
+              <TodoList />
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <HistoryList />
+            </Grid>
           </Grid>
-          <Grid item xs={12} md={4}>
-            <TodoInput />
-            <TodoList />
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <HistoryList />
-          </Grid>
-        </Grid>
-      </ThemeProvider>
+        </ThemeProvider>
+      </UiProvider>
     </Provider>
   );
 };

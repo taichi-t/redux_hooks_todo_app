@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 
 /* ---------------------------------- style --------------------------------- */
 import Menu from "@material-ui/core/Menu";
@@ -10,11 +10,15 @@ import EditIcon from "@material-ui/icons/Edit";
 import { makeStyles } from "@material-ui/core/styles";
 import { withStyles } from "@material-ui/core/styles";
 
-export const More = (props) => {
+/* ------------------------------ CONSTEXT API ------------------------------ */
+import { UiContext } from "../../store/context/provider";
+
+export const More = () => {
   /* -------------------------------------------------------------------------- */
   /*                                    state                                   */
   /* -------------------------------------------------------------------------- */
-  const { anchorEl, setAnchorEl } = props;
+  const { Ui, setUi } = useContext(UiContext);
+
   const classes = useStyles();
 
   /* -------------------------------------------------------------------------- */
@@ -22,16 +26,16 @@ export const More = (props) => {
   /* -------------------------------------------------------------------------- */
 
   const handleClose = () => {
-    setAnchorEl(null);
+    setUi({ ...Ui, anchorEl: null });
   };
 
   return (
     <>
       <StyledMenu
         id="customized-menu"
-        anchorEl={anchorEl}
+        anchorEl={Ui.anchorEl}
         keepMounted
-        open={Boolean(anchorEl)}
+        open={Boolean(Ui.anchorEl)}
         onClick={handleClose}
       >
         <StyledMenuItem>
@@ -46,12 +50,6 @@ export const More = (props) => {
           </ListItemIcon>
           <ListItemText primary="Edit" />
         </StyledMenuItem>
-        {/* <StyledMenuItem button onClick={handleAdd}>
-          <ListItemIcon className={classes.menuButton}>
-            <PlaylistAddIcon fontSize="small" />
-          </ListItemIcon>
-          <ListItemText primary="Add" />
-        </StyledMenuItem> */}
       </StyledMenu>
     </>
   );

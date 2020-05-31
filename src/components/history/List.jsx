@@ -31,7 +31,7 @@ export const List = () => {
       <Title>
         <HistoryIcon fontSize="large" />
       </Title>
-      {history && history.length === 0 ? (
+      {history.length === 0 ? (
         <Message color={theme.palette.text.hint}>
           There is no history...
         </Message>

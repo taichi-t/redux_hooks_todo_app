@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 /* --------------------------------- actions -------------------------------- */
@@ -9,8 +9,8 @@ import {
 } from "../../store/actions";
 
 /* ------------------------------ components ------------------------------ */
-import Form from "../routine/dialog/Form";
-import Folders from "../routine/dialog/folders/Folders";
+import Form from "../dialog/Form";
+import Folders from "../dialog/folders/Folders";
 
 /* --------------------------------- style -------------------------------- */
 import styled from "styled-components";
@@ -24,10 +24,14 @@ import PlaylistAddIcon from "@material-ui/icons/PlaylistAdd";
 import { checkHistory } from "../../util/checkHistory";
 import { toggleSelectAllButton } from "../../util/toggleSelectAllButton";
 
+/* ------------------------------- CONTEXT API ------------------------------ */
+import { UiContext } from "../../store/context/provider";
+
 export const Input = () => {
   /* -------------------------------------------------------------------------- */
   /*                                    state                                   */
   /* -------------------------------------------------------------------------- */
+  const { Ui, setUi } = useContext(UiContext);
   const history = useSelector((state) => state.projects.history);
   const routine = useSelector((state) => state.users.routine);
   const [isActiveDeleteButton, setIsActiveDeleteButton] = useState(true);
@@ -36,8 +40,6 @@ export const Input = () => {
   );
   const [toggleButton, setToggleButton] = useState(false);
   const [isActiveSellectAllButton, setIsActiveSellectAll] = useState(true);
-  const [openDialogForm, setDialogForm] = useState(false);
-  const [openDialogFolders, setDialogFolders] = useState(false);
 
   /* -------------------------------------------------------------------------- */
   /*                               dispatchActions                              */
@@ -94,15 +96,10 @@ export const Input = () => {
 
   const handleAdd = (e) => {
     e.preventDefault();
-
-    let keys = [];
-    for (let key in routine) {
-      keys.push(key);
-    }
-    if (keys.length === 0) {
-      setDialogForm(true);
+    if (routine.length === 0) {
+      setUi({ ...Ui, dialogFormFromHistory: true });
     } else {
-      setDialogFolders(true);
+      setUi({ ...Ui, dialogFolder: true });
     }
   };
 
@@ -123,12 +120,8 @@ export const Input = () => {
   );
   return (
     <>
-      <Folders
-        openDialogFolders={openDialogFolders}
-        setDialogFolders={setDialogFolders}
-        setDialogForm={setDialogForm}
-      />
-      <Form open={openDialogForm} setState={setDialogForm} />
+      <Folders />
+      <Form />
       <LeftContainer>{button}</LeftContainer>
       <RightContainer>
         <IconButton
@@ -136,6 +129,7 @@ export const Input = () => {
           color="primary"
           disabled={isActiveAddRoutineButton}
           onClick={handleAdd}
+          disableRipple={true}
         >
           <PlaylistAddIcon />
         </IconButton>

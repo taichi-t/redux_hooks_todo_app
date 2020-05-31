@@ -12,9 +12,7 @@ export const Lists = (props) => {
   let content = [];
   for (let keys in objects) {
     let result = objects[keys];
-    content.push(
-      <Items objects={result} key={`section-${keys}`} index={keys} />
-    );
+    content.push(<Items objects={result} key={keys} />);
   }
 
   return <div>{content}</div>;

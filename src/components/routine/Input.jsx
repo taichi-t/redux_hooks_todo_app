@@ -1,10 +1,14 @@
-import React from "react";
-// import { useSelector } from "react-redux";
+import React, { useContext } from "react";
+/* ------------------------------- COMPONENTS ------------------------------- */
+import { Form as DialogForm } from "../dialog/Form";
 
-/* ---------------------------------- style --------------------------------- */
+/* ---------------------------------- STYLE --------------------------------- */
 import styled from "styled-components";
 import IconButton from "@material-ui/core/IconButton";
 import CreateNewFolderIcon from "@material-ui/icons/CreateNewFolder";
+
+/* ------------------------------- CONTEXT API ------------------------------ */
+import { UiContext } from "../../store/context/provider";
 
 export const Input = () => {
   /* -------------------------------------------------------------------------- */
@@ -13,11 +17,24 @@ export const Input = () => {
   // const routine = useSelector((state) => state.users.routine);
   // console.log(routine);
 
+  const { Ui, setUi } = useContext(UiContext);
+
+  /* ----------------------------- HANDLE ACTIONS ----------------------------- */
+  const handleCreate = (e) => {
+    setUi({ ...Ui, dialogFormFromRoutine: true });
+  };
+
   return (
     <>
+      <DialogForm />
       <LeftContainer></LeftContainer>
       <RightContainer>
-        <IconButton aria-label="create a folder" color="primary">
+        <IconButton
+          aria-label="create a new folder"
+          color="primary"
+          onClick={handleCreate}
+          disableRipple={true}
+        >
           <CreateNewFolderIcon />
         </IconButton>
       </RightContainer>
