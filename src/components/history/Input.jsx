@@ -96,14 +96,10 @@ export const Input = () => {
 
   const handleAdd = (e) => {
     e.preventDefault();
-    let keys = [];
-    for (let key in routine) {
-      keys.push(key);
-    }
-    if (keys.length === 0) {
-      setUi({ ...Ui, dialogForm: !Ui.dialogForm });
+    if (routine.length === 0) {
+      setUi({ ...Ui, dialogFormFromHistory: true });
     } else {
-      setUi({ ...Ui, dialogFolder: !Ui.dialogFolder });
+      setUi({ ...Ui, dialogFolder: true });
     }
   };
 

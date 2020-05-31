@@ -42,7 +42,11 @@ export const Form = () => {
   });
   const handleClose = (e) => {
     e.preventDefault();
-    setUi({ ...Ui, dialogForm: false });
+    setUi({
+      ...Ui,
+      dialogFormFromHistory: false,
+      dialogFormFromRoutine: false,
+    });
   };
 
   const handleChange = (e) => {
@@ -51,15 +55,25 @@ export const Form = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setUi({ ...Ui, dialogForm: false });
+
     if (folderName.trim() === "") return;
-    addRoutine(todoIds, folderName);
+    if (Ui.dialogFormFromHistory) {
+      addRoutine(todoIds, folderName);
+    }
+    if (Ui.dialogFormFromRoutine) {
+      addRoutine([], folderName);
+    }
+    setUi({
+      ...Ui,
+      dialogFormFromHistory: false,
+      dialogFormFromRoutine: false,
+    });
   };
 
   return (
     <>
       <Dialog
-        open={Ui.dialogForm}
+        open={Ui.dialogFormFromRoutine || Ui.dialogFormFromHistory}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
         fullWidth={true}

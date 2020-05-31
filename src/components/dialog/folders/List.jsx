@@ -40,7 +40,7 @@ export const DialogFoldersList = () => {
   // };
 
   const handleDialogFormOpen = () => {
-    setUi({ ...Ui, dialogFolder: false, dialogForm: true });
+    setUi({ ...Ui, dialogFolder: false, dialogFormFromHistory: true });
   };
 
   const handleClose = (value) => {

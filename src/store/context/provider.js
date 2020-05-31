@@ -7,7 +7,8 @@ export const UiProvider = UiContext.Provider;
 // ラップされた子要素全てが、children に props に入ってくる
 export const Provider = ({ children }) => {
   const UiInitialState = {
-    dialogForm: false,
+    dialogFormFromRoutine: false,
+    dialogFormFromHistory: false,
     dialogFolder: false,
     ahchorEl: null,
   };

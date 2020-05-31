@@ -21,7 +21,7 @@ export const Input = () => {
 
   /* ----------------------------- HANDLE ACTIONS ----------------------------- */
   const handleCreate = (e) => {
-    setUi({ ...Ui, dialogForm: !Ui.dialogForm });
+    setUi({ ...Ui, dialogFormFromRoutine: true });
   };
 
   return (
@@ -30,9 +30,10 @@ export const Input = () => {
       <LeftContainer></LeftContainer>
       <RightContainer>
         <IconButton
-          aria-label="create a folder"
+          aria-label="create a new folder"
           color="primary"
           onClick={handleCreate}
+          disableRipple={true}
         >
           <CreateNewFolderIcon />
         </IconButton>
