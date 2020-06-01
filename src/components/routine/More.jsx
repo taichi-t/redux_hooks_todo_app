@@ -13,10 +13,11 @@ import { withStyles } from "@material-ui/core/styles";
 /* ------------------------------ CONSTEXT API ------------------------------ */
 import { UiContext } from "../../store/context/provider";
 
-export const More = () => {
+export const More = (props) => {
   /* -------------------------------------------------------------------------- */
   /*                                    state                                   */
   /* -------------------------------------------------------------------------- */
+  const { edit, setEdit } = props;
   const { Ui, setUi } = useContext(UiContext);
 
   const classes = useStyles();
@@ -27,6 +28,11 @@ export const More = () => {
 
   const handleClose = () => {
     setUi({ ...Ui, anchorEl: null });
+  };
+
+  const handleEdit = (e) => {
+    e.preventDefault();
+    setEdit(!edit);
   };
 
   return (
@@ -44,7 +50,7 @@ export const More = () => {
           </ListItemIcon>
           <ListItemText primary="Delete" />
         </StyledMenuItem>
-        <StyledMenuItem>
+        <StyledMenuItem onClick={handleEdit}>
           <ListItemIcon className={classes.menuButton}>
             <EditIcon fontSize="small" />
           </ListItemIcon>

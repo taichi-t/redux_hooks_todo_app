@@ -12,10 +12,10 @@ export const Lists = (props) => {
   let content = [];
   for (let keys in objects) {
     let result = objects[keys];
-    content.push(<Items objects={result} key={keys} />);
+    content.push(<Items objects={result} key={keys} index={keys} />);
   }
 
-  return <div>{content}</div>;
+  return <>{content}</>;
 };
 
 export default Lists;

@@ -33,7 +33,7 @@ export const Items = (props) => {
   /*                                    state                                   */
   /* -------------------------------------------------------------------------- */
   const classes = useStyles();
-  const { objects } = props;
+  const { objects, index } = props;
   const key = Object.keys(objects);
   const array = objects[key];
 
@@ -42,6 +42,7 @@ export const Items = (props) => {
     array.filter((object) => object.check === false).length === 0 ? true : false
   );
   const [routine, setRoutine] = useState("");
+  const [edit, setEdit] = useState(false);
   const { Ui, setUi } = useContext(UiContext);
 
   useEffect(() => {
@@ -70,6 +71,8 @@ export const Items = (props) => {
   };
 
   const handleClick = (e) => {
+    console.log(e.currentTarget);
+    //wired
     setUi({ ...Ui, anchorEl: e.currentTarget });
   };
 
@@ -89,6 +92,17 @@ export const Items = (props) => {
     <FolderIcon className={classes.menuButton} />
   );
 
+  const text = edit ? (
+    <Input
+      defaultValue={key}
+      id={index}
+      autoFocus={true}
+      className={classes.input}
+      disableUnderline={true}
+    />
+  ) : (
+    <span className={classes.text}>{key}</span>
+  );
   return (
     <>
       <List component="ul" className={classes.list}>
@@ -107,7 +121,7 @@ export const Items = (props) => {
               >
                 {folderIcon}
               </IconButton>
-              <span className={classes.text}>{key}</span>
+              {text}
             </Box>
           </ListItemIcon>
 
@@ -121,7 +135,7 @@ export const Items = (props) => {
             >
               <MoreVertIcon />
             </IconButton>
-            <More />
+            <More edit={edit} setEdit={setEdit} />
           </ListItemSecondaryAction>
         </ListItem>
         <Collapse in={openCollapseList} timeout="auto" unmountOnExit>
@@ -163,5 +177,9 @@ const useStyles = makeStyles((theme) => ({
   },
   text: {
     color: theme.palette.text.secondary,
+  },
+  input: {
+    color: theme.palette.text.secondary,
+    fontSize: "inherit",
   },
 }));
