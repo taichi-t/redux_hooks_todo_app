@@ -1,9 +1,12 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 
 /* --------------------------------- actions -------------------------------- */
-import { selectHistoriesAction } from "../../../store/actions";
-import { uncheckHistoriesAction } from "../../../store/actions";
+import {
+  selectHistoriesAction,
+  uncheckHistoriesAction,
+  changeFolderNameAction,
+} from "../../../store/actions";
 
 /* ------------------------------- components ------------------------------- */
 import { More } from "../More";
@@ -24,9 +27,10 @@ import FolderOpenIcon from "@material-ui/icons/FolderOpen";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Input from "@material-ui/core/Input";
 import AddIcon from "@material-ui/icons/Add";
+import { TextField } from "@material-ui/core";
+import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 
 /* ------------------------------- CONTEXT API ------------------------------ */
-import { UiContext } from "../../../store/context/provider";
 
 export const Items = (props) => {
   /* -------------------------------------------------------------------------- */
@@ -36,6 +40,7 @@ export const Items = (props) => {
   const { objects, index } = props;
   const key = Object.keys(objects);
   const array = objects[key];
+  let inputEl = useRef(null);
 
   const [openCollapseList, setOpenCollapseList] = useState(false);
   const [check, setCheck] = useState(
@@ -43,7 +48,9 @@ export const Items = (props) => {
   );
   const [routine, setRoutine] = useState("");
   const [edit, setEdit] = useState(false);
-  const { Ui, setUi } = useContext(UiContext);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [rename, setRename] = useState(key[0]);
+  const [mouseEvent, setMouseEvent] = useState(false);
 
   useEffect(() => {
     array.filter((object) => object.check === false).length === 0
@@ -59,6 +66,8 @@ export const Items = (props) => {
   const uncheckHistories = (todoIds) =>
     dispatch(uncheckHistoriesAction(todoIds));
   const todoIds = array && array.map((object) => object.id);
+  const changeFolderName = (folderId, newFolderName) =>
+    dispatch(changeFolderNameAction(folderId, newFolderName, index));
 
   /* -------------------------------------------------------------------------- */
   /*                               handle actions                               */
@@ -71,9 +80,7 @@ export const Items = (props) => {
   };
 
   const handleClick = (e) => {
-    console.log(e.currentTarget);
-    //wired
-    setUi({ ...Ui, anchorEl: e.currentTarget });
+    setAnchorEl(e.currentTarget);
   };
 
   const handleSubmit = (e) => {
@@ -85,6 +92,49 @@ export const Items = (props) => {
     setRoutine(e.target.value);
   };
 
+  const handleOpen = (e) => {
+    e.stopPropagation();
+    setOpenCollapseList(!openCollapseList);
+  };
+
+  //folder rename functions
+  const keyPressed = (e) => {
+    if (e.key === "Enter") {
+      setEdit(false);
+      //submit rename here
+      changeFolderName(key[0], rename, index);
+      setRename("");
+    }
+  };
+
+  const handleClickAway = (e) => {
+    if (rename.trim() === "") {
+      setMouseEvent(false);
+      setEdit(false);
+    } else {
+      setEdit(false);
+      setMouseEvent(false);
+      changeFolderName(key[0], rename, index);
+      //submit rename here
+      setRename("");
+    }
+  };
+
+  const handleNameChange = (e) => {
+    setRename(e.target.value);
+  };
+
+  const handleEdit = () => {
+    setEdit(!edit);
+    const timeout = setTimeout(() => {
+      inputEl.current.focus();
+      setMouseEvent("onClick");
+    });
+    return () => {
+      clearTimeout(timeout);
+    };
+  };
+
   //toggle components
   const folderIcon = openCollapseList ? (
     <FolderOpenIcon className={classes.menuButton} />
@@ -92,24 +142,10 @@ export const Items = (props) => {
     <FolderIcon className={classes.menuButton} />
   );
 
-  const text = edit ? (
-    <Input
-      defaultValue={key}
-      id={index}
-      autoFocus={true}
-      className={classes.input}
-      disableUnderline={true}
-    />
-  ) : (
-    <span className={classes.text}>{key}</span>
-  );
   return (
     <>
       <List component="ul" className={classes.list}>
-        <ListItem
-          className={classes.list}
-          onClick={(e) => setOpenCollapseList(!openCollapseList)}
-        >
+        <ListItem className={classes.list} onClick={handleOpen}>
           <ListItemIcon>
             <Box>
               <IconButton
@@ -121,7 +157,24 @@ export const Items = (props) => {
               >
                 {folderIcon}
               </IconButton>
-              {text}
+
+              <ClickAwayListener
+                onClickAway={handleClickAway}
+                mouseEvent={mouseEvent}
+              >
+                <TextField
+                  id={index}
+                  defaultValue={key}
+                  inputRef={inputEl}
+                  onChange={handleNameChange}
+                  className={edit ? classes.textField : classes.textFieldOff}
+                  onKeyPress={keyPressed}
+                />
+              </ClickAwayListener>
+
+              <span className={edit ? classes.textOff : classes.text}>
+                {key}
+              </span>
             </Box>
           </ListItemIcon>
 
@@ -135,7 +188,14 @@ export const Items = (props) => {
             >
               <MoreVertIcon />
             </IconButton>
-            <More edit={edit} setEdit={setEdit} />
+            <More
+              edit={edit}
+              setEdit={setEdit}
+              anchorEl={anchorEl}
+              setAnchorEl={setAnchorEl}
+              inputEl={inputEl}
+              handleEdit={handleEdit}
+            />
           </ListItemSecondaryAction>
         </ListItem>
         <Collapse in={openCollapseList} timeout="auto" unmountOnExit>
@@ -178,8 +238,13 @@ const useStyles = makeStyles((theme) => ({
   text: {
     color: theme.palette.text.secondary,
   },
-  input: {
+  textOff: {
+    display: "none",
+  },
+  textField: {
     color: theme.palette.text.secondary,
-    fontSize: "inherit",
+  },
+  textFieldOff: {
+    display: "none",
   },
 }));

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 
 /* ---------------------------------- style --------------------------------- */
 import Menu from "@material-ui/core/Menu";
@@ -10,15 +10,11 @@ import EditIcon from "@material-ui/icons/Edit";
 import { makeStyles } from "@material-ui/core/styles";
 import { withStyles } from "@material-ui/core/styles";
 
-/* ------------------------------ CONSTEXT API ------------------------------ */
-import { UiContext } from "../../store/context/provider";
-
 export const More = (props) => {
   /* -------------------------------------------------------------------------- */
   /*                                    state                                   */
   /* -------------------------------------------------------------------------- */
-  const { edit, setEdit } = props;
-  const { Ui, setUi } = useContext(UiContext);
+  const { anchorEl, setAnchorEl, handleEdit } = props;
 
   const classes = useStyles();
 
@@ -26,22 +22,22 @@ export const More = (props) => {
   /*                               handle actions                               */
   /* -------------------------------------------------------------------------- */
 
-  const handleClose = () => {
-    setUi({ ...Ui, anchorEl: null });
+  const handleClose = (e) => {
+    setAnchorEl(null);
   };
 
-  const handleEdit = (e) => {
+  const handleClick = (e) => {
     e.preventDefault();
-    setEdit(!edit);
+    handleEdit();
   };
 
   return (
     <>
       <StyledMenu
         id="customized-menu"
-        anchorEl={Ui.anchorEl}
+        anchorEl={anchorEl}
         keepMounted
-        open={Boolean(Ui.anchorEl)}
+        open={Boolean(anchorEl)}
         onClick={handleClose}
       >
         <StyledMenuItem>
@@ -50,7 +46,7 @@ export const More = (props) => {
           </ListItemIcon>
           <ListItemText primary="Delete" />
         </StyledMenuItem>
-        <StyledMenuItem onClick={handleEdit}>
+        <StyledMenuItem onClick={handleClick}>
           <ListItemIcon className={classes.menuButton}>
             <EditIcon fontSize="small" />
           </ListItemIcon>

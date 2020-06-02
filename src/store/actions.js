@@ -70,3 +70,8 @@ export const addRoutineAction = (todoIds, folderName) => ({
   type: "ADD_NEW_ROUTINE_TO_NEW_FOLDER",
   payload: { todoIds, folderName },
 });
+
+export const changeFolderNameAction = (folderId, newFolderName, index) => ({
+  type: "CHANGE_FOLDER_NAME",
+  payload: { folderId, newFolderName, index },
+});
