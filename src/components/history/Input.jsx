@@ -96,7 +96,7 @@ export const Input = () => {
 
   const handleAdd = (e) => {
     e.preventDefault();
-    if (routine.length === 0) {
+    if (Object.keys(routine).length === 0) {
       setUi({ ...Ui, dialogFormFromHistory: true });
     } else {
       setUi({ ...Ui, dialogFolder: true });

@@ -30,7 +30,7 @@ export const App = () => {
     ? JSON.parse(localStorage.getItem("data"))
     : {
         projects: { todos: [], history: [] },
-        users: { routine: [], userSettings: {} },
+        users: { routine: {}, userSettings: {} },
       };
   const persistedState = data;
 
