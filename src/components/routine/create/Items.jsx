@@ -74,7 +74,7 @@ export const Items = (props) => {
   /* -------------------------------------------------------------------------- */
   const handleSelect = (e) => {
     setCheck(!check);
-    array.filter((object) => object.check === false).length === 0
+    array && array.filter((object) => object.check === false).length === 0
       ? uncheckHistories(todoIds)
       : selectHistories(todoIds);
   };
@@ -101,7 +101,6 @@ export const Items = (props) => {
   const keyPressed = (e) => {
     if (e.key === "Enter") {
       setEdit(false);
-      //submit rename here
       changeFolderName(key[0], rename, index);
       setRename("");
     }
@@ -115,7 +114,6 @@ export const Items = (props) => {
       setEdit(false);
       setMouseEvent(false);
       changeFolderName(key[0], rename, index);
-      //submit rename here
       setRename("");
     }
   };
