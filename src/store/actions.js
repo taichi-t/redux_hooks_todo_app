@@ -80,3 +80,13 @@ export const DeleteFolderAction = (folderId, index) => ({
   type: "DELETE_FOLDER",
   payload: { folderId, index },
 });
+
+export const addRoutineFromFolderAction = (
+  routineId,
+  folderName,
+  index,
+  text
+) => ({
+  type: "ADD_ROUTINE_FROM_FOLDER",
+  payload: { routineId, folderName, index, text },
+});

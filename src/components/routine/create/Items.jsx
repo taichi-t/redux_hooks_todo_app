@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
+import { v4 as uuidv4 } from "uuid";
 
 /* --------------------------------- actions -------------------------------- */
 import {
@@ -7,6 +8,7 @@ import {
   uncheckHistoriesAction,
   changeFolderNameAction,
   DeleteFolderAction,
+  addRoutineFromFolderAction,
 } from "../../../store/actions";
 
 /* ------------------------------- components ------------------------------- */
@@ -71,6 +73,8 @@ export const Items = (props) => {
     dispatch(changeFolderNameAction(folderId, newFolderName, index));
   const DeleteFolder = (folderId, index) =>
     dispatch(DeleteFolderAction(folderId, index));
+  const AddRoutineFromFolder = (routineId, folderName, index, text) =>
+    dispatch(addRoutineFromFolderAction(routineId, folderName, index, text));
   /* -------------------------------------------------------------------------- */
   /*                               handle actions                               */
   /* -------------------------------------------------------------------------- */
@@ -88,6 +92,9 @@ export const Items = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (routine.trim() === "") return;
+    //submit here
+
+    AddRoutineFromFolder(uuidv4(), key[0], index, routine);
     setRoutine("");
   };
   const handleChange = (e) => {
@@ -137,7 +144,6 @@ export const Items = (props) => {
 
   //delete folder
   const handleDelete = () => {
-    console.log("hi");
     DeleteFolder(key[0], index);
   };
 
