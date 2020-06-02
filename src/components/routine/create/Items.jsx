@@ -109,6 +109,10 @@ export const Items = (props) => {
   //folder rename functions
   const keyPressed = (e) => {
     if (e.key === "Enter") {
+      if (rename.trim() === "") {
+        setEdit(false);
+        return;
+      }
       setEdit(false);
       changeFolderName(key[0], rename, index);
       setRename("");
@@ -119,6 +123,7 @@ export const Items = (props) => {
     if (rename.trim() === "") {
       setMouseEvent(false);
       setEdit(false);
+      return;
     } else {
       setEdit(false);
       setMouseEvent(false);
