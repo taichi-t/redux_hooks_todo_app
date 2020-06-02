@@ -110,7 +110,7 @@ export const Items = (props) => {
   const keyPressed = (e) => {
     setMouseEvent(false);
     if (e.key === "Enter") {
-      if (rename.trim() === "") {
+      if (rename.trim() === "" || rename === key[0]) {
         setEdit(false);
         setRename(key[0]);
         return;
@@ -122,14 +122,15 @@ export const Items = (props) => {
   };
 
   const handleClickAway = (e) => {
-    if (rename.trim() === "") {
+    setMouseEvent(false);
+    console.log(rename);
+    if (rename.trim() === "" || rename === key[0]) {
       setEdit(false);
       setRename(key[0]);
       setMouseEvent(false);
       return;
     }
     setEdit(false);
-    setMouseEvent(false);
     changeFolderName(key[0], rename, index);
     setRename("");
   };
