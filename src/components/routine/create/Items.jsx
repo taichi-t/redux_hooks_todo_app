@@ -108,9 +108,11 @@ export const Items = (props) => {
 
   //folder rename functions
   const keyPressed = (e) => {
+    setMouseEvent(false);
     if (e.key === "Enter") {
       if (rename.trim() === "") {
         setEdit(false);
+        setRename(key[0]);
         return;
       }
       setEdit(false);
@@ -121,15 +123,15 @@ export const Items = (props) => {
 
   const handleClickAway = (e) => {
     if (rename.trim() === "") {
-      setMouseEvent(false);
       setEdit(false);
+      setRename(key[0]);
+      setMouseEvent(false);
       return;
-    } else {
-      setEdit(false);
-      setMouseEvent(false);
-      changeFolderName(key[0], rename, index);
-      setRename("");
     }
+    setEdit(false);
+    setMouseEvent(false);
+    changeFolderName(key[0], rename, index);
+    setRename("");
   };
 
   const handleNameChange = (e) => {
@@ -181,7 +183,7 @@ export const Items = (props) => {
               >
                 <TextField
                   id={index}
-                  defaultValue={key}
+                  value={rename}
                   inputRef={inputEl}
                   onChange={handleNameChange}
                   className={edit ? classes.textField : classes.textFieldOff}

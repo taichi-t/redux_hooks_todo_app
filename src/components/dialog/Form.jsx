@@ -59,9 +59,11 @@ export const Form = () => {
     if (folderName.trim() === "") return;
     if (Ui.dialogFormFromHistory) {
       addRoutine(todoIds, folderName);
+      setFolderName("");
     }
     if (Ui.dialogFormFromRoutine) {
       addRoutine([], folderName);
+      setFolderName("");
     }
     setUi({
       ...Ui,
