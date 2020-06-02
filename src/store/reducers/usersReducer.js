@@ -1,4 +1,4 @@
-const initialState = { routine: [], userSettings: {} };
+const initialState = { routine: {}, userSettings: {} };
 
 export function usersReducer(state = initialState, { type, payload }) {
   switch (type) {
@@ -11,6 +11,22 @@ export function usersReducer(state = initialState, { type, payload }) {
           [payload.index]: {
             [payload.newFolderName]: state.routine[payload.index][oldKey[0]],
           },
+        },
+      };
+    case "DELETE_FOLDER":
+      console.log(state);
+      let newRoutine = { ...state.routine };
+      let result = {};
+      for (let key in newRoutine) {
+        if (key !== payload.index) {
+          result[key] = newRoutine[key];
+        } else;
+      }
+
+      return {
+        ...state,
+        routine: {
+          ...result,
         },
       };
     default:

@@ -75,3 +75,8 @@ export const changeFolderNameAction = (folderId, newFolderName, index) => ({
   type: "CHANGE_FOLDER_NAME",
   payload: { folderId, newFolderName, index },
 });
+
+export const DeleteFolderAction = (folderId, index) => ({
+  type: "DELETE_FOLDER",
+  payload: { folderId, index },
+});

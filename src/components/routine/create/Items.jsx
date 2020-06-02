@@ -6,6 +6,7 @@ import {
   selectHistoriesAction,
   uncheckHistoriesAction,
   changeFolderNameAction,
+  DeleteFolderAction,
 } from "../../../store/actions";
 
 /* ------------------------------- components ------------------------------- */
@@ -68,7 +69,8 @@ export const Items = (props) => {
   const todoIds = array && array.map((object) => object.id);
   const changeFolderName = (folderId, newFolderName) =>
     dispatch(changeFolderNameAction(folderId, newFolderName, index));
-
+  const DeleteFolder = (folderId, index) =>
+    dispatch(DeleteFolderAction(folderId, index));
   /* -------------------------------------------------------------------------- */
   /*                               handle actions                               */
   /* -------------------------------------------------------------------------- */
@@ -133,6 +135,12 @@ export const Items = (props) => {
     };
   };
 
+  //delete folder
+  const handleDelete = () => {
+    console.log("hi");
+    DeleteFolder(key[0], index);
+  };
+
   //toggle components
   const folderIcon = openCollapseList ? (
     <FolderOpenIcon className={classes.menuButton} />
@@ -193,6 +201,7 @@ export const Items = (props) => {
               setAnchorEl={setAnchorEl}
               inputEl={inputEl}
               handleEdit={handleEdit}
+              handleDelete={handleDelete}
             />
           </ListItemSecondaryAction>
         </ListItem>

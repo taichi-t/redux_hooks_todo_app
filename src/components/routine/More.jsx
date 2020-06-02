@@ -14,7 +14,7 @@ export const More = (props) => {
   /* -------------------------------------------------------------------------- */
   /*                                    state                                   */
   /* -------------------------------------------------------------------------- */
-  const { anchorEl, setAnchorEl, handleEdit } = props;
+  const { anchorEl, setAnchorEl, handleEdit, handleDelete } = props;
 
   const classes = useStyles();
 
@@ -26,9 +26,14 @@ export const More = (props) => {
     setAnchorEl(null);
   };
 
-  const handleClick = (e) => {
+  const handleEditClick = (e) => {
     e.preventDefault();
     handleEdit();
+  };
+
+  const handleDeleteClick = (e) => {
+    e.preventDefault();
+    handleDelete();
   };
 
   return (
@@ -40,13 +45,13 @@ export const More = (props) => {
         open={Boolean(anchorEl)}
         onClick={handleClose}
       >
-        <StyledMenuItem>
+        <StyledMenuItem onClick={handleDeleteClick}>
           <ListItemIcon className={classes.menuButton}>
             <DeleteIcon fontSize="small" />
           </ListItemIcon>
           <ListItemText primary="Delete" />
         </StyledMenuItem>
-        <StyledMenuItem onClick={handleClick}>
+        <StyledMenuItem onClick={handleEditClick}>
           <ListItemIcon className={classes.menuButton}>
             <EditIcon fontSize="small" />
           </ListItemIcon>

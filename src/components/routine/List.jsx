@@ -25,7 +25,7 @@ export const List = () => {
       <Title>
         <ListIcon fontSize="large" />
       </Title>
-      {routine && routine.length !== 0 ? (
+      {routine && Object.keys(routine).length !== 0 ? (
         <CreateList objects={routine} />
       ) : (
         <Message color={theme.palette.text.hint}>
