@@ -123,7 +123,6 @@ export const Items = (props) => {
 
   const handleClickAway = (e) => {
     setMouseEvent(false);
-
     if (rename.trim() === "" || rename === key[0]) {
       setEdit(false);
       setRename(key[0]);
