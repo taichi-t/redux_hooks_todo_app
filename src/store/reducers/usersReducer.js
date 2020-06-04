@@ -34,8 +34,6 @@ export function usersReducer(state = initialState, { type, payload }) {
         name: payload.text,
         check: false,
       };
-
-      console.log(newObject);
       return {
         ...state,
         routine: {
