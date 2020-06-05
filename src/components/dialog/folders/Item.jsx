@@ -13,23 +13,23 @@ export const DialogFoldersItem = (props) => {
   /* -------------------------------------------------------------------------- */
   /*                                    STATE                                   */
   /* -------------------------------------------------------------------------- */
-  const { index } = props;
+  const { item } = props;
   const { Ui, setUi } = useContext(UiContext);
   /* -------------------------------------------------------------------------- */
   /*                               HANDLE ACTIONS                               */
   /* -------------------------------------------------------------------------- */
-  const handleListItemClick = (index) => {
+  const handleListItemClick = (e) => {
+    e.preventDefault(e.target);
     setUi({ ...Ui, dialogFolder: false });
-    if (typeof index !== "string") return;
   };
 
   return (
     <>
-      <ListItem button onClick={() => handleListItemClick(index)}>
+      <ListItem button onClick={handleListItemClick}>
         <ListItemAvatar>
           <FolderIcon color="action" />
         </ListItemAvatar>
-        <ListItemText primary={index} />
+        <ListItemText primary={item.folderName} />
       </ListItem>
     </>
   );

@@ -25,8 +25,8 @@ export const List = () => {
       <Title>
         <ListIcon fontSize="large" />
       </Title>
-      {routine && Object.keys(routine).length !== 0 ? (
-        <CreateList objects={routine} />
+      {routine && routine.length !== 0 ? (
+        <CreateList routines={routine} />
       ) : (
         <Message color={theme.palette.text.hint}>
           There is no routine...

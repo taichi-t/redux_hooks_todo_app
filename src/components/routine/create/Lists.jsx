@@ -7,13 +7,16 @@ export const Lists = (props) => {
   /* -------------------------------------------------------------------------- */
   /*                                    state                                   */
   /* -------------------------------------------------------------------------- */
-  const { objects } = props;
+  const { routines } = props;
 
   let content = [];
-  for (let keys in objects) {
-    let result = objects[keys];
-    content.push(<Items objects={result} key={keys} index={keys} />);
-  }
+  routines.map((routine) =>
+    content.push(<Items objects={routine} key={routine.id} />)
+  );
+  // for (let keys in objects) {
+  //   let result = objects[keys];
+  //   content.push(<Items objects={result} key={keys} index={keys} />);
+  // }
 
   return <>{content}</>;
 };
