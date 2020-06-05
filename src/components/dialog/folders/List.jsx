@@ -28,19 +28,10 @@ export const DialogFoldersList = () => {
   routine.map((item) =>
     keyArray.push({ folderName: item.folderName, id: item.id })
   );
-  // for (let key in routine) {
-  //   const index = Object.keys(routine[key]);
-  //   keyArray.push(index[0]);
-  // }
 
   /* -------------------------------------------------------------------------- */
   /*                               HANDLE ACTIONS                               */
   /* -------------------------------------------------------------------------- */
-
-  // const handleListItemClick = (value) => {
-  //   setUi({ ...Ui, dialogFolder: false });
-  //   if (typeof value !== "string") return;
-  // };
 
   const handleDialogFormOpen = () => {
     setUi({ ...Ui, dialogFolder: false, dialogFormFromHistory: true });

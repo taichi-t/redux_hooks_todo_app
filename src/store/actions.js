@@ -66,9 +66,9 @@ export const uncheckHistoriesAction = (todoIds) => ({
 /* -------------------------------------------------------------------------- */
 /*                               ROUTINE ACTIONS                              */
 /* -------------------------------------------------------------------------- */
-export const addRoutineAction = (todoIds, folderName) => ({
+export const addRoutineAction = (folderName) => ({
   type: "ADD_NEW_ROUTINE_TO_NEW_FOLDER",
-  payload: { todoIds, folderName },
+  payload: { folderName },
 });
 
 export const changeFolderNameAction = (newFolderName, key) => ({
@@ -89,4 +89,14 @@ export const addRoutineFromFolderAction = (key, routine) => ({
 export const toggleRoutineAction = (listId, routineId) => ({
   type: "TOGGLE_ROUTINE",
   payload: { listId, routineId },
+});
+
+export const deleteRoutineAction = (listId, routineId) => ({
+  type: "DELETE_ROUTINE",
+  payload: { listId, routineId },
+});
+
+export const addNewRoutineToExistFolderAction = (listId) => ({
+  type: "ADD_NEW_ROUTINE_TO_EXIT_FOLDER",
+  payload: listId,
 });

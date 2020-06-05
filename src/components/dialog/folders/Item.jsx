@@ -1,4 +1,8 @@
 import React, { useContext } from "react";
+import { useDispatch } from "react-redux";
+
+/* --------------------------------- ACITONS -------------------------------- */
+import { addNewRoutineToExistFolderAction } from "../../../store/actions";
 
 /* ---------------------------------- STYLE --------------------------------- */
 import ListItem from "@material-ui/core/ListItem";
@@ -15,11 +19,20 @@ export const DialogFoldersItem = (props) => {
   /* -------------------------------------------------------------------------- */
   const { item } = props;
   const { Ui, setUi } = useContext(UiContext);
+
+  /* -------------------------------------------------------------------------- */
+  /*                              DISPATCH ACTIONS                              */
+  /* -------------------------------------------------------------------------- */
+  const dispatch = useDispatch();
+  const addHistoryToExitFolder = (listId) =>
+    dispatch(addNewRoutineToExistFolderAction(listId));
+
   /* -------------------------------------------------------------------------- */
   /*                               HANDLE ACTIONS                               */
   /* -------------------------------------------------------------------------- */
   const handleListItemClick = (e) => {
-    e.preventDefault(e.target);
+    e.preventDefault();
+    addHistoryToExitFolder(item.id);
     setUi({ ...Ui, dialogFolder: false });
   };
 

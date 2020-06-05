@@ -48,11 +48,25 @@ export function usersReducer(state = initialState, { type, payload }) {
             }
           : item
       );
-
       return {
         ...state,
         routine: newRoutine,
       };
+
+    case "DELETE_ROUTINE":
+      newRoutine = state.routine.map((item) =>
+        item.id === payload.listId
+          ? {
+              ...item,
+              items: item.items.filter((el) => el.id !== payload.routineId),
+            }
+          : item
+      );
+      return {
+        ...state,
+        routine: newRoutine,
+      };
+
     default:
       return state;
   }
