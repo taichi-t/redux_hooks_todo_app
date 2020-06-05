@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Box from "@material-ui/core/Box";
+import { useDispatch } from "react-redux";
+
+import { changeSettingColorAction } from "../../store/actions";
 
 /* --------------------------------- style -------------------------------- */
 import MenuItem from "@material-ui/core/MenuItem";
@@ -8,11 +11,14 @@ import ColorLensIcon from "@material-ui/icons/ColorLens";
 import IconButton from "@material-ui/core/IconButton";
 import Menu from "@material-ui/core/Menu";
 
-export const ColorPicker = (props) => {
+export const ColorPicker = () => {
   /* -------------------------------------------------------------------------- */
   /*                                   state                                  */
   /* -------------------------------------------------------------------------- */
-  const { toggleTheme } = props;
+  const dispatch = useDispatch();
+  const changeSettingColor = (color) =>
+    dispatch(changeSettingColorAction(color));
+
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -27,7 +33,7 @@ export const ColorPicker = (props) => {
       setAnchorEl(null);
     } else {
       setAnchorEl(null);
-      toggleTheme(item);
+      changeSettingColor(item);
     }
   };
 

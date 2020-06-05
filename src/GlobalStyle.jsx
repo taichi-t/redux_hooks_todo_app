@@ -16,17 +16,3 @@ h2{
   margin:0;
 }
 `;
-
-export const themeObjectFunction = () => {
-  return {
-    palette: {
-      type: "light",
-      primary: {
-        main: "#2196f3",
-      },
-      secondary: {
-        main: "#f50057",
-      },
-    },
-  };
-};

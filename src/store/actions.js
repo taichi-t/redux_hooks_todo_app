@@ -105,3 +105,15 @@ export const createNewFolderAction = (folderName) => ({
   type: "CREATE_NEW_FOLDER",
   payload: folderName,
 });
+
+/* -------------------------------------------------------------------------- */
+/*                                USER SETTINGS                               */
+/* -------------------------------------------------------------------------- */
+export const changeSettingColorAction = (color) => ({
+  type: "CHANGE_COLOR",
+  payload: color,
+});
+
+export const changeTypeAction = (type) => ({
+  type: "CHANGE_TYPE",
+});
