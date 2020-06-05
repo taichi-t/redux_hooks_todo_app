@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import styled from "styled-components";
-import Box from "@material-ui/core/Box";
 import { useDispatch } from "react-redux";
 
+/* --------------------------------- ACTIONS -------------------------------- */
 import { changeSettingColorAction } from "../../store/actions";
 
 /* --------------------------------- style -------------------------------- */
@@ -10,6 +9,8 @@ import MenuItem from "@material-ui/core/MenuItem";
 import ColorLensIcon from "@material-ui/icons/ColorLens";
 import IconButton from "@material-ui/core/IconButton";
 import Menu from "@material-ui/core/Menu";
+import styled from "styled-components";
+import Box from "@material-ui/core/Box";
 
 export const ColorPicker = () => {
   /* -------------------------------------------------------------------------- */

@@ -114,6 +114,6 @@ export const changeSettingColorAction = (color) => ({
   payload: color,
 });
 
-export const changeTypeAction = (type) => ({
+export const changeTypeAction = () => ({
   type: "CHANGE_TYPE",
 });

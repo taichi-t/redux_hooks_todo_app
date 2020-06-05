@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import styled from "styled-components";
-import { useTheme } from "@material-ui/core/styles";
+import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 
+/* --------------------------------- ACTIONS -------------------------------- */
 import { changeTypeAction } from "../../store/actions";
 
 /* ------------------------------- components ------------------------------- */
 import { ColorPicker } from "./ColorPicker";
 
 /* ---------------------------------- style --------------------------------- */
+import styled from "styled-components";
+import { useTheme } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Brightness4Icon from "@material-ui/icons/Brightness4";
@@ -21,14 +22,18 @@ export const Navbar = () => {
   /* -------------------------------------------------------------------------- */
   /*                                    state                                   */
   /* -------------------------------------------------------------------------- */
+
+  const type = useSelector((state) => state.users.userSettings.type);
   const theme = useTheme();
-  const dispatch = useDispatch();
-
-  const changeType = (type) => dispatch(changeTypeAction(type));
-  const [isDarkMode, setIsDarkMode] = useState(() => false);
-
   const [now, setNow] = useState("");
   const classes = useStyles();
+  const [isDarkMode, setIsDarkMode] = useState(type === "light" ? true : false);
+
+  /* -------------------------------------------------------------------------- */
+  /*                               DISPATCH ACTION                              */
+  /* -------------------------------------------------------------------------- */
+  const dispatch = useDispatch();
+  const changeType = () => dispatch(changeTypeAction());
 
   useEffect(() => {
     const setTime = () => {
