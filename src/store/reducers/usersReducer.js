@@ -1,49 +1,57 @@
-const initialState = { routine: {}, userSettings: {} };
+import { v4 as uuidv4 } from "uuid";
+const initialState = { routine: [], userSettings: {} };
 
 export function usersReducer(state = initialState, { type, payload }) {
-  let resultObject = {};
   let newRoutine;
   switch (type) {
     case "CHANGE_FOLDER_NAME":
-      const oldKey = Object.keys(state.routine[payload.index]);
+      newRoutine = state.routine.map((item) =>
+        item.id === payload.key
+          ? { ...item, folderName: payload.newFolderName }
+          : item
+      );
       return {
         ...state,
-        routine: {
-          ...state.routine,
-          [payload.index]: {
-            [payload.newFolderName]: state.routine[payload.index][oldKey[0]],
-          },
-        },
+        routine: newRoutine,
       };
     case "DELETE_FOLDER":
-      newRoutine = { ...state.routine };
-      for (let key in newRoutine) {
-        if (key !== payload.index) {
-          resultObject[key] = newRoutine[key];
-        } else;
-      }
+      newRoutine = state.routine.filter((item) => item.id !== payload);
       return {
         ...state,
-        routine: {
-          ...resultObject,
-        },
+        routine: newRoutine,
       };
     case "ADD_ROUTINE_FROM_FOLDER":
-      let newObject = {
-        id: payload.routineId,
-        name: payload.text,
-        check: false,
-      };
+      newRoutine = state.routine.map((item) =>
+        item.id === payload.key
+          ? {
+              ...item,
+              items: item.items.concat({
+                id: uuidv4(),
+                check: false,
+                name: payload.routine,
+              }),
+            }
+          : item
+      );
       return {
         ...state,
-        routine: {
-          ...state.routine,
-          [payload.index]: {
-            [payload.folderName]: state.routine[payload.index][
-              payload.folderName
-            ].concat(newObject),
-          },
-        },
+        routine: newRoutine,
+      };
+    case "TOGGLE_ROUTINE":
+      newRoutine = state.routine.map((item) =>
+        item.id === payload.listId
+          ? {
+              ...item,
+              items: item.items.map((el) =>
+                el.id === payload.routineId ? { ...el, check: !el.check } : el
+              ),
+            }
+          : item
+      );
+
+      return {
+        ...state,
+        routine: newRoutine,
       };
     default:
       return state;

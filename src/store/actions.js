@@ -71,22 +71,22 @@ export const addRoutineAction = (todoIds, folderName) => ({
   payload: { todoIds, folderName },
 });
 
-export const changeFolderNameAction = (folderId, newFolderName, index) => ({
+export const changeFolderNameAction = (newFolderName, key) => ({
   type: "CHANGE_FOLDER_NAME",
-  payload: { folderId, newFolderName, index },
+  payload: { newFolderName, key },
 });
 
-export const DeleteFolderAction = (folderId, index) => ({
+export const DeleteFolderAction = (key) => ({
   type: "DELETE_FOLDER",
-  payload: { folderId, index },
+  payload: key,
 });
 
-export const addRoutineFromFolderAction = (
-  routineId,
-  folderName,
-  index,
-  text
-) => ({
+export const addRoutineFromFolderAction = (key, routine) => ({
   type: "ADD_ROUTINE_FROM_FOLDER",
-  payload: { routineId, folderName, index, text },
+  payload: { key, routine },
+});
+
+export const toggleRoutineAction = (listId, routineId) => ({
+  type: "TOGGLE_ROUTINE",
+  payload: { listId, routineId },
 });

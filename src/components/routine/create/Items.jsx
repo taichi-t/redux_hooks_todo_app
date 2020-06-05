@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
-import { v4 as uuidv4 } from "uuid";
 
 /* --------------------------------- actions -------------------------------- */
 import {
@@ -40,26 +39,27 @@ export const Items = (props) => {
   /*                                    state                                   */
   /* -------------------------------------------------------------------------- */
   const classes = useStyles();
-  const { objects, index } = props;
-  const key = Object.keys(objects);
-  const array = objects[key];
+  const { objects } = props;
+  const key = objects.id;
+  const folderName = objects.folderName;
+  const items = objects.items;
   let inputEl = useRef(null);
 
   const [openCollapseList, setOpenCollapseList] = useState(false);
   const [check, setCheck] = useState(
-    array.filter((object) => object.check === false).length === 0 ? true : false
+    items.filter((object) => object.check === false).length === 0 ? true : false
   );
   const [routine, setRoutine] = useState("");
   const [edit, setEdit] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
-  const [rename, setRename] = useState(key[0]);
+  const [rename, setRename] = useState(folderName);
   const [mouseEvent, setMouseEvent] = useState(false);
 
   useEffect(() => {
-    array.filter((object) => object.check === false).length === 0
+    items.filter((object) => object.check === false).length === 0
       ? setCheck(true)
       : setCheck(false);
-  }, [array]);
+  }, [items]);
 
   /* -------------------------------------------------------------------------- */
   /*                               dispatchActions                              */
@@ -68,19 +68,18 @@ export const Items = (props) => {
   const selectHistories = (todoIds) => dispatch(selectHistoriesAction(todoIds));
   const uncheckHistories = (todoIds) =>
     dispatch(uncheckHistoriesAction(todoIds));
-  const todoIds = array && array.map((object) => object.id);
-  const changeFolderName = (folderId, newFolderName) =>
-    dispatch(changeFolderNameAction(folderId, newFolderName, index));
-  const DeleteFolder = (folderId, index) =>
-    dispatch(DeleteFolderAction(folderId, index));
-  const AddRoutineFromFolder = (routineId, folderName, index, text) =>
-    dispatch(addRoutineFromFolderAction(routineId, folderName, index, text));
+  const todoIds = items && items.map((object) => object.id);
+  const changeFolderName = (newFolderName, key) =>
+    dispatch(changeFolderNameAction(newFolderName, key));
+  const DeleteFolder = (key) => dispatch(DeleteFolderAction(key));
+  const AddRoutineFromFolder = (key, routine) =>
+    dispatch(addRoutineFromFolderAction(key, routine));
   /* -------------------------------------------------------------------------- */
   /*                               handle actions                               */
   /* -------------------------------------------------------------------------- */
   const handleSelect = (e) => {
     setCheck(!check);
-    array && array.filter((object) => object.check === false).length === 0
+    items && items.filter((object) => object.check === false).length === 0
       ? uncheckHistories(todoIds)
       : selectHistories(todoIds);
   };
@@ -94,7 +93,7 @@ export const Items = (props) => {
     if (routine.trim() === "") return;
     //submit here
 
-    AddRoutineFromFolder(uuidv4(), key[0], index, routine);
+    AddRoutineFromFolder(key, routine);
     setRoutine("");
   };
   const handleChange = (e) => {
@@ -110,27 +109,27 @@ export const Items = (props) => {
   const keyPressed = (e) => {
     setMouseEvent(false);
     if (e.key === "Enter") {
-      if (rename.trim() === "" || rename === key[0]) {
+      if (rename.trim() === "" || rename === folderName) {
         setEdit(false);
-        setRename(key[0]);
+        setRename(folderName);
         return;
       }
       setEdit(false);
-      changeFolderName(key[0], rename, index);
+      changeFolderName(rename, key);
       setRename("");
     }
   };
 
   const handleClickAway = (e) => {
     setMouseEvent(false);
-    if (rename.trim() === "" || rename === key[0]) {
+    if (rename.trim() === "" || rename === folderName) {
       setEdit(false);
-      setRename(key[0]);
+      setRename(folderName);
       setMouseEvent(false);
       return;
     }
     setEdit(false);
-    changeFolderName(key[0], rename, index);
+    changeFolderName(rename, key);
     setRename("");
   };
 
@@ -151,7 +150,7 @@ export const Items = (props) => {
 
   //delete folder
   const handleDelete = () => {
-    DeleteFolder(key[0], index);
+    DeleteFolder(key);
   };
 
   //toggle components
@@ -182,7 +181,7 @@ export const Items = (props) => {
                 mouseEvent={mouseEvent}
               >
                 <TextField
-                  id={index}
+                  id={key}
                   value={rename}
                   inputRef={inputEl}
                   onChange={handleNameChange}
@@ -192,7 +191,7 @@ export const Items = (props) => {
               </ClickAwayListener>
 
               <span className={edit ? classes.textOff : classes.text}>
-                {key}
+                {folderName}
               </span>
             </Box>
           </ListItemIcon>
@@ -219,7 +218,10 @@ export const Items = (props) => {
           </ListItemSecondaryAction>
         </ListItem>
         <Collapse in={openCollapseList} timeout="auto" unmountOnExit>
-          {array && array.map((item) => <Elements item={item} key={item.id} />)}
+          {items &&
+            items.map((item) => (
+              <Elements item={item} key={item.id} listId={key} />
+            ))}
 
           <ListItem>
             <IconButton edge="start" color="primary">

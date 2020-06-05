@@ -25,10 +25,13 @@ export const DialogFoldersList = () => {
   const classes = useStyles();
 
   let keyArray = [];
-  for (let key in routine) {
-    const index = Object.keys(routine[key]);
-    keyArray.push(index[0]);
-  }
+  routine.map((item) =>
+    keyArray.push({ folderName: item.folderName, id: item.id })
+  );
+  // for (let key in routine) {
+  //   const index = Object.keys(routine[key]);
+  //   keyArray.push(index[0]);
+  // }
 
   /* -------------------------------------------------------------------------- */
   /*                               HANDLE ACTIONS                               */
@@ -57,8 +60,8 @@ export const DialogFoldersList = () => {
       <DialogTitle id="dialog-title">add routines</DialogTitle>
       <List className={classes.list}>
         {keyArray &&
-          keyArray.map((key, index) => (
-            <DialogFoldersItem index={key} key={index} />
+          keyArray.map((item) => (
+            <DialogFoldersItem item={item} key={item.id} />
           ))}
       </List>
       <ListItem button onClick={() => handleDialogFormOpen()}>

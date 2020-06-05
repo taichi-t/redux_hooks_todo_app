@@ -1,9 +1,8 @@
 import React from "react";
-// import { useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
 /* --------------------------------- actions -------------------------------- */
-
-// import { selectHistoryAction } from "../../store/actions";
+import { toggleRoutineAction } from "../../../store/actions";
 
 /* ---------------------------------- style --------------------------------- */
 
@@ -16,25 +15,26 @@ export const Elements = (props) => {
   /*                                    state                                   */
   /* -------------------------------------------------------------------------- */
 
-  const { item, index } = props;
+  const { item, listId } = props;
 
   /* -------------------------------------------------------------------------- */
   /*                               dispatchActions                              */
   /* -------------------------------------------------------------------------- */
-  // const dispatch = useDispatch();
-  // const selectHistory = (todoId) => dispatch(selectHistoryAction(todoId));
+  const dispatch = useDispatch();
+  const toggle = (listId, routineId) =>
+    dispatch(toggleRoutineAction(listId, routineId));
 
   /* -------------------------------------------------------------------------- */
   /*                               HANDLE ACTIONS                               */
   /* -------------------------------------------------------------------------- */
   const handleClick = (e) => {
-    console.log("hi");
     e.preventDefault();
+    toggle(listId, item.id);
   };
 
   return (
     <>
-      <ListItem id={index} onClick={handleClick} button={true} key={index}>
+      <ListItem onClick={handleClick} button={true}>
         <Checkbox
           type="checkbox"
           checked={item.check}
