@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
 /* --------------------------------- actions -------------------------------- */
 import { addRoutineAction } from "../../store/actions";
@@ -19,7 +19,7 @@ export const Form = () => {
   /* -------------------------------------------------------------------------- */
   /*                                    state                                   */
   /* -------------------------------------------------------------------------- */
-  const history = useSelector((state) => state.projects.history);
+
   const [folderName, setFolderName] = useState("");
   const { Ui, setUi } = useContext(UiContext);
 
@@ -33,13 +33,7 @@ export const Form = () => {
   /* -------------------------------------------------------------------------- */
   /*                               handle actions                               */
   /* -------------------------------------------------------------------------- */
-  let todoIds = [];
-  history.map((item) => {
-    if (item.check) {
-      todoIds.push(item.id);
-    } else;
-    return item;
-  });
+
   const handleClose = (e) => {
     e.preventDefault();
     setUi({
@@ -58,11 +52,11 @@ export const Form = () => {
 
     if (folderName.trim() === "") return;
     if (Ui.dialogFormFromHistory) {
-      addRoutine(todoIds, folderName);
+      addRoutine(folderName);
       setFolderName("");
     }
     if (Ui.dialogFormFromRoutine) {
-      addRoutine([], folderName);
+      addRoutine(folderName);
       setFolderName("");
     }
     setUi({
