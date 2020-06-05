@@ -67,6 +67,17 @@ export function usersReducer(state = initialState, { type, payload }) {
         routine: newRoutine,
       };
 
+    case "CREATE_NEW_FOLDER":
+      newRoutine = state.routine.concat({
+        id: uuidv4(),
+        folderName: payload,
+        items: [],
+      });
+      return {
+        ...state,
+        routine: newRoutine,
+      };
+
     default:
       return state;
   }

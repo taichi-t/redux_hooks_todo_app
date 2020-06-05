@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { useDispatch } from "react-redux";
 
 /* --------------------------------- actions -------------------------------- */
-import { addRoutineAction } from "../../store/actions";
+import { addRoutineAction, createNewFolderAction } from "../../store/actions";
 
 /* ---------------------------------- style --------------------------------- */
 import Button from "@material-ui/core/Button";
@@ -29,6 +29,8 @@ export const Form = () => {
   const dispatch = useDispatch();
   const addRoutine = (todoIds, folderName) =>
     dispatch(addRoutineAction(todoIds, folderName));
+  const createNewFolder = (folderName) =>
+    dispatch(createNewFolderAction(folderName));
 
   /* -------------------------------------------------------------------------- */
   /*                               handle actions                               */
@@ -56,7 +58,7 @@ export const Form = () => {
       setFolderName("");
     }
     if (Ui.dialogFormFromRoutine) {
-      addRoutine(folderName);
+      createNewFolder(folderName);
       setFolderName("");
     }
     setUi({

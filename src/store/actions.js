@@ -100,3 +100,8 @@ export const addNewRoutineToExistFolderAction = (listId) => ({
   type: "ADD_NEW_ROUTINE_TO_EXIT_FOLDER",
   payload: listId,
 });
+
+export const createNewFolderAction = (folderName) => ({
+  type: "CREATE_NEW_FOLDER",
+  payload: folderName,
+});

@@ -39,7 +39,7 @@ export function rootReducer(state, { type, payload }) {
             history: state.projects.history.map((item) => {
               return {
                 ...item,
-                check: !item.check,
+                check: false,
               };
             }),
           },
@@ -73,7 +73,7 @@ export function rootReducer(state, { type, payload }) {
             history: state.projects.history.map((item) => {
               return {
                 ...item,
-                check: !item.check,
+                check: false,
               };
             }),
           },
