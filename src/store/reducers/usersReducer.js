@@ -1,5 +1,8 @@
 import { v4 as uuidv4 } from "uuid";
-const initialState = { routine: [], userSettings: {} };
+const initialState = {
+  routine: [],
+  userSettings: { color: "#2196f3", type: "light" },
+};
 
 export function usersReducer(state = initialState, { type, payload }) {
   let newRoutine;
@@ -76,6 +79,24 @@ export function usersReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         routine: newRoutine,
+      };
+
+    case "CHANGE_COLOR":
+      return {
+        ...state,
+        userSettings: {
+          ...state.userSettings,
+          color: payload,
+        },
+      };
+
+    case "CHANGE_TYPE":
+      return {
+        ...state,
+        userSettings: {
+          ...state.userSettings,
+          type: state.userSettings.type === "light" ? "dark" : "light",
+        },
       };
 
     default:

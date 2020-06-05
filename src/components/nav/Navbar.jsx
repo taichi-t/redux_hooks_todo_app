@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { useTheme } from "@material-ui/core/styles";
 import moment from "moment";
+
+import { changeTypeAction } from "../../store/actions";
 
 /* ------------------------------- components ------------------------------- */
 import { ColorPicker } from "./ColorPicker";
@@ -14,13 +17,16 @@ import Brightness7Icon from "@material-ui/icons/Brightness7";
 import { makeStyles } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
 
-export const Navbar = (props) => {
+export const Navbar = () => {
   /* -------------------------------------------------------------------------- */
   /*                                    state                                   */
   /* -------------------------------------------------------------------------- */
   const theme = useTheme();
+  const dispatch = useDispatch();
+
+  const changeType = (type) => dispatch(changeTypeAction(type));
   const [isDarkMode, setIsDarkMode] = useState(() => false);
-  const { toggleTheme } = props;
+
   const [now, setNow] = useState("");
   const classes = useStyles();
 
@@ -40,7 +46,7 @@ export const Navbar = (props) => {
   const handleClick = (e) => {
     e.preventDefault();
     setIsDarkMode(!isDarkMode);
-    toggleTheme();
+    changeType();
   };
 
   // toggle component
@@ -73,7 +79,7 @@ export const Navbar = (props) => {
             <Month>{now.month}</Month>
           </Title>
 
-          <ColorPicker toggleTheme={toggleTheme} />
+          <ColorPicker />
           {icons}
         </Toolbar>
       </AppBar>
