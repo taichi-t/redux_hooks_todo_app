@@ -90,3 +90,7 @@ export const toggleRoutineAction = (listId, routineId) => ({
   type: "TOGGLE_ROUTINE",
   payload: { listId, routineId },
 });
+export const deleteRoutineAction = (listId, routineId) => ({
+  type: "DELETE_ROUTINE",
+  payload: { listId, routineId },
+});
