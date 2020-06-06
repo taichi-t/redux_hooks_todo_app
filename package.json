@@ -13,6 +13,7 @@
     "moment": "^2.25.3",
     "normalize.css": "^8.0.1",
     "react": "^16.13.1",
+    "react-beautiful-dnd": "^13.0.0",
     "react-dark-mode-toggle": "0.0.4",
     "react-dom": "^16.13.1",
     "react-redux": "^7.1.0-rc.1",

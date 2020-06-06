@@ -117,3 +117,8 @@ export const changeSettingColorAction = (color) => ({
 export const changeTypeAction = () => ({
   type: "CHANGE_TYPE",
 });
+
+export const DragAndDropActions = (sorce, destination) => ({
+  type: "DRAG_AND_DROP",
+  payload: { sorce, destination },
+});

@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
+import { moveAt } from "../../util/moveAt";
 const initialState = {
   routine: [],
   userSettings: { color: "#2196f3", type: "light" },
@@ -99,6 +100,15 @@ export function usersReducer(state = initialState, { type, payload }) {
         },
       };
 
+    case "DRAG_AND_DROP":
+      let copyRoutine = [...state.routine];
+
+      newRoutine = moveAt(copyRoutine, payload.destination, payload.sorce);
+
+      return {
+        ...state,
+        routine: newRoutine,
+      };
     default:
       return state;
   }
