@@ -3,6 +3,9 @@ import React from "react";
 /* ------------------------------- components ------------------------------- */
 import Items from "./Items";
 
+/* ------------------------------ DRAG AND DROP ----------------------------- */
+import { Draggable } from "react-beautiful-dnd";
+
 export const Lists = (props) => {
   /* -------------------------------------------------------------------------- */
   /*                                    state                                   */
@@ -10,13 +13,21 @@ export const Lists = (props) => {
   const { routines } = props;
 
   let content = [];
-  routines.map((routine) =>
-    content.push(<Items objects={routine} key={routine.id} />)
+  routines.map((routine, index) =>
+    content.push(
+      <Draggable draggableId={routine.id} index={index} key={routine.id}>
+        {(provided) => (
+          <div
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
+            ref={provided.innerRef}
+          >
+            <Items objects={routine} key={routine.id} />
+          </div>
+        )}
+      </Draggable>
+    )
   );
-  // for (let keys in objects) {
-  //   let result = objects[keys];
-  //   content.push(<Items objects={result} key={keys} index={keys} />);
-  // }
 
   return <>{content}</>;
 };
