@@ -14,6 +14,9 @@ import {
 import { More } from "../More";
 import Elements from "./Elements";
 
+/* ---------------------------------- HOOKS --------------------------------- */
+import { useEmojiPicker } from "../../../hooks/useEmojiPicker";
+
 /* ---------------------------------- style --------------------------------- */
 import styled from "styled-components";
 import ListItem from "@material-ui/core/ListItem";
@@ -31,6 +34,7 @@ import Input from "@material-ui/core/Input";
 import AddIcon from "@material-ui/icons/Add";
 import { TextField } from "@material-ui/core";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
+import EmojiEmotionsIcon from "@material-ui/icons/EmojiEmotions";
 
 /* ------------------------------- CONTEXT API ------------------------------ */
 
@@ -44,7 +48,6 @@ export const Items = (props) => {
   const folderName = objects.folderName;
   const items = objects.items;
   let inputEl = useRef(null);
-
   const [openCollapseList, setOpenCollapseList] = useState(false);
   const [check, setCheck] = useState(
     items.filter((object) => object.check === false).length === 0 ? true : false
@@ -54,6 +57,16 @@ export const Items = (props) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [rename, setRename] = useState(folderName);
   const [mouseEvent, setMouseEvent] = useState(false);
+  const [emojipicker, handleEmojiOpen, open] = useEmojiPicker(
+    rename,
+    setRename,
+    edit,
+    setMouseEvent
+  );
+  const [routineEmojipicker, routineHandleEmojiOpen] = useEmojiPicker(
+    routine,
+    setRoutine
+  );
 
   useEffect(() => {
     items.filter((object) => object.check === false).length === 0
@@ -91,8 +104,6 @@ export const Items = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (routine.trim() === "") return;
-    //submit here
-
     AddRoutineFromFolder(key, routine);
     setRoutine("");
   };
@@ -102,6 +113,7 @@ export const Items = (props) => {
 
   const handleOpen = (e) => {
     e.stopPropagation();
+    if (open || edit) return;
     setOpenCollapseList(!openCollapseList);
   };
 
@@ -116,11 +128,10 @@ export const Items = (props) => {
       }
       setEdit(false);
       changeFolderName(rename, key);
-      setRename("");
     }
   };
 
-  const handleClickAway = (e) => {
+  const handleClickAway = () => {
     setMouseEvent(false);
     if (rename.trim() === "" || rename === folderName) {
       setEdit(false);
@@ -130,7 +141,6 @@ export const Items = (props) => {
     }
     setEdit(false);
     changeFolderName(rename, key);
-    setRename("");
   };
 
   const handleNameChange = (e) => {
@@ -180,14 +190,26 @@ export const Items = (props) => {
                 onClickAway={handleClickAway}
                 mouseEvent={mouseEvent}
               >
-                <TextField
-                  id={key}
-                  value={rename}
-                  inputRef={inputEl}
-                  onChange={handleNameChange}
-                  className={edit ? classes.textField : classes.textFieldOff}
-                  onKeyPress={keyPressed}
-                />
+                <span>
+                  <TextField
+                    id={key}
+                    value={rename}
+                    inputRef={inputEl}
+                    onChange={handleNameChange}
+                    className={edit ? classes.textField : classes.textFieldOff}
+                    onKeyPress={keyPressed}
+                  />
+                  <IconButton
+                    onClick={handleEmojiOpen}
+                    edge="start"
+                    size="small"
+                    color="default"
+                    className={edit ? classes.button : classes.buttonOff}
+                  >
+                    <EmojiEmotionsIcon />
+                  </IconButton>
+                  {emojipicker}
+                </span>
               </ClickAwayListener>
 
               <span className={edit ? classes.textOff : classes.text}>
@@ -235,6 +257,15 @@ export const Items = (props) => {
                 value={routine}
               />
             </form>
+            <IconButton
+              onClick={routineHandleEmojiOpen}
+              edge="start"
+              size="small"
+              color="default"
+            >
+              <EmojiEmotionsIcon />
+            </IconButton>
+            {routineEmojipicker}
           </ListItem>
         </Collapse>
       </List>
@@ -268,5 +299,13 @@ const useStyles = makeStyles((theme) => ({
   },
   textFieldOff: {
     display: "none",
+  },
+  button: {
+    verticalAlign: "baseline",
+  },
+  buttonOff: {
+    position: "absolute",
+    top: "-9999px",
+    left: "-9999px",
   },
 }));

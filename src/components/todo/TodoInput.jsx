@@ -9,6 +9,9 @@ import { v4 as uuidv4 } from "uuid";
 /* ---------------------------------- UTIL ---------------------------------- */
 import { toggleSelectAllButton } from "../../util/toggleSelectAllButton";
 
+/* ---------------------------------- HOOKS --------------------------------- */
+import { useEmojiPicker } from "../../hooks/useEmojiPicker";
+
 /* ---------------------------------- STYLE --------------------------------- */
 import Input from "@material-ui/core/Input";
 import Button from "@material-ui/core/Button";
@@ -19,6 +22,8 @@ import DoneAllIcon from "@material-ui/icons/DoneAll";
 import UndoIcon from "@material-ui/icons/Undo";
 import { makeStyles } from "@material-ui/core/styles";
 import DoneIcon from "@material-ui/icons/Done";
+import EmojiEmotionsIcon from "@material-ui/icons/EmojiEmotions";
+import { IconButton } from "@material-ui/core";
 
 export const TodoInput = () => {
   /* -------------------------------------------------------------------------- */
@@ -29,6 +34,7 @@ export const TodoInput = () => {
   const [isActiveButton, setIsActiveButton] = useState(true);
   const [isActiveSellectAllButton, setIsActiveSellectAll] = useState(true);
   const [toggleButton, setToggleButton] = useState(false);
+  const [emojipicker, handleEmojiOpen] = useEmojiPicker(todo, setTodo);
 
   /* -------------------------------------------------------------------------- */
   /*                              DISPATCH ACTIONS                              */
@@ -66,9 +72,9 @@ export const TodoInput = () => {
   const handleChange = (e) => {
     setTodo(e.target.value);
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-
     if (todo.trim() === "") return;
     addTodo({
       id: uuidv4(),
@@ -134,15 +140,25 @@ export const TodoInput = () => {
               onChange={handleChange}
               autoFocus={true}
             />
-            <Button
+            <IconButton
+              onClick={handleEmojiOpen}
+              edge="start"
+              size="small"
+              color="default"
+            >
+              <EmojiEmotionsIcon />
+            </IconButton>
+            {emojipicker}
+
+            <IconButton
               type="submit"
               color="primary"
-              startIcon={<AddIcon />}
               size="small"
+              edge="end"
               className={classes.button}
             >
-              ADD
-            </Button>
+              <AddIcon />
+            </IconButton>
           </Box>
           {button}
           <Button

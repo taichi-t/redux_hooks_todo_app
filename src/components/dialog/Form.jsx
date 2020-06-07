@@ -4,13 +4,19 @@ import { useDispatch } from "react-redux";
 /* --------------------------------- actions -------------------------------- */
 import { addRoutineAction, createNewFolderAction } from "../../store/actions";
 
+/* ---------------------------------- HOOKS --------------------------------- */
+import { useEmojiPicker } from "../../hooks/useEmojiPicker";
+
 /* ---------------------------------- style --------------------------------- */
 import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import EmojiEmotionsIcon from "@material-ui/icons/EmojiEmotions";
+import IconButton from "@material-ui/core/IconButton";
+import TextField from "@material-ui/core/TextField";
+import { makeStyles } from "@material-ui/core/styles";
 
 /* ------------------------------- CONTEXT API ------------------------------ */
 import { UiContext } from "../../store/context/provider";
@@ -19,9 +25,13 @@ export const Form = () => {
   /* -------------------------------------------------------------------------- */
   /*                                    state                                   */
   /* -------------------------------------------------------------------------- */
-
   const [folderName, setFolderName] = useState("");
   const { Ui, setUi } = useContext(UiContext);
+  const [emojipicker, handleEmojiOpen, open] = useEmojiPicker(
+    folderName,
+    setFolderName
+  );
+  const classes = useStyles();
 
   /* -------------------------------------------------------------------------- */
   /*                               dispatchActions                              */
@@ -43,6 +53,7 @@ export const Form = () => {
       dialogFormFromHistory: false,
       dialogFormFromRoutine: false,
     });
+    setFolderName("");
   };
 
   const handleChange = (e) => {
@@ -76,19 +87,31 @@ export const Form = () => {
         aria-labelledby="form-dialog-title"
         fullWidth={true}
         maxWidth="xs"
+        disableBackdropClick={open ? true : false}
       >
         <DialogTitle id="form-dialog-title">Create a folder</DialogTitle>
         <form onSubmit={handleSubmit}>
-          <DialogContent>
+          <DialogContent className={classes.root}>
             <TextField
-              autoFocus
-              margin="dense"
               label="name"
               type="text"
-              fullWidth={true}
+              value={folderName}
               onChange={handleChange}
-            />
+              fullWidth={true}
+            ></TextField>
+            <div>
+              <IconButton
+                onClick={handleEmojiOpen}
+                edge="start"
+                size="small"
+                color="default"
+              >
+                <EmojiEmotionsIcon />
+              </IconButton>
+              {emojipicker}
+            </div>
           </DialogContent>
+
           <DialogActions>
             <Button onClick={handleClose} color="secondary">
               Cancel
@@ -104,3 +127,11 @@ export const Form = () => {
 };
 
 export default Form;
+
+/* ---------------------------------- STYLE --------------------------------- */
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: "flex",
+    alignItems: "center",
+  },
+}));
