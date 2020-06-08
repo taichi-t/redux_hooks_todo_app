@@ -7,9 +7,10 @@ import {
   deleteRoutineAction,
 } from "../../../store/actions";
 
+/* ---------------------------------- HOOKS --------------------------------- */
+import { useHideText } from "../../../hooks/useHideText";
+
 /* ---------------------------------- style --------------------------------- */
-import ListItemText from "@material-ui/core/ListItemText";
-import Checkbox from "@material-ui/core/Checkbox";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import IconButton from "@material-ui/core/IconButton";
@@ -19,8 +20,8 @@ export const Elements = (props) => {
   /* -------------------------------------------------------------------------- */
   /*                                    state                                   */
   /* -------------------------------------------------------------------------- */
-
   const { item, listId } = props;
+  const [text] = useHideText();
 
   /* -------------------------------------------------------------------------- */
   /*                               dispatchActions                              */
@@ -47,13 +48,7 @@ export const Elements = (props) => {
   return (
     <>
       <ListItem onClick={handleCheck} button={true}>
-        <Checkbox
-          type="checkbox"
-          checked={item.check}
-          color="primary"
-          size="small"
-        />
-        <ListItemText primary={`${item.name}`} />
+        {text(item.name, item.check, "0", "1.2rem")}
         <ListItemSecondaryAction>
           <IconButton
             edge="end"

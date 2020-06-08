@@ -4,15 +4,15 @@ import { useDispatch } from "react-redux";
 /* --------------------------------- actions -------------------------------- */
 
 import {
-  selectHistoryAction,
   selectHistoriesAction,
   uncheckHistoriesAction,
 } from "../../store/actions";
 
-/* ---------------------------------- style --------------------------------- */
+/* ------------------------------- COMPONENTS ------------------------------- */
+import { CreateElements } from "./CreateElements";
 
+/* ---------------------------------- style --------------------------------- */
 import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
 import Checkbox from "@material-ui/core/Checkbox";
 import Divider from "@material-ui/core/Divider";
 import moment from "moment";
@@ -47,7 +47,6 @@ export const CreateItems = (props) => {
   /*                               dispatchActions                              */
   /* -------------------------------------------------------------------------- */
   const dispatch = useDispatch();
-  const selectHistory = (todoId) => dispatch(selectHistoryAction(todoId));
   const selectHistories = (todoIds) => dispatch(selectHistoriesAction(todoIds));
   const uncheckHistories = (todoIds) =>
     dispatch(uncheckHistoriesAction(todoIds));
@@ -103,21 +102,8 @@ export const CreateItems = (props) => {
         </ListItem>
         <Collapse in={open} timeout="auto" unmountOnExit>
           {objects &&
-            objects.map((item, index) => (
-              <ListItem
-                id={index}
-                onClick={selectHistory.bind(null, item.id)}
-                button={true}
-                key={index}
-              >
-                <Checkbox
-                  type="checkbox"
-                  checked={item.check}
-                  color="default"
-                  size="small"
-                />
-                <ListItemText primary={`${item.name}`} />
-              </ListItem>
+            objects.map((item) => (
+              <CreateElements object={item} key={item.id} />
             ))}
         </Collapse>
       </List>
