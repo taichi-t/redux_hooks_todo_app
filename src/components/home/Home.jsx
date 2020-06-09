@@ -9,35 +9,47 @@ import { List as RoutineList } from "../routine/List";
 
 /* ---------------------------------- STYLE --------------------------------- */
 import Grid from "@material-ui/core/Grid";
-import { GlobalStyle } from "../../GlobalStyle";
-import { ThemeProvider } from "@material-ui/core/styles";
-import { createMuiTheme } from "@material-ui/core/styles";
 
-/* ---------------------------------- HOOKS --------------------------------- */
-import { useTheme } from "../../hooks/useTheme";
+import { makeStyles } from "@material-ui/core/styles";
 
 export const Home = () => {
-  const [theme] = useTheme();
-  const themeConfig = createMuiTheme(theme);
+  const classes = useStyles();
 
   return (
     <>
-      <GlobalStyle theme={themeConfig} />
-      <ThemeProvider theme={themeConfig}>
-        <Navbar />
-        <Grid container spacing={1}>
-          <Grid item xs={12} md={4}>
-            <RoutineList />
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <TodoInput />
-            <TodoList />
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <HistoryList />
-          </Grid>
+      <Navbar />
+      <Grid container spacing={1}>
+        <Grid item sm={12} md={4} className={classes.box1}>
+          <RoutineList />
         </Grid>
-      </ThemeProvider>
+
+        <Grid item sm={12} md={4} className={classes.box2}>
+          <TodoInput />
+          <TodoList />
+        </Grid>
+
+        <Grid item sm={12} md={4} className={classes.box3}>
+          <HistoryList />
+        </Grid>
+      </Grid>
     </>
   );
 };
+
+const useStyles = makeStyles((theme) => ({
+  box1: {
+    [theme.breakpoints.down("sm")]: {
+      order: 2,
+    },
+  },
+  box2: {
+    [theme.breakpoints.down("sm")]: {
+      order: 1,
+    },
+  },
+  box3: {
+    [theme.breakpoints.down("sm")]: {
+      order: 3,
+    },
+  },
+}));

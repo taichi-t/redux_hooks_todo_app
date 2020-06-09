@@ -258,6 +258,7 @@ export const Items = (props) => {
               edge="start"
               size="small"
               color="default"
+              className={classes.emojiButton}
             >
               <EmojiEmotionsIcon />
             </IconButton>
@@ -302,10 +303,21 @@ const useStyles = makeStyles((theme) => ({
   },
   button: {
     verticalAlign: "baseline",
+    [theme.breakpoints.down("sm")]: {
+      display: "none",
+    },
   },
   buttonOff: {
     position: "absolute",
     top: "-9999px",
     left: "-9999px",
+    [theme.breakpoints.down("sm")]: {
+      display: "none",
+    },
+  },
+  emojiButton: {
+    [theme.breakpoints.down("sm")]: {
+      display: "none",
+    },
   },
 }));

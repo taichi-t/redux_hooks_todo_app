@@ -105,6 +105,7 @@ export const Form = () => {
                 edge="start"
                 size="small"
                 color="default"
+                className={classes.emojiButton}
               >
                 <EmojiEmotionsIcon />
               </IconButton>
@@ -133,5 +134,10 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     alignItems: "center",
+  },
+  emojiButton: {
+    [theme.breakpoints.down("sm")]: {
+      display: "none",
+    },
   },
 }));
