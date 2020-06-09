@@ -145,6 +145,7 @@ export const TodoInput = () => {
               edge="start"
               size="small"
               color="default"
+              className={classes.emojiButton}
             >
               <EmojiEmotionsIcon />
             </IconButton>
@@ -194,5 +195,10 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
     textAlign: "center",
     lineHeight: "initial",
+  },
+  emojiButton: {
+    [theme.breakpoints.down("sm")]: {
+      display: "none",
+    },
   },
 }));

@@ -15,6 +15,13 @@ export const useTheme = () => {
           main: "#f50057",
         },
       },
+      breakpoints: {
+        values: {
+          sm: 0, //0-900
+          md: 900, //901-1920
+          xl: 1920, //1920--
+        },
+      },
     });
   }, [setting]);
 
