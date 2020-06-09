@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
 
 /* --------------------------------- ATIONS --------------------------------- */
@@ -8,10 +8,12 @@ import {
   doneTodoAction,
 } from "../../store/actions";
 
+/* ---------------------------------- HOOKS --------------------------------- */
+import { useHideText } from "../../hooks/useHideText";
+
 /* ---------------------------------- STYLE --------------------------------- */
 import styled from "styled-components";
 import Paper from "@material-ui/core/Paper";
-import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
 import DoneIcon from "@material-ui/icons/Done";
 import IconButton from "@material-ui/core/IconButton";
@@ -23,8 +25,8 @@ export const TodoItems = (props) => {
   /*                                    STATE                                   */
   /* -------------------------------------------------------------------------- */
   const { todo } = props;
-  const [hidden, setHidden] = useState(false);
   const classes = useStyles();
+  const [text] = useHideText();
 
   /* -------------------------------------------------------------------------- */
   /*                              DISPATCH ACTIONS                              */
@@ -37,11 +39,7 @@ export const TodoItems = (props) => {
   /* -------------------------------------------------------------------------- */
   /*                               HANDLE ACTIONS                               */
   /* -------------------------------------------------------------------------- */
-  const handleShow = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setHidden(!hidden);
-  };
+
   const handleToggle = (e) => {
     e.preventDefault();
     toggleTodo(todo.id);
@@ -65,10 +63,7 @@ export const TodoItems = (props) => {
         onClick={handleToggle}
         className={classes.root}
       >
-        <Text complete={todo.complete} active={hidden}>
-          <Checkbox type="checkbox" checked={todo.complete} color="default" />
-          <span onClick={handleShow}>{todo.name}</span>
-        </Text>
+        {text(todo.name, todo.complete, "1rem 0", "1.4rem", "100%")}
 
         <IconButton
           color="secondary"
@@ -117,28 +112,8 @@ const useStyles = makeStyles((theme) => ({
   doneButton: {
     lineHeight: "initial",
   },
-  checkbox: {},
 }));
 
 const ItemRight = styled.div`
   text-align: right;
-`;
-
-const Text = styled.p`
-  font-size: 1.4rem;
-  width: 100%;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  word-wrap: break-word;
-  text-decoration: ${(props) => (props.complete ? "line-through" : null)};
-  ${({ active }) =>
-    active &&
-    `
-    cursor: pointer;
-  word-wrap: break-word;
-  text-overflow: initial;
-  overflow: initial;
-  white-space: initial;
-  `}
 `;

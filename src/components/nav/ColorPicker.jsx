@@ -67,8 +67,7 @@ export const ColorPicker = () => {
             key={index}
             onClick={handleClose.bind(null, item)}
           >
-            {item === "default" ? item : null}
-            {item === "default" ? null : <StyledBoxColor color={item} />}
+            <StyledBoxColor color={item} />
           </MenuItem>
         ))}
       </Menu>
@@ -86,7 +85,7 @@ const StyledBoxColor = styled(Box)`
 `;
 
 const colorArray = [
-  "default",
+  "#2196f3",
   "#f44336",
   "#e91e63",
   "#9c27b0",

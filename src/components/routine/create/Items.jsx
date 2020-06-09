@@ -14,6 +14,10 @@ import {
 import { More } from "../More";
 import Elements from "./Elements";
 
+/* ---------------------------------- HOOKS --------------------------------- */
+import { useEmojiPicker } from "../../../hooks/useEmojiPicker";
+import { useHideText } from "../../../hooks/useHideText";
+
 /* ---------------------------------- style --------------------------------- */
 import styled from "styled-components";
 import ListItem from "@material-ui/core/ListItem";
@@ -21,7 +25,6 @@ import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
 import Collapse from "@material-ui/core/Collapse";
 import List from "@material-ui/core/List";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import { makeStyles } from "@material-ui/core/styles";
 import FolderIcon from "@material-ui/icons/Folder";
@@ -31,6 +34,7 @@ import Input from "@material-ui/core/Input";
 import AddIcon from "@material-ui/icons/Add";
 import { TextField } from "@material-ui/core";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
+import EmojiEmotionsIcon from "@material-ui/icons/EmojiEmotions";
 
 /* ------------------------------- CONTEXT API ------------------------------ */
 
@@ -44,7 +48,6 @@ export const Items = (props) => {
   const folderName = objects.folderName;
   const items = objects.items;
   let inputEl = useRef(null);
-
   const [openCollapseList, setOpenCollapseList] = useState(false);
   const [check, setCheck] = useState(
     items.filter((object) => object.check === false).length === 0 ? true : false
@@ -54,6 +57,17 @@ export const Items = (props) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [rename, setRename] = useState(folderName);
   const [mouseEvent, setMouseEvent] = useState(false);
+  const [emojipicker, handleEmojiOpen, open] = useEmojiPicker(
+    rename,
+    setRename,
+    edit,
+    setMouseEvent
+  );
+  const [routineEmojipicker, routineHandleEmojiOpen] = useEmojiPicker(
+    routine,
+    setRoutine
+  );
+  const [text] = useHideText();
 
   useEffect(() => {
     items.filter((object) => object.check === false).length === 0
@@ -91,8 +105,6 @@ export const Items = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (routine.trim() === "") return;
-    //submit here
-
     AddRoutineFromFolder(key, routine);
     setRoutine("");
   };
@@ -102,6 +114,7 @@ export const Items = (props) => {
 
   const handleOpen = (e) => {
     e.stopPropagation();
+    if (open || edit) return;
     setOpenCollapseList(!openCollapseList);
   };
 
@@ -116,11 +129,10 @@ export const Items = (props) => {
       }
       setEdit(false);
       changeFolderName(rename, key);
-      setRename("");
     }
   };
 
-  const handleClickAway = (e) => {
+  const handleClickAway = () => {
     setMouseEvent(false);
     if (rename.trim() === "" || rename === folderName) {
       setEdit(false);
@@ -130,7 +142,6 @@ export const Items = (props) => {
     }
     setEdit(false);
     changeFolderName(rename, key);
-    setRename("");
   };
 
   const handleNameChange = (e) => {
@@ -164,22 +175,23 @@ export const Items = (props) => {
     <>
       <List component="ul" className={classes.list}>
         <ListItem className={classes.list} onClick={handleOpen}>
-          <ListItemIcon>
-            <Box>
-              <IconButton
-                onClick={handleSelect}
-                edge="start"
-                disableRipple={true}
-                disableFocusRipple={true}
-                color="default"
-              >
-                {folderIcon}
-              </IconButton>
+          <Box>
+            <IconButton
+              onClick={handleSelect}
+              edge="start"
+              disableRipple={true}
+              disableFocusRipple={true}
+              color="default"
+            >
+              {folderIcon}
+            </IconButton>
+            {edit ? null : text(folderName, null, "0", "1.6rem")}
 
-              <ClickAwayListener
-                onClickAway={handleClickAway}
-                mouseEvent={mouseEvent}
-              >
+            <ClickAwayListener
+              onClickAway={handleClickAway}
+              mouseEvent={mouseEvent}
+            >
+              <>
                 <TextField
                   id={key}
                   value={rename}
@@ -188,13 +200,19 @@ export const Items = (props) => {
                   className={edit ? classes.textField : classes.textFieldOff}
                   onKeyPress={keyPressed}
                 />
-              </ClickAwayListener>
-
-              <span className={edit ? classes.textOff : classes.text}>
-                {folderName}
-              </span>
-            </Box>
-          </ListItemIcon>
+                <IconButton
+                  onClick={handleEmojiOpen}
+                  edge="start"
+                  size="small"
+                  color="default"
+                  className={edit ? classes.button : classes.buttonOff}
+                >
+                  <EmojiEmotionsIcon />
+                </IconButton>
+                {emojipicker}
+              </>
+            </ClickAwayListener>
+          </Box>
 
           <ListItemSecondaryAction>
             <IconButton
@@ -235,6 +253,15 @@ export const Items = (props) => {
                 value={routine}
               />
             </form>
+            <IconButton
+              onClick={routineHandleEmojiOpen}
+              edge="start"
+              size="small"
+              color="default"
+            >
+              <EmojiEmotionsIcon />
+            </IconButton>
+            {routineEmojipicker}
           </ListItem>
         </Collapse>
       </List>
@@ -247,8 +274,12 @@ export default Items;
 
 /* ---------------------------------- style --------------------------------- */
 const Box = styled.div`
+  width: 100%;
+  align-items: center;
+  display: inline-flex;
   font-size: 1.6rem;
 `;
+
 const useStyles = makeStyles((theme) => ({
   list: {
     paddingTop: theme.spacing(0),
@@ -268,5 +299,13 @@ const useStyles = makeStyles((theme) => ({
   },
   textFieldOff: {
     display: "none",
+  },
+  button: {
+    verticalAlign: "baseline",
+  },
+  buttonOff: {
+    position: "absolute",
+    top: "-9999px",
+    left: "-9999px",
   },
 }));
