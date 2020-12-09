@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.js": "/deploy_redux_hooks_app/static/js/main.bb42d548.chunk.js",
-    "main.js.map": "/deploy_redux_hooks_app/static/js/main.bb42d548.chunk.js.map",
-    "runtime-main.js": "/deploy_redux_hooks_app/static/js/runtime-main.0c667b7b.js",
-    "runtime-main.js.map": "/deploy_redux_hooks_app/static/js/runtime-main.0c667b7b.js.map",
-    "static/css/2.c70f5bca.chunk.css": "/deploy_redux_hooks_app/static/css/2.c70f5bca.chunk.css",
-    "static/js/2.3f6cbd2c.chunk.js": "/deploy_redux_hooks_app/static/js/2.3f6cbd2c.chunk.js",
-    "static/js/2.3f6cbd2c.chunk.js.map": "/deploy_redux_hooks_app/static/js/2.3f6cbd2c.chunk.js.map",
-    "index.html": "/deploy_redux_hooks_app/index.html",
-    "precache-manifest.819be0b64d900a602af4847c5e0cb9be.js": "/deploy_redux_hooks_app/precache-manifest.819be0b64d900a602af4847c5e0cb9be.js",
-    "service-worker.js": "/deploy_redux_hooks_app/service-worker.js",
-    "static/css/2.c70f5bca.chunk.css.map": "/deploy_redux_hooks_app/static/css/2.c70f5bca.chunk.css.map",
-    "static/js/2.3f6cbd2c.chunk.js.LICENSE.txt": "/deploy_redux_hooks_app/static/js/2.3f6cbd2c.chunk.js.LICENSE.txt"
+    "main.js": "/redux_hooks_todo_app/static/js/main.e8ecde0e.chunk.js",
+    "main.js.map": "/redux_hooks_todo_app/static/js/main.e8ecde0e.chunk.js.map",
+    "runtime-main.js": "/redux_hooks_todo_app/static/js/runtime-main.d2a80d90.js",
+    "runtime-main.js.map": "/redux_hooks_todo_app/static/js/runtime-main.d2a80d90.js.map",
+    "static/css/2.c70f5bca.chunk.css": "/redux_hooks_todo_app/static/css/2.c70f5bca.chunk.css",
+    "static/js/2.b086bcc1.chunk.js": "/redux_hooks_todo_app/static/js/2.b086bcc1.chunk.js",
+    "static/js/2.b086bcc1.chunk.js.map": "/redux_hooks_todo_app/static/js/2.b086bcc1.chunk.js.map",
+    "index.html": "/redux_hooks_todo_app/index.html",
+    "precache-manifest.edc0f792577b1b3f4d03993b4ace6e00.js": "/redux_hooks_todo_app/precache-manifest.edc0f792577b1b3f4d03993b4ace6e00.js",
+    "service-worker.js": "/redux_hooks_todo_app/service-worker.js",
+    "static/css/2.c70f5bca.chunk.css.map": "/redux_hooks_todo_app/static/css/2.c70f5bca.chunk.css.map",
+    "static/js/2.b086bcc1.chunk.js.LICENSE.txt": "/redux_hooks_todo_app/static/js/2.b086bcc1.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.0c667b7b.js",
+    "static/js/runtime-main.d2a80d90.js",
     "static/css/2.c70f5bca.chunk.css",
-    "static/js/2.3f6cbd2c.chunk.js",
-    "static/js/main.bb42d548.chunk.js"
+    "static/js/2.b086bcc1.chunk.js",
+    "static/js/main.e8ecde0e.chunk.js"
   ]
 }
