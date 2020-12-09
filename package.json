@@ -1,6 +1,6 @@
 {
-  "homepage": "https://taichi-t.github.io/deploy_redux_hooks_app/",
-  "name": "deploy_redux_hooks_app",
+  "homepage": "https://taichi-t.github.io/redux_hooks_todo_app/",
+  "name": "redux_hooks_app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
